@@ -16,6 +16,8 @@
 package uniandes.isis2304.superandes.interfazApp;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.lang.reflect.Method;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -99,6 +101,29 @@ public class InterfazAdminDatos extends InterfazGeneral
 			panelDatos.actualizarInterfaz(resultado);
 		}
     }
+    
+    /* ****************************************************************
+	 * 			Métodos de la Interacción
+	 *****************************************************************/
+    /**
+     * Método para la ejecución de los eventos que enlazan el menú con los métodos de negocio
+     * Invoca al método correspondiente según el evento recibido
+     * @param pEvento - El evento del usuario
+     */
+    @Override
+	public void actionPerformed(ActionEvent pEvento)
+	{
+		String evento = pEvento.getActionCommand( );		
+        try 
+        {
+			Method req = InterfazAdminDatos.class.getMethod ( evento );			
+			req.invoke ( this );
+		} 
+        catch (Exception e) 
+        {
+			e.printStackTrace();
+		} 
+	}
     
 	/* ****************************************************************
 	 * 			Programa principal

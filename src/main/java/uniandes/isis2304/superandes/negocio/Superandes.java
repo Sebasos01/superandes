@@ -55,6 +55,7 @@ public class Superandes
 	public Superandes (JsonObject tableConfig)
 	{
 		ps = PersistenciaSuperandes.getInstance (tableConfig);
+		new RevisarPromocion().start();
 	}
 	
 	/**

@@ -26,21 +26,21 @@ import javax.swing.UIManager;
 import uniandes.isis2304.superandes.negocio.Superandes;
 
 /**
- * Clase de la interfaz para el gerente del supermercado
+ * Clase para la interfaz de los operadores
  * @author Sebastián Ospino
  * @author Ana Sofía Castellanos
  */
 @SuppressWarnings("serial")
-public class InterfazGerenteSucursal extends InterfazGeneral {
+public class InterfazOperador extends InterfazGeneral {
 	/* ****************************************************************
 	 * 			Constantes
 	 *****************************************************************/
 	/**
 	 * Ruta al archivo de configuración de la interfaz
 	 */
-	private static final String CONFIG_INTERFAZ = "./src/main/resources/config/interfaceGerenteSucursalConfig.json";
+	private static final String CONFIG_INTERFAZ = "./src/main/resources/config/interfaceOperadorConfig.json";
 	
-	 public InterfazGerenteSucursal( )
+	 public InterfazOperador( )
 	    {
 	        // Carga la configuración de la interfaz desde un archivo JSON
 	        guiConfig = openConfig ("Interfaz", CONFIG_INTERFAZ);
@@ -64,34 +64,15 @@ public class InterfazGerenteSucursal extends InterfazGeneral {
 	    }
 	 
 	 /* ****************************************************************
-		 * 			CRUD de Promocion - Sebastián
-		 *****************************************************************/
-	    /**
-	     * Registra una promoción en base a la información dada por el usuario
-	     * Se crea una nueva tupla de PROMOCION en la base de datos
-	     */
-	    public void registrarPromocion()
-	    {
-	    	try 
-	    	{
-	    		//
-			} 
-	    	catch (Exception e) 
-	    	{
-//				e.printStackTrace();
-				String resultado = generarMensajeError(e);
-				panelDatos.actualizarInterfaz(resultado);
-			}
-	    }
-	    
-	    /* ****************************************************************
 		 * 			CRUD de Pedido - Sebastián
 		 *****************************************************************/
 	    /**
-	     * Registra una promoción en base a la información dada por el usuario
-	     * Se crea una nueva tupla de PROMOCION en la base de datos
+	     * Registra una la llegada de un pedido a la sucursal
+	     * Se actualiza la columna de fecha de llegada del pedido
+	     * Actualiza el inventario de los estantes
+	     * Actualiza la calificación del proveedor
 	     */
-	    public void registrarPedido()
+	    public void registrarLlegadaPedido()
 	    {
 	    	try 
 	    	{
@@ -119,7 +100,7 @@ public class InterfazGerenteSucursal extends InterfazGeneral {
 			String evento = pEvento.getActionCommand( );		
 	        try 
 	        {
-				Method req = InterfazGerenteSucursal.class.getMethod ( evento );			
+				Method req = InterfazOperador.class.getMethod ( evento );			
 				req.invoke ( this );
 			} 
 	        catch (Exception e) 
@@ -128,7 +109,6 @@ public class InterfazGerenteSucursal extends InterfazGeneral {
 			} 
 		}
 	   
-	    
 		/* ****************************************************************
 		 * 			Programa principal
 		 *****************************************************************/
@@ -143,7 +123,7 @@ public class InterfazGerenteSucursal extends InterfazGeneral {
 	        	
 	            // Unifica la interfaz para Mac y para Windows.
 	            UIManager.setLookAndFeel( UIManager.getCrossPlatformLookAndFeelClassName( ) );
-	            InterfazGerenteSucursal interfaz = new InterfazGerenteSucursal( );
+	            InterfazOperador interfaz = new InterfazOperador( );
 	            interfaz.setVisible( true );
 	        }
 	        catch( Exception e )

@@ -24,7 +24,6 @@ import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.lang.reflect.Method;
 
 import javax.jdo.JDODataStoreException;
 import javax.swing.JFrame;
@@ -421,7 +420,7 @@ public abstract class InterfazGeneral extends JFrame implements ActionListener {
 			e.printStackTrace();
 		}
 	}
-
+	
 	/* ****************************************************************
 	 * 			Métodos de la Interacción
 	 *****************************************************************/
@@ -431,18 +430,5 @@ public abstract class InterfazGeneral extends JFrame implements ActionListener {
      * @param pEvento - El evento del usuario
      */
     @Override
-	public void actionPerformed(ActionEvent pEvento)
-	{
-		String evento = pEvento.getActionCommand( );		
-        try 
-        {
-			Method req = InterfazAdminDatos.class.getMethod ( evento );			
-			req.invoke ( this );
-		} 
-        catch (Exception e) 
-        {
-			e.printStackTrace();
-		} 
-	}
-    
+	public abstract void actionPerformed(ActionEvent pEvento);
 }
