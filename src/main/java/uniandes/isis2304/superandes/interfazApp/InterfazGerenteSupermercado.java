@@ -145,11 +145,11 @@ public class InterfazGerenteSupermercado extends InterfazGeneral{
 	    /**
 	     * Se consultan compras realizadas a proveedores y los proveedores
 	     */
-	    public void proveedorSuperAndes()
+	    public void proveedorSuperandes()
 	    {
 	    
 	    }
-	    public void comprasSuperAndes()
+	    public void comprasSuperandes()
 	    {
 	    
 	    }
