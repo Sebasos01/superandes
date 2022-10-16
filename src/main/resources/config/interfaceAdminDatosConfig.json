@@ -1,0 +1,44 @@
+{
+	"title": "Aplicación transaccional de adminsitrador de datos de Superandes",
+	"frameH": 600,
+	"frameW": 800,
+	"bannerPath": "./src/main/resources/config/logo.png",
+	"menuBar":
+	[
+		{ "menuTitle": "TipoUsuario",
+		  "options":
+			[
+				{
+					"label": "Adicionar",
+					"event": "adicionarTipoUsuario"
+				}
+			]
+		}	,
+		{ "menuTitle": "Mantenimiento",
+		  "options":
+			[
+				{
+					"label": "Mostrar log superandes",
+					"event": "mostrarLogSuperandes"
+				},
+				{
+					"label": "Mostrar log datanucleus",
+					"event": "mostrarLogDatanuecleus"
+				},
+				{
+					"label": "Limpiar log superandes",
+					"event": "limpiarLogSuperandes"
+				},
+				{
+					"label": "Limpiar log datanucleus",
+					"event": "limpiarLogDatanucleus"
+				},
+				{
+					"label": "Limpiar Superandes",
+					"event": "limpiarBD"
+				}
+			]
+		}
+	]
+}
+	
