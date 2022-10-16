@@ -101,6 +101,40 @@ public class InterfazAdminDatos extends InterfazGeneral
 			panelDatos.actualizarInterfaz(resultado);
 		}
     }
+    /* ****************************************************************
+	 * 			CRUD de Sucursal- Ana
+	 *****************************************************************/
+    /**
+     * Adiciona una sucursal a la base de datos
+     */
+    public void adicionarSucursal()
+    {
+    	
+    }
+    
+    /* ****************************************************************
+	 * 			CRUD de Usuarios
+	 *****************************************************************/
+    /**
+     * Adiciona un usuario con un tipo de usuario previamente existente
+     */
+    public void adicionarUsuario()
+    {
+    	
+    }
+    
+    /* ****************************************************************
+	 * 			CRUD de Bodega
+	 *****************************************************************/
+    /**
+     * Adiciona una bodega a la base de datos
+     */
+    public void adicionarBodega()
+    {
+    	
+    }
+    
+    
     
     /* ****************************************************************
 	 * 			Métodos de la Interacción
