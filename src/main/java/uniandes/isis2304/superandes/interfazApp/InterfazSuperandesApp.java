@@ -114,6 +114,7 @@ public class InterfazSuperandesApp extends JFrame implements ActionListener
      */
     public InterfazSuperandesApp( )
     {
+    	//Interfaz :D
         // Carga la configuración de la interfaz desde un archivo JSON
         guiConfig = openConfig ("Interfaz", CONFIG_INTERFAZ);
         
