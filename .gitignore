@@ -1,0 +1,13 @@
+.classpath
+.project
+.settings/
+datanucleus.log
+superandes.log
+target/
+lib/
+src/main/resources/log4j.properties
+src/main/resources/META-INF/persistence.xml
+src/main/resources/hbase-site.xml
+src/main/resources/config/logo.png
+src/main/resources/config/creditos logo.txt
+src/main/resources/config/banner.png
