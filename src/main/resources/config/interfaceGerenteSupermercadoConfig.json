@@ -1,0 +1,108 @@
+{
+	"title": "Aplicación transaccional de gerente de supermercado de Superandes",
+	"frameH": 600,
+	"frameW": 800,
+	"bannerPath": "./src/main/resources/config/logo.png",
+	"menuBar":
+	[
+		{ "menuTitle": "Dinero ventas",
+		  "options":
+			[
+				{
+					"label": "Rango de Fechas",
+					"event": "fechasDineroVentas"
+				},
+                {
+					"label": "Todo el año",
+					"event": "anioDineroVentas"
+				}
+			]
+		}	,
+		{ "menuTitle": "Promociones populares",
+		  "options":
+			[
+				{
+					"label": "Menor tiempo",
+					"event": "menorTiempoPromociones"
+				}
+				
+			]
+		}   ,
+        { "menuTitle": "Indice de ocupacion",
+		  "options":
+			[
+				{
+					"label": "Peso",
+					"event": "pesoOcupacion"
+				},
+                {
+					"label": "Volumen",
+					"event": "volumenOcupacion"
+				}
+				
+			]
+		}   ,
+        { "menuTitle": "Productos",
+		  "options":
+			[
+				{
+					"label": "Rango precios",
+					"event": "preciosProductos"
+				},
+                {
+					"label": "Fecha vencimiento posterior",
+					"event": "fechaVencimientoProductos"
+				},
+                {
+					"label": "Rango peso/Volumen",
+					"event": "pesoVolProductos"
+				},
+                {
+					"label": "Proveedor",
+					"event": "proveedorProductos"
+				},
+                {
+					"label": "Diponibles sucursal",
+					"event": "sucursalProductos"
+				},
+                {
+					"label": "Ciudad",
+					"event": "ciudadProductos"
+				},
+                {
+					"label": "Categoria/ Tipo",
+					"event": "CategoriaTipoProductos"
+				},
+                {
+					"label": "X unidades vendidas rango fechas",
+					"event": "unidadesVendidasProductos"
+				}
+				
+			]
+		}   ,
+        { "menuTitle": "Compras proveedor",
+		  "options":
+			[
+				{
+					"label": "Proveedor",
+					"event": "proveedorSuperandes"
+				},
+                {
+					"label": "Compras",
+					"event": "comprasSuperandes"
+				}
+				
+			]
+		}   ,
+        { "menuTitle": "Ventas a cliente",
+		  "options":
+			[
+				{
+					"label": "Rango fechas",
+					"event": "clienteVentas"
+				}
+				
+			]
+		}   
+	]
+}
