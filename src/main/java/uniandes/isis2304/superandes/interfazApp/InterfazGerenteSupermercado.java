@@ -1,6 +1,8 @@
 package uniandes.isis2304.superandes.interfazApp;
 
 import java.awt.BorderLayout;
+import java.awt.event.ActionEvent;
+import java.lang.reflect.Method;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -48,26 +50,124 @@ public class InterfazGerenteSupermercado extends InterfazGeneral{
 	    }
 	 
 	 /* ****************************************************************
-		 * 			Consultas Dinero Venta - Ana
+		 * 			Consultas Venta - Ana
 		 *****************************************************************/
 	    /**
 	     * Se consulta el dinero recolectados por ventas en un rango de fechas
 	     * Se consulta dinero recolectado en un año
+	     * Se consulta las ventas de un cliente 
 	     */
-	    public void registrarPromocion()
+	    public void fechaDineroVentas()
 	    {
-	    	try 
-	    	{
-	    		//
-			} 
-	    	catch (Exception e) 
-	    	{
-//				e.printStackTrace();
-				String resultado = generarMensajeError(e);
-				panelDatos.actualizarInterfaz(resultado);
-			}
+	    
+	    }
+	    public void anioDineroVentas()
+	    {
+	    
+	    }
+	    public void clienteVentas()
+	    {
+	    
 	    }
 	    
+	    /* ****************************************************************
+		 * 			Consultas Promocion - Ana
+		 *****************************************************************/
+	    /**
+	     * Se consulta las 20 promociones que fueron vendidas en el menor tiempo
+	     */
+	    public void menorTiempoPromociones()
+	    {
+	    
+	    }
+	    /* ****************************************************************
+		 * 			Consultas Estante bodega - Ana
+		 *****************************************************************/
+	    /**
+	     * Se consulta indice de ocupacion de las bodegas y estante por peso y volumen
+	     */
+	    public void pesoOcupacion()
+	    {
+	    
+	    }
+	    public void volumenOcupacion()
+	    {
+	    
+	    }
+	    /* ****************************************************************
+		 * 			Consultas Producto - Ana
+		 *****************************************************************/
+	    /**
+	     * Se consultan productos en un rango de precios
+	     * Se consultan productoas con una fecha de vencimiento posterior a una dada
+	     * Se consultan productos cuyo peo / volumen esten en un rango
+	     * Se consultan productos que vienen de un proveedor dado
+	     * Se consultan productos disponibles en una sucursal dada
+	     * Se consultan productos disponibles en una ciudad dada
+	     * Se consultan productos de una categoria/tipo
+	     * Se consultan productos con X unidades vendidas en un rango de fechas
+	     */
+	    public void precioProductos()
+	    {
+	    
+	    }
+	    public void fechaVencimientoProductos()
+	    {
+	    
+	    }
+	    public void pesoVolProductos()
+	    {
+	    
+	    }
+	    public void proveedorProductos()
+	    {
+	    
+	    }
+	    public void sucursalProductos()
+	    {
+	    
+	    }
+	    public void ciudadProductos()
+	    {
+	    
+	    }
+	    public void categoriaTipoProductos()
+	    {
+	    
+	    }
+	    public void unidadesVendidasProductos()
+	    {
+	    
+	    }
+	    /* ****************************************************************
+		 * 			Consultas Pedido- Ana
+		 *****************************************************************/
+	    /**
+	     * Se consultan compras realizadas a proveedores y los proveedores
+	     */
+	    public void proveedorSuperAndes()
+	    {
+	    
+	    }
+	    public void comprasSuperAndes()
+	    {
+	    
+	    }
+	    
+	    @Override
+		public void actionPerformed(ActionEvent pEvento)
+		{
+			String evento = pEvento.getActionCommand( );		
+	        try 
+	        {
+				Method req = InterfazGerenteSupermercado.class.getMethod ( evento );			
+				req.invoke ( this );
+			} 
+	        catch (Exception e) 
+	        {
+				e.printStackTrace();
+			} 
+		}
 		/* ****************************************************************
 		 * 			Programa principal
 		 *****************************************************************/

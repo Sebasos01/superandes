@@ -11,9 +11,88 @@
 				{
 					"label": "Registrar",
 					"event": "registrarPromocion"
+				},
+				{
+					"label": "Vendidas en Menor tiempo",
+					"event": "menorTiempoPromociones"
 				}
 			]
 		}	,
+		{ "menuTitle": "Estante/Bodega",
+		"options":
+		  [
+			  {
+				  "label": "Indice ocupación - Peso",
+				  "event": "pesoOcupacion"
+			  },
+			  {
+				  "label": "Indice ocupación - Volumen",
+				  "event": "volumenOcupacion"
+			  }
+			  
+		  ]
+	  }   ,
+	  { "menuTitle": "Venta",
+		  "options":
+			[
+				{
+					"label": "Dinero recolectado en Rango Fechas",
+					"event": "fechasDineroVentas"
+				},
+                {
+					"label": "Dinero recolectado en todo un año",
+					"event": "anioDineroVentas"
+				},
+                {
+					"label": "Ventas a cliente en Rango fechas",
+					"event": "clienteVentas"
+				}
+			]
+		}	,
+		{ "menuTitle": "Producto",
+		  "options":
+			[
+				{
+					"label": "Rango precios",
+					"event": "precioProductos"
+				},
+                {
+					"label": "Fecha vencimiento posterior",
+					"event": "fechaVencimientoProductos"
+				},
+                {
+					"label": "Rango peso/Volumen",
+					"event": "pesoVolProductos"
+				},
+                {
+					"label": "Proveedor",
+					"event": "proveedorProductos"
+				},
+                {
+					"label": "Categoria/ Tipo",
+					"event": "categoriaTipoProductos"
+				},
+                {
+					"label": "X unidades vendidas rango fechas",
+					"event": "unidadesVendidasProductos"
+				}
+				
+			]
+		}   ,
+		{ "menuTitle": "Pedido",
+		"options":
+		  [
+			  {
+				  "label": "Proveedores",
+				  "event": "proveedorSuperandes"
+			  },
+			  {
+				  "label": "Compras realizadas",
+				  "event": "comprasSuperandes"
+			  }
+			  
+		  ]
+	  	}	,
 		{ "menuTitle": "Mantenimiento",
 		  "options":
 			[

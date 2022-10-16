@@ -5,49 +5,53 @@
 	"bannerPath": "./src/main/resources/config/logo.png",
 	"menuBar":
 	[
-		{ "menuTitle": "Dinero ventas",
+		{ "menuTitle": "Venta",
 		  "options":
 			[
 				{
-					"label": "Rango de Fechas",
+					"label": "Dinero recolectado en Rango Fechas",
 					"event": "fechasDineroVentas"
 				},
                 {
-					"label": "Todo el año",
+					"label": "Dinero recolectado en todo un año",
 					"event": "anioDineroVentas"
+				},
+                {
+					"label": "Ventas a cliente en Rango fechas",
+					"event": "clienteVentas"
 				}
 			]
 		}	,
-		{ "menuTitle": "Promociones populares",
+		{ "menuTitle": "Promoción",
 		  "options":
 			[
 				{
-					"label": "Menor tiempo",
+					"label": "Vendidas en Menor tiempo",
 					"event": "menorTiempoPromociones"
 				}
 				
 			]
 		}   ,
-        { "menuTitle": "Indice de ocupacion",
+        { "menuTitle": "Estante/Bodega",
 		  "options":
 			[
 				{
-					"label": "Peso",
+					"label": "Indice ocupación - Peso",
 					"event": "pesoOcupacion"
 				},
                 {
-					"label": "Volumen",
+					"label": "Indice ocupación - Volumen",
 					"event": "volumenOcupacion"
 				}
 				
 			]
 		}   ,
-        { "menuTitle": "Productos",
+        { "menuTitle": "Producto",
 		  "options":
 			[
 				{
 					"label": "Rango precios",
-					"event": "preciosProductos"
+					"event": "precioProductos"
 				},
                 {
 					"label": "Fecha vencimiento posterior",
@@ -71,7 +75,7 @@
 				},
                 {
 					"label": "Categoria/ Tipo",
-					"event": "CategoriaTipoProductos"
+					"event": "categoriaTipoProductos"
 				},
                 {
 					"label": "X unidades vendidas rango fechas",
@@ -80,26 +84,16 @@
 				
 			]
 		}   ,
-        { "menuTitle": "Compras proveedor",
+        { "menuTitle": "Pedido",
 		  "options":
 			[
 				{
-					"label": "Proveedor",
+					"label": "Proveedores",
 					"event": "proveedorSuperandes"
 				},
                 {
-					"label": "Compras",
+					"label": "Compras realizadas",
 					"event": "comprasSuperandes"
-				}
-				
-			]
-		}   ,
-        { "menuTitle": "Ventas a cliente",
-		  "options":
-			[
-				{
-					"label": "Rango fechas",
-					"event": "clienteVentas"
 				}
 				
 			]
