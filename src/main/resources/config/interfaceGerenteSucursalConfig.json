@@ -1,16 +1,16 @@
 {
-	"title": "Aplicación transaccional de Superandes",
+	"title": "Aplicación transaccional de gerente de sucursal de Superandes",
 	"frameH": 600,
 	"frameW": 800,
 	"bannerPath": "./src/main/resources/config/logo.png",
 	"menuBar":
 	[
-		{ "menuTitle": "TipoUsuario",
+		{ "menuTitle": "Promoción",
 		  "options":
 			[
 				{
-					"label": "Adicionar",
-					"event": "adicionarTipoUsuario"
+					"label": "Registrar",
+					"event": "registrarPromocion"
 				}
 			]
 		}	,
