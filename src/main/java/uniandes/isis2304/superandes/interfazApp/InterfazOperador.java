@@ -87,6 +87,27 @@ public class InterfazOperador extends InterfazGeneral {
 	    }
 	    
 	    /* ****************************************************************
+		 * 			Métodos de estantes - Sebastián
+		 *****************************************************************/
+	    /**
+	     * Aprovisiona un estante
+	     * Se actualiza el inventario de bodegas y estantes
+	     */
+	    public void aprovisionarEstante()
+	    {
+	    	try 
+	    	{
+	    		//
+			} 
+	    	catch (Exception e) 
+	    	{
+//				e.printStackTrace();
+				String resultado = generarMensajeError(e);
+				panelDatos.actualizarInterfaz(resultado);
+			}
+	    }
+	    
+	    /* ****************************************************************
 		 * 			Métodos de la Interacción
 		 *****************************************************************/
 	    /**
