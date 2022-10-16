@@ -54,7 +54,7 @@ import uniandes.isis2304.superandes.negocio.VOTipoUsuario;
  */
 @SuppressWarnings("serial")
 
-public class InterfazSuperandesApp extends JFrame implements ActionListener
+public class InterfazAdminDatos extends JFrame implements ActionListener
 {
 	/* ****************************************************************
 	 * 			Constantes
@@ -62,12 +62,12 @@ public class InterfazSuperandesApp extends JFrame implements ActionListener
 	/**
 	 * Logger para escribir la traza de la ejecución
 	 */
-	private static Logger log = Logger.getLogger(InterfazSuperandesApp.class.getName());
+	private static Logger log = Logger.getLogger(InterfazAdminDatos.class.getName());
 	
 	/**
 	 * Ruta al archivo de configuración de la interfaz
 	 */
-	private static final String CONFIG_INTERFAZ = "./src/main/resources/config/interfaceConfigApp.json"; 
+	private static final String CONFIG_INTERFAZ = "./src/main/resources/config/interfaceAdminDatosConfig.json"; 
 	
 	/**
 	 * Ruta al archivo de configuración de los nombres de tablas de la base de datos
@@ -112,7 +112,7 @@ public class InterfazSuperandesApp extends JFrame implements ActionListener
      * Construye la ventana principal de la aplicación. <br>
      * <b>post:</b> Todos los componentes de la interfaz fueron inicializados.
      */
-    public InterfazSuperandesApp( )
+    public InterfazAdminDatos( )
     {
         // Carga la configuración de la interfaz desde un archivo JSON
         guiConfig = openConfig ("Interfaz", CONFIG_INTERFAZ);
@@ -509,7 +509,7 @@ public class InterfazSuperandesApp extends JFrame implements ActionListener
 		String evento = pEvento.getActionCommand( );		
         try 
         {
-			Method req = InterfazSuperandesApp.class.getMethod ( evento );			
+			Method req = InterfazAdminDatos.class.getMethod ( evento );			
 			req.invoke ( this );
 		} 
         catch (Exception e) 
@@ -532,7 +532,7 @@ public class InterfazSuperandesApp extends JFrame implements ActionListener
         	
             // Unifica la interfaz para Mac y para Windows.
             UIManager.setLookAndFeel( UIManager.getCrossPlatformLookAndFeelClassName( ) );
-            InterfazSuperandesApp interfaz = new InterfazSuperandesApp( );
+            InterfazAdminDatos interfaz = new InterfazAdminDatos( );
             interfaz.setVisible( true );
         }
         catch( Exception e )
