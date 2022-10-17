@@ -680,7 +680,9 @@ public class PersistenciaSuperandes
 	/* ****************************************************************
 	 * 			Métodos para manejar VENTA_PRODUCTO
 	 *****************************************************************/
-	
+	// Sebastian
+		public void registrarCompra() {}
+	// Sebastian
 	
 	public long darDineroFechasUnaSucursal (String fechaInicio, String fechaFinal, long idSucursal)
 	{
@@ -770,6 +772,10 @@ public class PersistenciaSuperandes
 	 * 			Métodos para manejar las PROMOCIONES
 	 *****************************************************************/
 	
+	public void registrarPromocion() {
+		
+	}
+	
 	public List<Promocion> darPromocionesPopularesSucursal(long idSucursal)
 	{
 		List<Promocion> respuesta = new LinkedList <Promocion> ();
@@ -829,6 +835,12 @@ public class PersistenciaSuperandes
 	/* ****************************************************************
 	 * 			Métodos para manejar el ALMACEN
 	 *****************************************************************/
+	//Sebastian
+		public void aprovisionarEstante() {
+			
+		}
+	//Sebastian
+		
 	public List<Object> indiceOcupacionVolumenUnaSucursal(long idSucursal)
 	{
 		
@@ -845,6 +857,15 @@ public class PersistenciaSuperandes
 	/* ****************************************************************
 	 * 			Métodos para manejar los PEDIDOS
 	 *****************************************************************/
+	// Sebastian
+	public void registrarPedido() {
+		
+	}
+	
+	public void registrarLlegadaPedido() {
+		
+	}
+	// Sebastian
 	public List<Pedido>  comprasProveedorUnaSucursal(long idSucursal)
 	{
 		List<Pedido> respuesta = new LinkedList <Pedido> ();

@@ -46,7 +46,9 @@ class SQLVentaProducto {
 		this.ps = ps;
 	}
 	
-	
+	// Sebastian
+		public void registrarCompra() {}
+	// Sebastian
 	
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar el dinero recolectado por ventas en un rango de fechas (Una sucursal)

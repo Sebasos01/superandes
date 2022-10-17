@@ -293,6 +293,10 @@ public class Superandes
 	/* ****************************************************************
 	 * 			Métodos para manejar PROMOCION
 	 *****************************************************************/
+	public void registrarPromocion() {
+		
+	}
+	
 	public List<VOPromocion> darPromocionesPopularesSucursal(long idSucursal)
 	{
 		log.info ("Consultando promociones mas populares en la sucursal" + String.valueOf(idSucursal));
@@ -338,6 +342,16 @@ public class Superandes
 	/* ****************************************************************
 	 * 			Métodos para manejar PEDIDO
 	 *****************************************************************/
+	// Sebastian
+	public void registrarPedido() {
+		
+	}
+	
+	public void registrarLlegadaPedido() {
+		
+	}
+	// Sebastian
+	
 	public List<VOPedido> comprasProveedorUnaSucursal(long idSucursal)
 	{
 		log.info ("Consultando compras de los proveedores de la sucursal "+String.valueOf(idSucursal));
