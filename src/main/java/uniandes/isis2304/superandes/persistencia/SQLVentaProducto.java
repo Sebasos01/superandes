@@ -15,7 +15,7 @@ import javax.jdo.Query;
  * @author Ana Sofía Castellanos
  */
 
-public class SQLVentaProducto {
+class SQLVentaProducto {
 	
 	/* ****************************************************************
 	 * 			Constantes

@@ -133,6 +133,24 @@ public class Superandes
         return tuplas;
 	
 	}
+	/* ****************************************************************
+	 * 			Métodos para manejar ALMACEN
+	 *****************************************************************/
+	public List<Object> indiceOcupacionVolumenUnaSucursal(long idSucursal)
+	{
+		log.info ("Consultando indice de ocupacion por volumen de sucursal "+String.valueOf(idSucursal));
+		List<Object> tuplas = ps.indiceOcupacionVolumenUnaSucursal(idSucursal);
+		log.info ("Finaliza consulta indice de ocupacion por volumen de sucursal "+String.valueOf(idSucursal));
+		return tuplas;
+	}
+	
+	public List<Object> indiceOcupacionVolumenTodasSucursales()
+	{
+		log.info ("Consultando indice de ocupacion por volumen");
+		List<Object> tuplas = ps.indiceOcupacionVolumenTodasSucursales();
+		log.info ("Finaliza consulta indice de ocupacion por volumen");
+		return tuplas;
+	}
 	
 	/* ****************************************************************
 	 * 			Métodos para administración
