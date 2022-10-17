@@ -44,9 +44,9 @@ public class SQLPromocion {
 	public List<Object> darPromocionesPopularesSucursal(PersistenceManager pm, long idSucursal)
 	{
 		
-		String sql ="SELECT * FROM("+ps.darTablaPromocion()+")WHERE (rownum<= 20 AND ID_SUCURSAL = ?  AND FIN IS NOT NULL) ORDER BY (FIN-INICIO) ASC";
+		 String sql ="SELECT * FROM " + ps.darTablaPromocion()+ " WHERE (rownum<= 20 AND ID_SUCURSAL = ?  AND FIN IS NOT NULL) ORDER BY (FIN-INICIO) ASC";
 		 Query q = pm.newQuery(SQL, sql);
-		 //q.setParameters(idSucursal);
+		 q.setParameters(idSucursal);
 		 List<Object> list = q.executeList();
 		 System.out.println(list);
 		 return q.executeList();

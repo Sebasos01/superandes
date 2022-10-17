@@ -95,7 +95,7 @@ public class Superandes
 	public TipoUsuario adicionarTipoUsuario (String nombre)
 	{
         log.info ("Adicionando Tipo de usuario: " + nombre);
-        TipoUsuario tipoUsuario = ps.adicionarTipoUsuario (nombre);		
+        TipoUsuario tipoUsuario = ps.adicionarTipoUsuario (nombre);
         log.info ("Adicionando Tipo de usuario: " + tipoUsuario);
         return tipoUsuario;
 	}

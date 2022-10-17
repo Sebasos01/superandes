@@ -15,6 +15,8 @@
 
 package uniandes.isis2304.superandes.persistencia;
 
+import java.util.List;
+
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
@@ -67,6 +69,14 @@ class SQLTipoUsuario
         Query q = pm.newQuery(SQL, "INSERT INTO " + ps.darTablaTipoUsuario  () + "(id, nombre) values (?, ?)");
         q.setParameters(idTipoBebida, nombre);
         return (long) q.executeUnique();            
+	}
+	
+	public List<Object> obtenerListaTipoUsuario (PersistenceManager pm) 
+	{
+        Query q = pm.newQuery(SQL, "SELECT * FROM " + ps.darTablaTipoUsuario());
+        List<Object> lista = q.executeList();
+        System.out.println(lista.size());
+        return lista;            
 	}
 
 }
