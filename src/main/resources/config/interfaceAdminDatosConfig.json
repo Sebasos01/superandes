@@ -11,6 +11,10 @@
 				{
 					"label": "Adicionar",
 					"event": "adicionarTipoUsuario"
+				},
+				{
+					"label": "Dar tipos de usuario",
+					"event": "obtenerListaTipoUsuario"
 				}
 			]
 		}	,

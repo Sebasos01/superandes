@@ -92,12 +92,24 @@ public class Superandes
 	 * @param nombre - El nombre del tipo de usuario
 	 * @return El objeto TipoUsuario adicionado. null si ocurre alguna Excepción
 	 */
-	public TipoUsuario adicionarTipoUsuario (String nombre)
+	public TipoUsuario adicionarTipoUsuario (String nombre, String esCliente)
 	{
         log.info ("Adicionando Tipo de usuario: " + nombre);
-        TipoUsuario tipoUsuario = ps.adicionarTipoUsuario (nombre);
+        TipoUsuario tipoUsuario = ps.adicionarTipoUsuario (nombre, esCliente);
         log.info ("Adicionando Tipo de usuario: " + tipoUsuario);
         return tipoUsuario;
+	}
+	
+	/**
+	 * Método que retorna todas los tipos de usuarios de superandes
+	 * @return una lista con todos los tipos de usuarios de superandes
+	 */
+	public List<VOTipoUsuario> obtenerListaTipoUsuario() {
+		log.info ("Consultando Tipos de usario");
+		List<VOTipoUsuario> lista =  ps.obtenerListaTipoUsuario().stream()
+				.map(tu -> (VOTipoUsuario) tu).toList();
+        log.info ("Consultando Tipos de usuario: " + lista.size() + " existentes");
+		return lista;
 	}
 	
 	

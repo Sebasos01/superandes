@@ -16,9 +16,9 @@
 package uniandes.isis2304.superandes.persistencia;
 
 import java.util.List;
-
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
+import uniandes.isis2304.superandes.negocio.TipoUsuario;
 
 /**
  * Clase que encapsula los métodos que hacen acceso a la base de datos para el concepto TIPO DE USUARIO de Superandes
@@ -64,19 +64,24 @@ class SQLTipoUsuario
 	 * @param nombre - El nombre del tipo de usuario
 	 * @return EL número de tuplas insertadas
 	 */
-	public long adicionarTipoUsuario (PersistenceManager pm, long idTipoBebida, String nombre) 
+	public long adicionarTipoUsuario (PersistenceManager pm, long idTipoBebida, String nombre, String esCliente) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + ps.darTablaTipoUsuario  () + "(id, nombre) values (?, ?)");
-        q.setParameters(idTipoBebida, nombre);
+        Query q = pm.newQuery(SQL, "INSERT INTO " + ps.darTablaTipoUsuario  () + "(id, nombre, es_cliente) values (?, ?, ?)");
+        q.setParameters(idTipoBebida, nombre, esCliente);
         return (long) q.executeUnique();            
 	}
 	
-	public List<Object> obtenerListaTipoUsuario (PersistenceManager pm) 
+	/**
+	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS TIPOS DE USUARIO de la 
+	 * base de datos de Superandes
+	 * @param pm - El manejador de persistencia
+	 * @return Una lista de objetos TIPO_USUARIO
+	 */
+	public List<TipoUsuario> obtenerListaTipoUsuario (PersistenceManager pm) 
 	{
         Query q = pm.newQuery(SQL, "SELECT * FROM " + ps.darTablaTipoUsuario());
-        List<Object> lista = q.executeList();
-        System.out.println(lista.size());
-        return lista;            
+        q.setResultClass(TipoUsuario.class);
+        return (List<TipoUsuario>) q.executeList();          
 	}
 
 }
