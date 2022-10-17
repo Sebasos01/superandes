@@ -1,6 +1,7 @@
 package uniandes.isis2304.superandes.interfazApp;
 
 import java.awt.BorderLayout;
+
 import java.awt.event.ActionEvent;
 import java.lang.reflect.Method;
 import java.math.BigDecimal;
@@ -9,11 +10,16 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
+
 
 import uniandes.isis2304.superandes.negocio.Promocion;
 import uniandes.isis2304.superandes.negocio.Superandes;
+import uniandes.isis2304.superandes.negocio.VOPedido;
 import uniandes.isis2304.superandes.negocio.VOPromocion;
+import uniandes.isis2304.superandes.negocio.VOSucursal;
+import uniandes.isis2304.superandes.negocio.VOVentaProducto;
 
 /**
  * Clase interfaz para gerente de supermercado
@@ -62,9 +68,32 @@ public class InterfazGerenteSupermercado extends InterfazGeneral{
 	     * Se consulta dinero recolectado en un año
 	     * Se consulta las ventas de un cliente 
 	     */
-	    public void fechaDineroVentas()
+	    public void fechasDineroVentas()
 	    {
-	    
+	    	JTextField fechaInicio = new JTextField();
+    		JTextField fechaFinal = new JTextField();
+    		
+    		//OJO Falta lo del id Sucursal ->Se obtienen del login
+    		Object[] message = {
+    		    "Fecha inicio:", fechaInicio,
+    		    "Fecha final:", fechaFinal
+    		};
+    		int option = JOptionPane.showConfirmDialog(null, message, "Consultar dinero recolectado en un rango de fechas", JOptionPane.OK_CANCEL_OPTION);
+    		if (option == JOptionPane.OK_OPTION)
+    		{
+        		List<Object[]> dineroRecolectado = superandes.darDineroFechasTodasSucursales (fechaInicio.getText(), fechaFinal.getText());
+        	
+        		String resultado = "Las sucursales y el dinero recolectado en el rango de fechas "+fechaInicio.getText()+" , "+fechaFinal.getText()+" es: \n";
+        		 resultado += listarAlmacenYDineroRecolectado(dineroRecolectado);
+        		
+    			resultado += "\n Operación terminada";
+    			
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
 	    }
 	    public void anioDineroVentas()
 	    {
@@ -72,6 +101,31 @@ public class InterfazGerenteSupermercado extends InterfazGeneral{
 	    }
 	    public void clienteVentas()
 	    {
+	    	JTextField fechaInicio = new JTextField();
+    		JTextField fechaFinal = new JTextField();
+    		JTextField idUsuario = new JTextField();
+
+    		Object[] message = {
+    		    "Fecha inicio:", fechaInicio,
+    		    "Fecha final:", fechaFinal,
+    		    "Id usuario:", idUsuario,
+    		};
+    		int option = JOptionPane.showConfirmDialog(null, message, "Consultar ventas de un cliente", JOptionPane.OK_CANCEL_OPTION);
+    		if (option == JOptionPane.OK_OPTION)
+    		{
+        		List<VOVentaProducto> dineroRecolectado = superandes.darVentasClienteTodasSucursales (fechaInicio.getText(),fechaFinal.getText(),Integer.parseInt(idUsuario.getText()));
+        	
+        		
+        		String resultado = "En el rango de fechas "+ String.valueOf(fechaInicio.getText())+" , "+String.valueOf(fechaFinal.getText()) + ". El cliente con id "+ String.valueOf(idUsuario.getText()) + " ha tenido estas compras:";
+        		
+    			resultado += "\n Operación terminada";
+    			
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
 	    
 	    }
 	    
@@ -84,12 +138,12 @@ public class InterfazGerenteSupermercado extends InterfazGeneral{
 	    public void menorTiempoPromociones()
 	    {
 	    	
-    		int option = JOptionPane.showConfirmDialog(null, null,"¿Desea consultar 20 promociones más populares?", JOptionPane.OK_CANCEL_OPTION);
+    		int option = JOptionPane.showConfirmDialog(null,"¿Desea consultar 20 promociones más populares?", null, JOptionPane.OK_CANCEL_OPTION);
     		if (option == JOptionPane.OK_OPTION)
     		{
-        		List<Promocion> promociones = superandes.darPromocionesPopularesTodasSucursales();
+        		List<VOPromocion> promociones = superandes.darPromocionesPopularesTodasSucursales();
         		String resultado = "Las 20 promociones más populares \n" ;
-        		for ( Promocion prom : promociones) {
+        		for ( VOPromocion prom : promociones) {
         			
         			resultado += "\n"+prom.toString(); 	
         		}
@@ -198,7 +252,25 @@ public class InterfazGerenteSupermercado extends InterfazGeneral{
 	    }
 	    public void comprasSuperandes()
 	    {
-	    
+    		int option = JOptionPane.showConfirmDialog(null, "¿Desea consultar compras a los proveedores?",null, JOptionPane.OK_CANCEL_OPTION);
+    		if (option == JOptionPane.OK_OPTION)
+    		{
+        		List<VOPedido> compras = superandes.comprasProveedorTodasSucursales();
+        		String resultado = "Las compras a proveedores son:" ;
+        		
+        		for ( VOPedido com : compras) {
+        			
+        			resultado += "\n"+com.toString(); 	
+        		}
+
+    			resultado += "\n Operación terminada";
+    			
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
 	    }
 	    
 	    @Override
@@ -214,6 +286,25 @@ public class InterfazGerenteSupermercado extends InterfazGeneral{
 	        {
 				e.printStackTrace();
 			} 
+		}
+	    
+	    
+	    
+	    private String listarAlmacenYDineroRecolectado (List<Object[]> lista) 
+	    {
+	    	String resp = "";
+	    	int i = 1;
+	        for (Object [] tupla : lista)
+	        {
+				VOSucursal suc = (VOSucursal) tupla [0];
+				int dinero = (int) tupla [1];
+		        String resp1 = i++ + ". " + "[";
+				resp1 += suc + ", ";
+				resp1 += "Dinero recolectado: " + dinero;
+		        resp1 += "]";
+		        resp += resp1 + "\n";
+	        }
+	        return resp;
 		}
 		/* ****************************************************************
 		 * 			Programa principal

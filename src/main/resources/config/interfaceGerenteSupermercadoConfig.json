@@ -13,10 +13,6 @@
 					"event": "fechasDineroVentas"
 				},
                 {
-					"label": "Dinero recolectado en todo un año",
-					"event": "anioDineroVentas"
-				},
-                {
 					"label": "Ventas a cliente en Rango fechas",
 					"event": "clienteVentas"
 				}
@@ -36,8 +32,12 @@
 		  "options":
 			[
 				{
-					"label": "Indice ocupación - Peso",
-					"event": "pesoOcupacion"
+					"label": "Registrar Estante",
+					"event": "registrarEstante"
+				},
+				{
+				  "label": "Registrar Bodega",
+				  "event": "registrarBodega"
 				},
                 {
 					"label": "Indice ocupación - Volumen",

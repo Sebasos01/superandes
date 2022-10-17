@@ -51,8 +51,8 @@ class SQLVentaProducto {
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar el dinero recolectado por ventas en un rango de fechas (Una sucursal)
 	 * @param pm - El manejador de persistencia
-	 * @param idTipoUsuario - El identificador del tipo de usuario
-	 * @param nombre - El nombre del tipo de usuario
+	 * @param fechaInicio - fecha inicio
+	 * @param fechaFinal- El nombre del tipo de usuario
 	 * @return EL número de tuplas insertadas
 	 */
 	
@@ -122,5 +122,41 @@ class SQLVentaProducto {
 		Query q = pm.newQuery(SQL, sql);
 		return q.executeList();
 	}
+	
+	/**
+	 * Crea y ejecuta la sentencia SQL para encontrar ventas en un rango de fechas par aun cliente dado
+	 * @param pm - El manejador de persistencia
+	 * @param fechaInicio - fecha inicio
+	 * @param fechaFinal- El nombre del tipo de usuario
+	 * @return EL número de tuplas insertadas
+	 */
+	public List<Object> darVentasClienteUnaSucursal(PersistenceManager pm, String fechaInicio, String fechaFinal, long idSucursal,long idUsuario)
+	{
+		
+		String sql = "SELECT * FROM ("+ps.darTablaVentaProducto()+") ";
+		sql += "WHERE ((FECHA BETWEEN to_date(?, 'dd/mm/yyyy') AND  to_date(?, 'dd/mm/yyyy')) "; 
+		sql += "AND ID_SUCURSAL = ? AND ID_USUARIO = ? )"; 
+						       
+		 Query q = pm.newQuery(SQL, sql);
+		 q.setParameters(fechaInicio,fechaFinal,idSucursal,idUsuario);
+	
+		 return q.executeList();
+	}
+	
+	public List<Object> darVentasClienteTodasSucursales(PersistenceManager pm, String fechaInicio, String fechaFinal,long idUsuario)
+	{
+		
+		String sql = "SELECT * FROM ("+ps.darTablaVentaProducto()+") ";
+		sql += "WHERE ((FECHA BETWEEN to_date(?, 'dd/mm/yyyy') AND  to_date(?, 'dd/mm/yyyy')) "; 
+		sql += "AND ID_USUARIO = ? )"; 
+						       
+		 Query q = pm.newQuery(SQL, sql);
+		 q.setParameters(fechaInicio,fechaFinal,idUsuario);
+	
+		 return q.executeList();
+	}
+	
+	
+	
 
 }

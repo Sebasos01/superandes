@@ -14,7 +14,15 @@
  */
 
 package uniandes.isis2304.superandes.negocio;
+<<<<<<< HEAD
+=======
+
+import java.util.Collection;
+import java.util.LinkedList;
+>>>>>>> de9b6991c30684b7473718b3935af884adb2308a
 import java.util.List;
+
+import javax.jdo.PersistenceManager;
 
 import org.apache.log4j.Logger;
 import com.google.gson.JsonObject;
@@ -56,7 +64,7 @@ public class Superandes
 	public Superandes (JsonObject tableConfig)
 	{
 		ps = PersistenciaSuperandes.getInstance (tableConfig);
-		new ManejadorPromociones().start();
+		/*new ManejadorPromociones().start();*/
 	}
 	
 	/**
@@ -132,6 +140,7 @@ public class Superandes
         log.info ("Consultando Tipos de usuario: " + lista.size() + " existentes");
 		return lista;
 	}
+<<<<<<< HEAD
 	
 	/* ****************************************************************
 	 * 			Métodos para manejar los USUARIO
@@ -164,6 +173,18 @@ public class Superandes
 		return lista;
 	}
 	
+=======
+	/* ****************************************************************
+	 * 			Métodos para manejar SUCURSAL
+	 *****************************************************************/
+	public Sucursal adicionarSucursal (String nombre, String telefono,String direccion, String ciudad)
+	{
+        log.info ("Adicionando Tipo de usuario: " + nombre);
+        Sucursal sucursal = ps.adicionarSucursal (nombre, telefono,direccion, ciudad);
+        log.info ("Adicionando Tipo de usuario: " + sucursal);
+        return sucursal;
+	}
+>>>>>>> de9b6991c30684b7473718b3935af884adb2308a
 	
 	/* ****************************************************************
 	 * 			Métodos para manejar VENTA PRODUCTO
@@ -181,10 +202,91 @@ public class Superandes
 	{
         log.info ("Consultando sucursales y el dinero que han recolectado en el rango de fechas: "+String.valueOf(fechaInicio)+" , "+String.valueOf(fechaFinal) );
         List<Object []> tuplas = ps.darDineroFechasTodasSucursales (fechaInicio,fechaFinal); // Lista de tuplas de la forma (Sucursal, dineroRecolectado)
+        
         log.info ("Finaliza consulta de sucursales y dinero que han recolectado en rango de fechas: "+String.valueOf(fechaInicio)+" , "+String.valueOf(fechaFinal) + "de la sucursal " );
         return tuplas;
 	}
-
+	public List<VOVentaProducto> darVentasClienteUnaSucursal(String fechaInicio, String fechaFinal, long idSucursal,long idUsuario)
+	{
+        log.info ("Consultando sucursales y el dinero que han recolectado en el rango de fechas: "+String.valueOf(fechaInicio)+" , "+String.valueOf(fechaFinal) );
+        List<VOVentaProducto> tuplas = ps.darVentasClienteUnaSucursal (fechaInicio,fechaFinal,idSucursal,idUsuario).stream().map (p -> (VOVentaProducto) p ).toList(); 
+        log.info ("Finaliza consulta de sucursales y dinero que han recolectado en rango de fechas: "+String.valueOf(fechaInicio)+" , "+String.valueOf(fechaFinal) + "de la sucursal "+ String.valueOf(idUsuario) );
+        return tuplas;
+	}
+	public List<VOVentaProducto> darVentasClienteTodasSucursales (String fechaInicio, String fechaFinal,long idUsuario)
+	{
+        log.info ("Consultando sucursales y el dinero que han recolectado en el rango de fechas: "+String.valueOf(fechaInicio)+" , "+String.valueOf(fechaFinal) );
+        List<VOVentaProducto> tuplas = ps.darVentasClienteTodasSucursales (fechaInicio,fechaFinal,idUsuario).stream().map (p -> (VOVentaProducto) p ).toList(); 
+        log.info ("Finaliza consulta de sucursales y dinero que han recolectado en rango de fechas: "+String.valueOf(fechaInicio)+" , "+String.valueOf(fechaFinal)
+ );
+        return tuplas;
+	}
+	/* ****************************************************************
+	 * 			Métodos para manejar PRODUCTO
+	 *****************************************************************/
+	
+	public List<Object []> darProductosPreciosUnaSucursal(long precioInicial, long precioFinal,long idSucursal)
+	{
+        log.info ("Consultando productos en el rango de precios: "+String.valueOf(precioInicial)+" , "+String.valueOf(precioFinal) + "de la sucursal " + String.valueOf(idUsuario));
+        List<Object []> tuplas =ps.darProductosPreciosUnaSucursal (precioInicial,precioFinal,idSucursal); // Lista de tuplas de la forma (Sucursal, dineroRecolectado)
+        
+        log.info ("Finaliza consulta de productos en el rango de precios: "+String.valueOf(precioInicial)+" , "+String.valueOf(precioFinal) + "de la sucursal " + String.valueOf(idUsuario));
+        return tuplas;
+	}
+	public List<Object []> darProductosPreciosTodasSucursales(long precioInicial, long precioFinal)
+	{
+        log.info ("Consultando productos en el rango de precios: "+String.valueOf(precioInicial)+" , "+String.valueOf(precioFinal) );
+        List<Object []> tuplas =ps.darProductosPreciosTodasSucursales (precioInicial,precioFinal); // Lista de tuplas de la forma (Sucursal, dineroRecolectado)
+        
+        log.info ("Finaliza consulta de productos en el rango de precios: "+String.valueOf(precioInicial)+" , "+String.valueOf(precioFinal));
+        return tuplas;
+	}
+	
+	public List<VOProducto> darProductosPesoUnaSucursal(long peso,long idSucursal)
+	{
+        log.info ("Consultando productos con peso mayor a : "+String.valueOf(peso)+ "de la sucursal "+ String.valueOf(idUsuario) );
+        List<VOProducto> tuplas = ps.darProductosPesoUnaSucursal (peso, idSucursal).stream().map (p -> (VOProducto) p ).toList(); 
+        log.info ("Finaliza consulta de productos con peso mayor a : "+String.valueOf(peso)+ "de la sucursal "+ String.valueOf(idUsuario) );
+        return tuplas;
+	}
+	public List<VOProducto> darProductosPesoTodasSucursales(long peso)
+	{
+        log.info ("Consultando productos con peso mayor a : "+String.valueOf(peso)+ "de la sucursal "+ String.valueOf(idUsuario) );
+        List<VOProducto> tuplas = ps.darProductosPesoTodasSucursales (peso).stream().map (p -> (VOProducto) p ).toList(); 
+        log.info ("Finaliza consulta de productos con peso mayor a : "+String.valueOf(peso)+ "de la sucursal "+ String.valueOf(idUsuario) );
+        return tuplas;
+	}
+	public List<VOProducto> darProductosTipoUnaSucursal(String tipo,long idSucursal)
+	{
+        log.info ("Consultando productos con tipo : "+tipo+ "de la sucursal "+ String.valueOf(idUsuario) );
+        List<VOProducto> tuplas = ps.darProductosTipoUnaSucursal (tipo, idSucursal).stream().map (p -> (VOProducto) p ).toList(); 
+        log.info ("Finaliza consulta de productos con tipo: "+tipo + "de la sucursal "+ String.valueOf(idUsuario) );
+        return tuplas;
+	}
+	public List<VOProducto> darProductosTipoTodasSucursales(String tipo)
+	{
+        log.info ("Consultando productos con tipo : "+ tipo+ "de la sucursal "+ String.valueOf(idUsuario) );
+        List<VOProducto> tuplas = ps.darProductosTipoTodasSucursales (tipo).stream().map (p -> (VOProducto) p ).toList(); 
+        log.info ("Finaliza consulta de productos con tipo: "+ tipo+ "de la sucursal "+ String.valueOf(idUsuario) );
+        return tuplas;
+	}
+	public List<Object[]> darProductosXUnidadesUnaSucursal(String fechaInicial, String fechaFinal,long idSucursal, long unidades)
+	{
+        log.info ("Consultando productos con  "+String.valueOf(unidades)+" vendidas en el rango de fechas:" + String.valueOf(fechaInicial)+" , "+String.valueOf(fechaFinal) + "de la sucursal " + String.valueOf(idSucursal));
+        List<Object []> tuplas = ps.darProductosXUnidadesUnaSucursal(fechaInicial,fechaFinal,idSucursal,unidades);
+        log.info ("Finaliza consulta de productos con : "+String.valueOf(unidades)+" vendidas en el rango de fechas:" + String.valueOf(fechaInicial)+" , "+String.valueOf(fechaFinal) + "de la sucursal " + String.valueOf(idSucursal) );
+        return tuplas;
+	}
+	public List<Object[]> darProductosXUnidadesTodasSucursales(String fechaInicial, String fechaFinal,long idSucursal, long unidades)
+	{
+		log.info ("Consultando productos con  "+String.valueOf(unidades)+" vendidas en el rango de fechas:" + String.valueOf(fechaInicial)+" , "+String.valueOf(fechaFinal) );
+        List<Object []> tuplas = ps.darProductosXUnidadesTodasSucursales (fechaInicial,fechaFinal,unidades) ;
+        log.info ("Finaliza consulta de productos con : "+String.valueOf(unidades)+" vendidas en el rango de fechas:" + String.valueOf(fechaInicial)+" , "+String.valueOf(fechaFinal)  );
+        return tuplas;
+	}
+	
+	
+	
 	/* ****************************************************************
 	 * 			Métodos para manejar PROMOCION
 	 *****************************************************************/
@@ -203,10 +305,10 @@ public class Superandes
         return tuplas;
 	
 	}
-	public List<Promocion> darPromocionesPopularesTodasSucursales()
+	public List<VOPromocion> darPromocionesPopularesTodasSucursales()
 	{
 		log.info ("Consultando promociones mas populares");
-        List<Promocion> tuplas = ps.darPromocionesPopularesTodasSucursales (); // Lista de tuplas de la forma (Sucursal, dineroRecolectado)
+		List<VOPromocion> tuplas = ps.darPromocionesPopularesTodasSucursales ().stream().map (p -> (VOPromocion) p ).toList();
         log.info ("Finaliza consulta promociones mas populares");
         return tuplas;
 	
@@ -230,6 +332,25 @@ public class Superandes
 		return tuplas;
 	}
 	
+	/* ****************************************************************
+	 * 			Métodos para manejar PEDIDO
+	 *****************************************************************/
+	public List<VOPedido> comprasProveedorUnaSucursal(long idSucursal)
+	{
+		log.info ("Consultando compras de los proveedores de la sucursal "+String.valueOf(idSucursal));
+		List<VOPedido> tuplas = ps.comprasProveedorUnaSucursal (idSucursal).stream().map (p -> (VOPedido) p ).toList();
+        log.info ("Finaliza consulta compras de los proveedores de la sucursal "+String.valueOf(idSucursal));
+        return tuplas;
+	
+	}
+	public List<VOPedido> comprasProveedorTodasSucursales()
+	{
+		log.info ("Consultando compras de los proveedores");
+		List<VOPedido> tuplas = ps.comprasProveedorTodasSucursales().stream().map (p -> (VOPedido) p ).toList();
+        log.info ("Finaliza consulta compras de los proveedores");
+        return tuplas;
+	
+	}
 	/* ****************************************************************
 	 * 			Métodos para administración
 	 *****************************************************************/

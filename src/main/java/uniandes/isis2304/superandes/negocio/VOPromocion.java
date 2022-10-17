@@ -1,5 +1,7 @@
 package uniandes.isis2304.superandes.negocio;
 
+import java.sql.Timestamp;
+
 public interface VOPromocion {
 	/* ****************************************************************
 	 * 			Métodos
@@ -12,12 +14,12 @@ public interface VOPromocion {
 	/**
 	 * @return El id sucursal de Promocion
 	 */
-	public long getIdSucursal();
+	public long getId_sucursal();
 
 	/**
 	 * @return El inicio de Promocion
 	 */
-	public String getInicio();
+	public Timestamp getInicio();
 	
 	/**
 	 * @return La duracion de Promocion
@@ -27,25 +29,25 @@ public interface VOPromocion {
 	/**
 	 * @return El fin de Promocion
 	 */
-	public String getFin();
+	public Timestamp getFin();
 	
 	/**
 	 * @return La ventasMaximas de Promocion
 	 */
-	public long getVentasMaximas();
+	public long getVentas_maximas();
 	/**
 	 * @return La ventasMinimas de Promocion
 	 */
-	public long getVentasActuales();
+	public long getVentas_actuales();
 	/**
 	 * @return Precio paquete de Promocion
 	 */
-	public long getPrecioPaquete();
+	public long getPrecio_paquete();
 	
 	/**
 	 * @return IdProducto de Promocion
 	 */
-	public String getIdProducto();
+	public String getId_producto();
 	
 	/**
 	 * @return descripcion de Promocion

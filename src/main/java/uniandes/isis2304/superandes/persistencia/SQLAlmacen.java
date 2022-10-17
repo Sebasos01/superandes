@@ -57,7 +57,7 @@ class SQLAlmacen {
 		
 		String sql = "SELECT ALMACEN.ID, ALMACEN.TIPO, CANTIDAD_ACTUAL/CAPACIDAD_VOLUMEN AS INDICE_OCUPACION,CAPACIDAD_VOLUMEN ";
 				sql += "FROM("+cantidadActual + "almacenActual INNER JOIN " + ps.darTablaAlmacen()+ " ON (almacenActual.ID_ALMACEN = "+ ps.darTablaAlmacen()+".ID))";
-				sql += "WHERE (ALMACEN.ID_SUCURSAL = 3)";
+				sql += "WHERE (ALMACEN.ID_SUCURSAL = ?)";
 		 Query q = pm.newQuery(SQL, sql);
 		 q.setParameters(idSucursal);
 		 /*
