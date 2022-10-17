@@ -35,6 +35,12 @@ class SQLAlmacen {
 		this.ps = ps;
 	}
 	
+	//Sebastian
+		public void aprovisionarEstante() {
+			
+		}
+	//Sebastian
+	
 	/**
 	 * Crea y ejecuta la sentencia SQL para encontrar elas 20 primeras promociones que se acabaron en el menor tiempo
 	 * @param pm - El manejador de persistencia
