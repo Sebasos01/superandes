@@ -34,6 +34,7 @@ import com.google.gson.JsonObject;
 import uniandes.isis2304.superandes.negocio.Promocion;
 import uniandes.isis2304.superandes.negocio.Sucursal;
 import uniandes.isis2304.superandes.negocio.TipoUsuario;
+import uniandes.isis2304.superandes.negocio.Usuario;
 
 /**
  * Clase para el manejador de persistencia del proyecto Superandes
@@ -88,6 +89,11 @@ public class PersistenciaSuperandes
 	 * Atributo para el acceso a la tabla TIPO_USUARIO de la base de datos
 	 */
 	private SQLTipoUsuario sqlTipoUsuario;
+	
+	/**
+	 * Atributo para el acceso a la tabla USUARIO de la base de datos
+	 */
+	private SQLUsuario sqlUsuario;
 	private SQLVentaProducto sqlVentaProducto;
 	private SQLPromocion sqlPromocion;
 	private SQLAlmacen sqlAlmacen;
@@ -161,6 +167,7 @@ public class PersistenciaSuperandes
 		sqlVentaProducto = new SQLVentaProducto(this);
 		sqlPromocion = new SQLPromocion(this);
 		sqlAlmacen = new SQLAlmacen(this);
+		sqlUsuario = new SQLUsuario(this);
 	}
 
 	/**
@@ -198,6 +205,12 @@ public class PersistenciaSuperandes
 	public String darTablaSucursal() {
 		
 		return tablas.get (13);
+	}
+	/**
+	 * @return La cadena de caracteres con el nombre de la tabla de USUA
+	 */
+	public String darTablaUsuario() {		
+		return tablas.get (16);
 	}
 	
 
@@ -244,7 +257,7 @@ public class PersistenciaSuperandes
 		}
 		return resp;
 	}
-
+	
 	/* ****************************************************************
 	 * 			Métodos para manejar los TIPOS DE USUARIO
 	 *****************************************************************/
@@ -292,6 +305,77 @@ public class PersistenciaSuperandes
 	 */
 	public List<TipoUsuario> obtenerListaTipoUsuario() {
 		return sqlTipoUsuario.obtenerListaTipoUsuario(pmf.getPersistenceManager());
+	}
+	
+
+	/**
+	 * Método que retorna tipo de usuario por nombre
+	 * @param nombre - el nombre que se quiere para la búsqueda
+	 * @return el tipo de usuario que concuerda con el nombre
+	 */
+	public TipoUsuario obtenerTipoUsuarioPorNombre(String nombre) {
+		return sqlTipoUsuario.obtenerTipoUsuarioPorNombre(nombre, pmf.getPersistenceManager());
+	}
+	
+	/* ****************************************************************
+	 * 			Métodos para manejar los USUARIO
+	 *****************************************************************/
+
+	/**
+	 * Método que inserta, de manera transaccional, una tupla en la tabla USUARIO
+	 * Adiciona entradas al log de la aplicación
+	 * @param
+	 * @return El objeto Usuario creado. Null si ocurre alguna Excepción
+	 */
+	public Usuario registrarUsuario(String documento, String tipo_documento, String nombre, String email,
+			String contrasena, long id_tipo, Long id_sucursal)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long codigo_usuario = nextval ();
+            long tuplasInsertadas = sqlUsuario.registrarUsuario(codigo_usuario, documento, tipo_documento, nombre, email,
+        			contrasena, id_tipo, id_sucursal, pm);
+            tx.commit();
+            
+            log.trace ("Inserción del usuario: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
+            
+            return new Usuario(codigo_usuario, documento, tipo_documento, nombre, email,
+        			contrasena, id_tipo, id_sucursal);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	
+	/**
+	 * Método que retorna todas los usuarios
+	 * @return una lista con todos los usuarios de superandes
+	 */
+	public List<Usuario> darUsuarios() {
+		return sqlUsuario.darUsuarios(pmf.getPersistenceManager());
+	}
+	
+	/**
+	 * Obtiene el id de la sucursal de determinado usuario
+	 * @param idUsuario el id del usuario del que se quiere saber su sucursal asociada
+	 * @return el id de la sucursal asociada al usuario con dicho id
+	 */
+	public long obtenerSucursalPorIdUsuario(long idUsuario) {
+		return sqlUsuario.obtenerSucursalPorIdUsuario(idUsuario, pmf.getPersistenceManager());
 	}
 	
 

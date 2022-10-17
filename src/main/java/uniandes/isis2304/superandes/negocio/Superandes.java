@@ -14,8 +14,6 @@
  */
 
 package uniandes.isis2304.superandes.negocio;
-
-import java.util.LinkedList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -64,6 +62,7 @@ public class Superandes
 	{
 		ps = PersistenciaSuperandes.getInstance (tableConfig);
 		new ManejadorPromociones().start();
+		crearAdminDatos();
 	}
 	
 	/**
@@ -80,7 +79,35 @@ public class Superandes
 	 * @return el id de la sucursal asociada al usuario con dicho id
 	 */
 	public long obtenerSucursalPorIdUsuario(long idUsuario) {
-		return 0;
+		log.info ("Obteniendo sucurusal con del usuario con id: " + idUsuario);
+		long id = ps.obtenerSucursalPorIdUsuario(idUsuario);
+		log.info ("id de la sucursal obtenida: " + id);
+		return id;
+	}
+	
+	/**
+	 * Crea el usuario administrador de datos
+	 * Verifica que no exista
+	 * Si no existe, lo crea con sus valores default
+	 */
+	public void crearAdminDatos() {
+		log.info ("Verificando que el tipo usuario admin datos no exista");
+		TipoUsuario tu = ps.obtenerTipoUsuarioPorNombre("administrador de datos");
+		if (tu == null) {
+			adicionarTipoUsuario("administrador de datosS", "N");
+		} else {
+			log.info ("El tipo usuario admin datos ya existe, por lo tanto no se crea");
+		}
+		log.info ("Verificando que el usuario admin datos no exista");
+		List<Usuario> admin = ps.darUsuarios();
+		if (admin.size() == 0) {
+			log.info ("El usuario admin datos no existe, creando usuario");
+			ps.registrarUsuario("100", "CC", "John Doe", "admin@superandes.com",
+					"123", ps.obtenerTipoUsuarioPorNombre("administrador de datos").getId(), null);
+			log.info ("Usuario admin datos creado");
+		} else {
+			log.info ("El usuario admin datos ya existe, por lo tanto no se crea");
+		}
 	}
 	
 	/* ****************************************************************
