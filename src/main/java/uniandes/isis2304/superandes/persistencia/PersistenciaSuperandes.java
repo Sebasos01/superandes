@@ -37,8 +37,16 @@ import uniandes.isis2304.superandes.negocio.Producto;
 import uniandes.isis2304.superandes.negocio.Promocion;
 import uniandes.isis2304.superandes.negocio.Sucursal;
 import uniandes.isis2304.superandes.negocio.TipoUsuario;
+<<<<<<< HEAD
+<<<<<<< HEAD
+import uniandes.isis2304.superandes.negocio.Usuario;
+=======
+import uniandes.isis2304.superandes.negocio.VentaProducto;
+>>>>>>> de9b6991c30684b7473718b3935af884adb2308a
+=======
 import uniandes.isis2304.superandes.negocio.Usuario;
 import uniandes.isis2304.superandes.negocio.VentaProducto;
+>>>>>>> 9fdf5885296e9c73be0f5179c5c55c533b1f8c45
 
 /**
  * Clase para el manejador de persistencia del proyecto Superandes
@@ -174,10 +182,20 @@ public class PersistenciaSuperandes
 		sqlVentaProducto = new SQLVentaProducto(this);
 		sqlPromocion = new SQLPromocion(this);
 		sqlAlmacen = new SQLAlmacen(this);
+<<<<<<< HEAD
+<<<<<<< HEAD
+		sqlUsuario = new SQLUsuario(this);
+=======
+		sqlPedido = new SQLPedido(this);
+		sqlSucursal = new SQLSucursal(this);
+		sqlProducto = new SQLProducto(this);
+>>>>>>> de9b6991c30684b7473718b3935af884adb2308a
+=======
 		sqlUsuario = new SQLUsuario(this);
 		sqlPedido = new SQLPedido(this);
 		sqlSucursal = new SQLSucursal(this);
 		sqlProducto = new SQLProducto(this);
+>>>>>>> 9fdf5885296e9c73be0f5179c5c55c533b1f8c45
 	}
 
 	/**
@@ -312,7 +330,78 @@ public class PersistenciaSuperandes
             pm.close();
         }
 	}
+<<<<<<< HEAD
+	
+	/* ****************************************************************
+	 * 			Métodos para manejar la SUCURSAL
+	 *****************************************************************/
+	public Sucursal adicionarSucursal(String nombre, String telefono,String direccion, String ciudad)
+	{
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+            long idSucursal = nextval ();
+            long tuplasInsertadas = sqlSucursal.adicionarSucursal(pm,idSucursal, nombre, telefono,direccion, ciudad);
+            tx.commit();
+            
+            log.trace ("Inserción de sucursal: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
+            
+            return new Sucursal(idSucursal,nombre, telefono,direccion, ciudad);
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return null;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
+	}
+	
+	/**
+	 * Método que retorna todas los tipos de usuarios de superandes
+	 * @return una lista con todos los tipos de usuarios de superandes
+	 */
+	public List<TipoUsuario> obtenerListaTipoUsuario() {
+		return sqlTipoUsuario.obtenerListaTipoUsuario(pmf.getPersistenceManager());
+	}
+	/* ****************************************************************
+	 * 			Métodos para manejar PRODUCTO
+	 *****************************************************************/
+	
+	public List<Object []> darProductosPreciosUnaSucursal(long precioInicial, long precioFinal,long idSucursal)
+	{
+		List<Object []> respuesta = new LinkedList <Object []> ();
+		List<Object> tuplas = sqlProducto.darProductosPreciosUnaSucursal (pmf.getPersistenceManager(), precioInicial,precioFinal,idSucursal);
+        for ( Object tupla : tuplas)
+        {
+			Object [] datos = (Object []) tupla;
+			String codigoBarras = (String) datos [0];;
+			String nombre = (String) datos [1];
+			String marca = (String) datos [2];
+			String unidadMedida = (String) datos [3];
+			String presentacion = (String) datos [4];
+			int cantidadPresentacion = ((BigDecimal) datos [5]).intValue ();
+			int volumenEmpaque = ((BigDecimal) datos [6]).intValue ();
+			int pesoEmpaque = ((BigDecimal) datos [7]).intValue ();
+			String tipo = (String) datos [8];
+			String categoria = (String) datos [9];
+			Timestamp fechaVencimiento = (Timestamp) datos [10];
+			int precioVenta= ((BigDecimal) datos [11]).intValue ();
+			
+
+<<<<<<< HEAD
+=======
   
+>>>>>>> 9fdf5885296e9c73be0f5179c5c55c533b1f8c45
 	/**
 	 * Método que retorna tipo de usuario por nombre
 	 * @param nombre - el nombre que se quiere para la búsqueda
@@ -449,6 +538,10 @@ public class PersistenciaSuperandes
 			int precioVenta= ((BigDecimal) datos [11]).intValue ();
 			
 
+<<<<<<< HEAD
+=======
+=======
+>>>>>>> 9fdf5885296e9c73be0f5179c5c55c533b1f8c45
 			Object [] resp = new Object [2];
 			resp [0] = new Producto(codigoBarras,nombre,marca,unidadMedida,presentacion,cantidadPresentacion,volumenEmpaque,pesoEmpaque,tipo,categoria,fechaVencimiento);
 			resp [1] = precioVenta;	
@@ -661,7 +754,15 @@ public class PersistenciaSuperandes
 		return respuesta;
 	}
 	
+<<<<<<< HEAD
+	
+	
+	
+	
+>>>>>>> de9b6991c30684b7473718b3935af884adb2308a
+=======
 
+>>>>>>> 9fdf5885296e9c73be0f5179c5c55c533b1f8c45
 	/* ****************************************************************
 	 * 			Métodos para manejar VENTA_PRODUCTO
 	 *****************************************************************/
