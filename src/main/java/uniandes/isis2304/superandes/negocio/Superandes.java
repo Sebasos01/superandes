@@ -192,6 +192,10 @@ public class Superandes
 	/* ****************************************************************
 	 * 			Métodos para manejar VENTA PRODUCTO
 	 *****************************************************************/
+	// Sebastian
+	public void registrarCompra() {}
+	// Sebastian
+	
 	/*Consulta 1*/
 	public long darDineroFechasUnaSucursal (String fechaInicio, String fechaFinal, long idSucursal)
 	{
@@ -323,6 +327,11 @@ public class Superandes
 	/* ****************************************************************
 	 * 			Métodos para manejar ALMACEN
 	 *****************************************************************/
+	//Sebastian
+	public void aprovisionarEstante() {
+		
+	}
+	//Sebastian
 	public List<Object> indiceOcupacionVolumenUnaSucursal(long idSucursal)
 	{
 		log.info ("Consultando indice de ocupacion por volumen de sucursal "+String.valueOf(idSucursal));
