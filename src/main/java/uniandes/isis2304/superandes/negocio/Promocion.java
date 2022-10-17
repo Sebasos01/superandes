@@ -1,5 +1,7 @@
 package uniandes.isis2304.superandes.negocio;
 
+import java.sql.Timestamp;
+
 public class Promocion implements VOPromocion {
 	/* ****************************************************************
 	 * 			Atributos
@@ -11,12 +13,12 @@ public class Promocion implements VOPromocion {
 	/**
 	 * El identificador de Promocion
 	 */
-	private long idSucursal;
+	private long id_sucursal;
 
 	/**
 	 * El inicio de Promocion
 	 */
-	private String inicio;
+	private Timestamp inicio;
 	/**
 	 * Duracion de Promocion
 	 */
@@ -24,23 +26,23 @@ public class Promocion implements VOPromocion {
 	/**
 	 *  fin  de Promocion
 	 */
-	private String fin;
+	private Timestamp fin;
 	/**
 	 * ventasMaximas de Promocion
 	 */
-	private long ventasMaximas;
+	private long ventas_maximas;
 	/**
 	 * ventasActuales de Promocion
 	 */
-	private long ventasActuales;
+	private long ventas_actuales;
 	/**
 	 * precioPaquete de Promocion
 	 */
-	private long precioPaquete;
+	private long precio_paquete;
 	/**
 	 * El idProducto de Promocion
 	 */
-	private String idProducto;
+	private String id_producto;
 	/**
 	 * La descripcion de Promocion
 	 */
@@ -48,147 +50,240 @@ public class Promocion implements VOPromocion {
 	
 	
 	
-	public Promocion(long id, long idSucursal, String inicio, long duracion, String fin, long ventasMaximas,
-			long ventasActuales, long precioPaquete, String idProducto, String descripcion) {
 
+	public Promocion(long id, long id_sucursal, Timestamp inicio, long duracion, Timestamp fin, long ventas_maximas,
+			long ventas_actuales, long precio_paquete, String id_producto, String descripcion) {
+		super();
 		this.id = id;
-		this.idSucursal = idSucursal;
+		this.id_sucursal = id_sucursal;
 		this.inicio = inicio;
 		this.duracion = duracion;
 		this.fin = fin;
-		this.ventasMaximas = ventasMaximas;
-		this.ventasActuales = ventasActuales;
-		this.precioPaquete = precioPaquete;
-		this.idProducto = idProducto;
+		this.ventas_maximas = ventas_maximas;
+		this.ventas_actuales = ventas_actuales;
+		this.precio_paquete = precio_paquete;
+		this.id_producto = id_producto;
 		this.descripcion = descripcion;
 	}
+
+
+
+
 	/**
 	 * @return the id
 	 */
 	public long getId() {
 		return id;
 	}
+
+
+
+
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(long id) {
 		this.id = id;
 	}
+
+
+
+
 	/**
-	 * @return the idSucursal
+	 * @return the id_sucursal
 	 */
-	public long getIdSucursal() {
-		return idSucursal;
+	public long getId_sucursal() {
+		return id_sucursal;
 	}
+
+
+
+
 	/**
-	 * @param idSucursal the idSucursal to set
+	 * @param id_sucursal the id_sucursal to set
 	 */
-	public void setIdSucursal(long idSucursal) {
-		this.idSucursal = idSucursal;
+	public void setId_sucursal(long id_sucursal) {
+		this.id_sucursal = id_sucursal;
 	}
+
+
+
+
 	/**
 	 * @return the inicio
 	 */
-	public String getInicio() {
+	public Timestamp getInicio() {
 		return inicio;
 	}
+
+
+
+
 	/**
 	 * @param inicio the inicio to set
 	 */
-	public void setInicio(String inicio) {
+	public void setInicio(Timestamp inicio) {
 		this.inicio = inicio;
 	}
+
+
+
+
 	/**
 	 * @return the duracion
 	 */
 	public long getDuracion() {
 		return duracion;
 	}
+
+
+
+
 	/**
 	 * @param duracion the duracion to set
 	 */
 	public void setDuracion(long duracion) {
 		this.duracion = duracion;
 	}
+
+
+
+
 	/**
 	 * @return the fin
 	 */
-	public String getFin() {
+	public Timestamp getFin() {
 		return fin;
 	}
+
+
+
+
 	/**
 	 * @param fin the fin to set
 	 */
-	public void setFin(String fin) {
+	public void setFin(Timestamp fin) {
 		this.fin = fin;
 	}
+
+
+
+
 	/**
-	 * @return the ventasMaximas
+	 * @return the ventas_maximas
 	 */
-	public long getVentasMaximas() {
-		return ventasMaximas;
+	public long getVentas_maximas() {
+		return ventas_maximas;
 	}
+
+
+
+
 	/**
-	 * @param ventasMaximas the ventasMaximas to set
+	 * @param ventas_maximas the ventas_maximas to set
 	 */
-	public void setVentasMaximas(long ventasMaximas) {
-		this.ventasMaximas = ventasMaximas;
+	public void setVentas_maximas(long ventas_maximas) {
+		this.ventas_maximas = ventas_maximas;
 	}
+
+
+
+
 	/**
-	 * @return the ventasActuales
+	 * @return the ventas_actuales
 	 */
-	public long getVentasActuales() {
-		return ventasActuales;
+	public long getVentas_actuales() {
+		return ventas_actuales;
 	}
+
+
+
+
 	/**
-	 * @param ventasActuales the ventasActuales to set
+	 * @param ventas_actuales the ventas_actuales to set
 	 */
-	public void setVentasActuales(long ventasActuales) {
-		this.ventasActuales = ventasActuales;
+	public void setVentas_actuales(long ventas_actuales) {
+		this.ventas_actuales = ventas_actuales;
 	}
+
+
+
+
 	/**
-	 * @return the precioPaquete
+	 * @return the precio_paquete
 	 */
-	public long getPrecioPaquete() {
-		return precioPaquete;
+	public long getPrecio_paquete() {
+		return precio_paquete;
 	}
+
+
+
+
 	/**
-	 * @param precioPaquete the precioPaquete to set
+	 * @param precio_paquete the precio_paquete to set
 	 */
-	public void setPrecioPaquete(long precioPaquete) {
-		this.precioPaquete = precioPaquete;
+	public void setPrecio_paquete(long precio_paquete) {
+		this.precio_paquete = precio_paquete;
 	}
+
+
+
+
 	/**
-	 * @return the idProducto
+	 * @return the id_producto
 	 */
-	public String getIdProducto() {
-		return idProducto;
+	public String getId_producto() {
+		return id_producto;
 	}
+
+
+
+
 	/**
-	 * @param idProducto the idProducto to set
+	 * @param id_producto the id_producto to set
 	 */
-	public void setIdProducto(String idProducto) {
-		this.idProducto = idProducto;
+	public void setId_producto(String id_producto) {
+		this.id_producto = id_producto;
 	}
+
+
+
+
 	/**
 	 * @return the descripcion
 	 */
 	public String getDescripcion() {
 		return descripcion;
 	}
+
+
+
+
 	/**
 	 * @param descripcion the descripcion to set
 	 */
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+
+
+
+
+
+
+
+
 	@Override
 	public String toString() {
-		return "Promocion [id=" + id + ", idSucursal=" + idSucursal + ", inicio=" + inicio + ", duracion=" + duracion
-				+ ", fin=" + fin + ", ventasMaximas=" + ventasMaximas + ", ventasActuales=" + ventasActuales
-				+ ", precioPaquete=" + precioPaquete + ", idProducto=" + idProducto + ", descripcion=" + descripcion
+		return "Promocion [id=" + id + ", id_sucursal=" + id_sucursal + ", inicio=" + inicio + ", duracion=" + duracion
+				+ ", fin=" + fin + ", ventas_maximas=" + ventas_maximas + ", ventas_actuales=" + ventas_actuales
+				+ ", precio_paquete=" + precio_paquete + ", id_producto=" + id_producto + ", descripcion=" + descripcion
 				+ "]";
 	}
+
+
+
+
 	/**
 	 * @param promocion
 	 * @return True si tienen el mismo id

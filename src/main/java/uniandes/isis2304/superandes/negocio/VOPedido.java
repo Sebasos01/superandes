@@ -1,5 +1,7 @@
 package uniandes.isis2304.superandes.negocio;
 
+import java.sql.Timestamp;
+
 public interface VOPedido {
 	/* ****************************************************************
 	 * 			Métodos
@@ -7,39 +9,39 @@ public interface VOPedido {
 	/**
 	 * @return El num pedido de Pedido
 	 */
-	public long getNumPedido();
+	public long getNum_pedido();
 
 	/**
 	 * @return El id producto de Pedido
 	 */
-	public String getIdProducto();
+	public String getId_producto();
 	
 	/**
 	 * @return El idProveedor de Pedido
 	 */
-	public String getIdProveedor();
+	public String getId_proveedor();
 	
 	/**
 	 * @return La idSucursal de Pedido
 	 */
-	public long getIdSucursal();
+	public long getId_sucursal();
 	
 	/**
 	 * @return La cantidadProducto de Pedido
 	 */
-	public long getCantidadProducto();
+	public long getCantidad_producto();
 	/**
 	 * @return La cantidadProducto de Pedido
 	 */
-	public long getPrecioTotal();
+	public long getPrecio_total();
 	/**
 	 * @return La cantidadProducto de Pedido
 	 */
-	public String getInicio();
+	public Timestamp getInicio();
 	/**
 	 * @return La cantidadProducto de Pedido
 	 */
-	public long getDiasEntrega();
+	public long getDias_entrega();
 	/**
 	 * @return La cantidadProducto de Pedido
 	 */
@@ -47,7 +49,7 @@ public interface VOPedido {
 	/**
 	 * @return La cantidadProducto de Pedido
 	 */
-	public String getLlegada();
+	public Timestamp getLlegada();
 
 	/**
 	 * @return Una cadena de caracteres con la información de Pedido

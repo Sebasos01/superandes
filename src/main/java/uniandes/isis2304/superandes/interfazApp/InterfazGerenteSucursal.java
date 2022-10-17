@@ -31,7 +31,9 @@ import javax.swing.UIManager;
 import uniandes.isis2304.superandes.negocio.Promocion;
 import uniandes.isis2304.superandes.negocio.Superandes;
 import uniandes.isis2304.superandes.negocio.VOPedido;
+import uniandes.isis2304.superandes.negocio.VOProducto;
 import uniandes.isis2304.superandes.negocio.VOPromocion;
+import uniandes.isis2304.superandes.negocio.VOSucursal;
 import uniandes.isis2304.superandes.negocio.VOTipoUsuario;
 import uniandes.isis2304.superandes.negocio.VOVentaProducto;
 
@@ -267,6 +269,31 @@ public class InterfazGerenteSucursal extends InterfazGeneral {
 	     */
 	    public void precioProductos()
 	    {
+	    	JTextField precioInicio = new JTextField();
+    		JTextField precioFinal = new JTextField();
+    		long idSucursal = 1;//-> Cambiar el 3 por lo del login
+    		//OJO Falta lo del id Sucursal ->Se obtienen del login
+    		Object[] message = {
+    		    "Precio Inicio:", precioInicio,
+    		    "Precio final:", precioFinal
+    		};
+    		int option = JOptionPane.showConfirmDialog(null, message, "Consultar productos en rango de precios de la sucursal", JOptionPane.OK_CANCEL_OPTION);
+    		if (option == JOptionPane.OK_OPTION)
+    		{
+        		List<Object[]> productos = superandes.darProductosPreciosUnaSucursal (Integer.valueOf(precioInicio.getText()),Integer.valueOf(precioFinal.getText()),idSucursal);
+        	
+        		
+        		String resultado = "En el rango de precios "+ String.valueOf(precioInicio.getText())+" , "+String.valueOf(precioFinal.getText()) + " de la sucursal " + String.valueOf(idSucursal) + ". Se encuentran los siguientes producots";
+        		
+        		resultado += listarProductosPrecio(productos);
+    			resultado += "\n Operación terminada";
+    			
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
 	    
 	    }
 	    public void fechaVencimientoProductos()
@@ -347,7 +374,22 @@ public class InterfazGerenteSucursal extends InterfazGeneral {
 				e.printStackTrace();
 			} 
 		}
-	   
+	    private String listarProductosPrecio (List<Object[]> lista) 
+	    {
+	    	String resp = "";
+	    	int i = 1;
+	        for (Object [] tupla : lista)
+	        {
+				VOProducto suc = (VOProducto) tupla [0];
+				int precio = (int) tupla [1];
+		        String resp1 = i++ + ". " + "[";
+				resp1 += suc + ", ";
+				resp1 += "Precio Venta: " + precio;
+		        resp1 += "]";
+		        resp += resp1 + "\n";
+	        }
+	        return resp;
+		}
 	    
 		/* ****************************************************************
 		 * 			Programa principal

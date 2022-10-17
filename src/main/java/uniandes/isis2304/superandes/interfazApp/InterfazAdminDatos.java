@@ -23,9 +23,13 @@ import java.util.List;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
+
+import uniandes.isis2304.superandes.negocio.Sucursal;
 import uniandes.isis2304.superandes.negocio.Superandes;
 import uniandes.isis2304.superandes.negocio.VOTipoUsuario;
+import uniandes.isis2304.superandes.negocio.VOVentaProducto;
 
 /**
  * Clase principal de la interfaz
@@ -131,6 +135,43 @@ public class InterfazAdminDatos extends InterfazGeneral
      */
     public void adicionarSucursal()
     {
+    	JTextField nombre = new JTextField();
+		JTextField telefono = new JTextField();
+		JTextField direccion = new JTextField();
+		JTextField ciudad = new JTextField();
+		long idSucursal = 1;//-> Cambiar el 3 por lo del login
+		//OJO Falta lo del id Sucursal ->Se obtienen del login
+		Object[] message = {
+		    "Nombre:", nombre,
+		    "Telefono:", telefono,
+		    "Direccion:", direccion,
+		    "Ciudad:", ciudad,
+		};
+		int option = JOptionPane.showConfirmDialog(null, message, "Consultar ventas de un cliente", JOptionPane.OK_CANCEL_OPTION);
+		if (option == JOptionPane.OK_OPTION)
+		{
+	
+    		Sucursal su= superandes.adicionarSucursal(nombre.getText(), telefono.getText(),direccion.getText(),ciudad.getText());
+    		if (su != null) {
+    		String resultado = "En adicionar sucursal\n\n";
+    		resultado += "Sucursal añadida exitosamente: ";
+			resultado += "\n Operación terminada";
+			panelDatos.actualizarInterfaz(resultado);
+
+			
+			panelDatos.actualizarInterfaz(resultado);
+    		}else {
+    			String resultado = "\n No se pudo añadir a base de datos intente nuevamente";
+    			panelDatos.actualizarInterfaz(resultado);
+
+    			
+    		}
+			
+		}
+		else
+		{
+			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+		}
     	
     }
     

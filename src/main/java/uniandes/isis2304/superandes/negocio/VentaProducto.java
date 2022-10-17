@@ -2,152 +2,229 @@ package uniandes.isis2304.superandes.negocio;
 
 import java.math.BigDecimal;
 
-public class VentaProducto {
+public class VentaProducto implements VOVentaProducto {
 	
-	long idCompra ;
-	long idUsuario;
-	String idProducto ;
-	long idSucursal ;
+	long id_compra ;
+	long id_usuario;
+	String id_producto ;
+	long id_sucursal ;
 	long cantidad ;
 	long monto;
 	long puntos ;
 	String fecha ;
-	long idPromocion;
+	long id_promocion;
 	
-	
-	
-	public VentaProducto(long idCompra, long idUsuario, String idProducto, long idSucursal, long cantidad, long monto,
-			long puntos, String fecha, long idPromocion) {
+	public VentaProducto(long id_compra, long id_usuario, String id_producto, long id_sucursal, long cantidad,
+			long monto, long puntos, String fecha, long id_promocion) {
 		super();
-		this.idCompra = idCompra;
-		this.idUsuario = idUsuario;
-		this.idProducto = idProducto;
-		this.idSucursal = idSucursal;
+		this.id_compra = id_compra;
+		this.id_usuario = id_usuario;
+		this.id_producto = id_producto;
+		this.id_sucursal = id_sucursal;
 		this.cantidad = cantidad;
 		this.monto = monto;
 		this.puntos = puntos;
 		this.fecha = fecha;
-		this.idPromocion = idPromocion;
+		this.id_promocion = id_promocion;
 	}
+
+	
+
+	
 	/**
-	 * @return the idCompra
+	 * @return the id_compra
 	 */
-	public long getIdCompra() {
-		return idCompra;
+	public long getId_compra() {
+		return id_compra;
 	}
+
+
 	/**
-	 * @param idCompra the idCompra to set
+	 * @param id_compra the id_compra to set
 	 */
-	public void setIdCompra(long idCompra) {
-		this.idCompra = idCompra;
+	public void setId_compra(long id_compra) {
+		this.id_compra = id_compra;
 	}
+
+
 	/**
-	 * @return the idUsuario
+	 * @return the id_usuario
 	 */
-	public long getIdUsuario() {
-		return idUsuario;
+	public long getId_usuario() {
+		return id_usuario;
 	}
+
+
 	/**
-	 * @param idUsuario the idUsuario to set
+	 * @param id_usuario the id_usuario to set
 	 */
-	public void setIdUsuario(long idUsuario) {
-		this.idUsuario = idUsuario;
+	public void setId_usuario(long id_usuario) {
+		this.id_usuario = id_usuario;
 	}
+
 	/**
-	 * @return the idProducto
+	 * @return the id_producto
 	 */
-	public String getIdProducto() {
-		return idProducto;
+	public String getId_producto() {
+		return id_producto;
 	}
+
+
+
+
+
 	/**
-	 * @param idProducto the idProducto to set
+	 * @param id_producto the id_producto to set
 	 */
-	public void setIdProducto(String idProducto) {
-		this.idProducto = idProducto;
+	public void setId_producto(String id_producto) {
+		this.id_producto = id_producto;
 	}
+
+
+
+
+
 	/**
-	 * @return the idSucursal
+	 * @return the id_sucursal
 	 */
-	public long getIdSucursal() {
-		return idSucursal;
+	public long getId_sucursal() {
+		return id_sucursal;
 	}
+
+
+
+
+
 	/**
-	 * @param idSucursal the idSucursal to set
+	 * @param id_sucursal the id_sucursal to set
 	 */
-	public void setIdSucursal(long idSucursal) {
-		this.idSucursal = idSucursal;
+	public void setId_sucursal(long id_sucursal) {
+		this.id_sucursal = id_sucursal;
 	}
+
+
+
+
+
 	/**
 	 * @return the cantidad
 	 */
 	public long getCantidad() {
 		return cantidad;
 	}
+
+
+
+
+
 	/**
 	 * @param cantidad the cantidad to set
 	 */
 	public void setCantidad(long cantidad) {
 		this.cantidad = cantidad;
 	}
+
+
+
+
+
 	/**
 	 * @return the monto
 	 */
 	public long getMonto() {
 		return monto;
 	}
+
+
+
+
+
 	/**
 	 * @param monto the monto to set
 	 */
 	public void setMonto(long monto) {
 		this.monto = monto;
 	}
+
+
+
+
+
 	/**
 	 * @return the puntos
 	 */
 	public long getPuntos() {
 		return puntos;
 	}
+
+
+
+
+
 	/**
 	 * @param puntos the puntos to set
 	 */
 	public void setPuntos(long puntos) {
 		this.puntos = puntos;
 	}
+
+
+
+
+
 	/**
 	 * @return the fecha
 	 */
 	public String getFecha() {
 		return fecha;
 	}
+
+
+
+
+
 	/**
 	 * @param fecha the fecha to set
 	 */
 	public void setFecha(String fecha) {
 		this.fecha = fecha;
 	}
+
+
+
+
+
 	/**
-	 * @return the idPromocion
+	 * @return the id_promocion
 	 */
-	public long getIdPromocion() {
-		return idPromocion;
+	public long getId_promocion() {
+		return id_promocion;
 	}
+
+
+
+
+
 	/**
-	 * @param idPromocion the idPromocion to set
+	 * @param id_promocion the id_promocion to set
 	 */
-	public void setIdPromocion(long idPromocion) {
-		this.idPromocion = idPromocion;
+	public void setId_promocion(long id_promocion) {
+		this.id_promocion = id_promocion;
 	}
-	@Override
-	public String toString() {
-		return "VentaProducto [idCompra=" + idCompra + ", idUsuario=" + idUsuario + ", idProducto=" + idProducto
-				+ ", idSucursal=" + idSucursal + ", cantidad=" + cantidad + ", monto=" + monto + ", puntos=" + puntos
-				+ ", fecha=" + fecha + ", idPromocion=" + idPromocion + "]";
-	}
+
+
+
+
+
 	
+
+
+
+
 	public boolean equals(Object venta) 
 	{
 		VentaProducto v = (VentaProducto) venta;
-		return idCompra == v.idCompra && idUsuario == v.idUsuario && idProducto == v.idProducto && idSucursal == v.idSucursal; 
+		return id_compra == v.id_compra && id_usuario == v.id_usuario && id_producto == v.id_producto && id_sucursal == v.id_sucursal; 
 	}
 
 }

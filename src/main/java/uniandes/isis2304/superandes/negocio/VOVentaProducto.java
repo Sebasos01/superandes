@@ -7,19 +7,19 @@ public interface VOVentaProducto {
 	/**
 	 * @return El num VentaProducto de VentaProducto
 	 */
-	public long getIdCompra();
+	public long getId_compra();
 	/**
 	 * @return La idUsuario de VentaProducto
 	 */
-	public long getIdUsuario();
+	public long getId_usuario();
 	/**
 	 * @return La idProducto de VentaProducto
 	 */
-	public long getIdProducto();
+	public String getId_producto();
 	/**
 	 * @return La idSucursal de VentaProducto
 	 */
-	public long getIdSucursal();
+	public long getId_sucursal();
 	/**
 	 * @return La cantidadProducto de VentaProducto
 	 */
@@ -39,7 +39,7 @@ public interface VOVentaProducto {
 	/**
 	 * @return idPromocion de VentaProducto
 	 */
-	public long getidPromocion();
+	public long getId_promocion();
 
 
 	/**

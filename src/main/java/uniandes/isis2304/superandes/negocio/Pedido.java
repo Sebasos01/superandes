@@ -1,164 +1,209 @@
 package uniandes.isis2304.superandes.negocio;
 
-public class Pedido {
-	public long numPedido; 
-	public String idProducto;
-	public String idProveedor;
-	public long idSucursal; 
-	public long cantidadProducto; 
-	public long precioTotal; 
-	public String inicio;
-	public long diasEntrega; 
+import java.sql.Timestamp;
+
+public class Pedido implements VOPedido {
+	public long num_pedido; 
+	public String id_producto;
+	public String id_proveedor;
+	public long id_sucursal; 
+	public long cantidad_producto; 
+	public long precio_total; 
+	public Timestamp inicio;
+	public long dias_entrega; 
 	public String estado;
-	public String llegada;
+	public Timestamp llegada;
 	
-	
-	
-	public Pedido(long numPedido, String idProducto, String idProveedor, long idSucursal, long cantidadProducto,
-			long precioTotal, String inicio, long diasEntrega, String estado, String llegada) {
+
+	public Pedido(long num_pedido, String id_producto, String id_proveedor, long id_sucursal, long cantidad_producto,
+			long precio_total, Timestamp inicio, long dias_entrega, String estado, Timestamp llegada) {
 		super();
-		this.numPedido = numPedido;
-		this.idProducto = idProducto;
-		this.idProveedor = idProveedor;
-		this.idSucursal = idSucursal;
-		this.cantidadProducto = cantidadProducto;
-		this.precioTotal = precioTotal;
+		this.num_pedido = num_pedido;
+		this.id_producto = id_producto;
+		this.id_proveedor = id_proveedor;
+		this.id_sucursal = id_sucursal;
+		this.cantidad_producto = cantidad_producto;
+		this.precio_total = precio_total;
 		this.inicio = inicio;
-		this.diasEntrega = diasEntrega;
+		this.dias_entrega = dias_entrega;
 		this.estado = estado;
 		this.llegada = llegada;
 	}
+
+
 	/**
-	 * @return the numPedido
+	 * @return the num_pedido
 	 */
-	public long getNumPedido() {
-		return numPedido;
+	public long getNum_pedido() {
+		return num_pedido;
 	}
+
+
 	/**
-	 * @param numPedido the numPedido to set
+	 * @param num_pedido the num_pedido to set
 	 */
-	public void setNumPedido(long numPedido) {
-		this.numPedido = numPedido;
+	public void setNum_pedido(long num_pedido) {
+		this.num_pedido = num_pedido;
 	}
+
+
 	/**
-	 * @return the idProducto
+	 * @return the id_producto
 	 */
-	public String getIdProducto() {
-		return idProducto;
+	public String getId_producto() {
+		return id_producto;
 	}
+
+
 	/**
-	 * @param idProducto the idProducto to set
+	 * @param id_producto the id_producto to set
 	 */
-	public void setIdProducto(String idProducto) {
-		this.idProducto = idProducto;
+	public void setId_producto(String id_producto) {
+		this.id_producto = id_producto;
 	}
+
+
 	/**
-	 * @return the idProveedor
+	 * @return the id_proveedor
 	 */
-	public String getIdProveedor() {
-		return idProveedor;
+	public String getId_proveedor() {
+		return id_proveedor;
 	}
+
+
 	/**
-	 * @param idProveedor the idProveedor to set
+	 * @param id_proveedor the id_proveedor to set
 	 */
-	public void setIdProveedor(String idProveedor) {
-		this.idProveedor = idProveedor;
+	public void setId_proveedor(String id_proveedor) {
+		this.id_proveedor = id_proveedor;
 	}
+
+
 	/**
-	 * @return the idSucursal
+	 * @return the id_sucursal
 	 */
-	public long getIdSucursal() {
-		return idSucursal;
+	public long getId_sucursal() {
+		return id_sucursal;
 	}
+
+
 	/**
-	 * @param idSucursal the idSucursal to set
+	 * @param id_sucursal the id_sucursal to set
 	 */
-	public void setIdSucursal(long idSucursal) {
-		this.idSucursal = idSucursal;
+	public void setId_sucursal(long id_sucursal) {
+		this.id_sucursal = id_sucursal;
 	}
+
+
 	/**
-	 * @return the cantidadProducto
+	 * @return the cantidad_producto
 	 */
-	public long getCantidadProducto() {
-		return cantidadProducto;
+	public long getCantidad_producto() {
+		return cantidad_producto;
 	}
+
+
 	/**
-	 * @param cantidadProducto the cantidadProducto to set
+	 * @param cantidad_producto the cantidad_producto to set
 	 */
-	public void setCantidadProducto(long cantidadProducto) {
-		this.cantidadProducto = cantidadProducto;
+	public void setCantidad_producto(long cantidad_producto) {
+		this.cantidad_producto = cantidad_producto;
 	}
+
+
 	/**
-	 * @return the precioTotal
+	 * @return the precio_total
 	 */
-	public long getPrecioTotal() {
-		return precioTotal;
+	public long getPrecio_total() {
+		return precio_total;
 	}
+
+
 	/**
-	 * @param precioTotal the precioTotal to set
+	 * @param precio_total the precio_total to set
 	 */
-	public void setPrecioTotal(long precioTotal) {
-		this.precioTotal = precioTotal;
+	public void setPrecio_total(long precio_total) {
+		this.precio_total = precio_total;
 	}
+
+
 	/**
 	 * @return the inicio
 	 */
-	public String getInicio() {
+	public Timestamp getInicio() {
 		return inicio;
 	}
+
+
 	/**
 	 * @param inicio the inicio to set
 	 */
-	public void setInicio(String inicio) {
+	public void setInicio(Timestamp inicio) {
 		this.inicio = inicio;
 	}
+
+
 	/**
-	 * @return the diasEntrega
+	 * @return the dias_entrega
 	 */
-	public long getDiasEntrega() {
-		return diasEntrega;
+	public long getDias_entrega() {
+		return dias_entrega;
 	}
+
+
 	/**
-	 * @param diasEntrega the diasEntrega to set
+	 * @param dias_entrega the dias_entrega to set
 	 */
-	public void setDiasEntrega(long diasEntrega) {
-		this.diasEntrega = diasEntrega;
+	public void setDias_entrega(long dias_entrega) {
+		this.dias_entrega = dias_entrega;
 	}
+
+
 	/**
 	 * @return the estado
 	 */
 	public String getEstado() {
 		return estado;
 	}
+
+
 	/**
 	 * @param estado the estado to set
 	 */
 	public void setEstado(String estado) {
 		this.estado = estado;
 	}
+
+
 	/**
 	 * @return the llegada
 	 */
-	public String getLlegada() {
+	public Timestamp getLlegada() {
 		return llegada;
 	}
+
+
 	/**
 	 * @param llegada the llegada to set
 	 */
-	public void setLlegada(String llegada) {
+	public void setLlegada(Timestamp llegada) {
 		this.llegada = llegada;
 	}
+
+
 	@Override
 	public String toString() {
-		return "Pedido [numPedido=" + numPedido + ", idProducto=" + idProducto + ", idProveedor=" + idProveedor
-				+ ", idSucursal=" + idSucursal + ", cantidadProducto=" + cantidadProducto + ", precioTotal="
-				+ precioTotal + ", inicio=" + inicio + ", diasEntrega=" + diasEntrega + ", estado=" + estado
+		return "Pedido [num_pedido=" + num_pedido + ", id_producto=" + id_producto + ", id_proveedor=" + id_proveedor
+				+ ", id_sucursal=" + id_sucursal + ", cantidad_producto=" + cantidad_producto + ", precio_total="
+				+ precio_total + ", inicio=" + inicio + ", dias_entrega=" + dias_entrega + ", estado=" + estado
 				+ ", llegada=" + llegada + "]";
 	}
+
+
 	public boolean equals(Object sucursal) 
 	{
 		Pedido su = (Pedido) sucursal;
-		return numPedido == su.numPedido && idProducto == su.idProducto && idProveedor == su.idProveedor&& idSucursal == su.idSucursal; 
+		return num_pedido == su.num_pedido && id_producto == su.id_producto && id_proveedor == su.id_proveedor&& id_sucursal == su.id_sucursal; 
 	}
 	
 	
