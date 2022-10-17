@@ -3,6 +3,7 @@ package uniandes.isis2304.superandes.interfazApp;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.lang.reflect.Method;
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.swing.ImageIcon;
@@ -12,6 +13,7 @@ import javax.swing.UIManager;
 
 import uniandes.isis2304.superandes.negocio.Promocion;
 import uniandes.isis2304.superandes.negocio.Superandes;
+import uniandes.isis2304.superandes.negocio.VOPromocion;
 
 /**
  * Clase interfaz para gerente de supermercado
@@ -107,12 +109,36 @@ public class InterfazGerenteSupermercado extends InterfazGeneral{
 	    /**
 	     * Se consulta indice de ocupacion de las bodegas y estante por peso y volumen
 	     */
-	    public void pesoOcupacion()
-	    {
-	    
-	    }
+
 	    public void volumenOcupacion()
 	    {
+	    	
+    		int option = JOptionPane.showConfirmDialog(null, "¿Desea consultar indice de ocupacion de los estantes?", null,JOptionPane.OK_CANCEL_OPTION);
+    		if (option == JOptionPane.OK_OPTION)
+    		{
+        		List<Object> tuplas = superandes.indiceOcupacionVolumenTodasSucursales();
+        		String resultado = String.format("%1$s - %2$s - %3$s - %4$s", "Id Almacen", "Tipo", "Indice Ocupación","Capacidad Volumen");
+        		
+        		for ( Object tupla : tuplas) {
+        			
+        			Object [] datos = (Object []) tupla;
+        			long idAlmacen = ((BigDecimal) datos [0]).longValue ();
+        			String tipo = (String) datos[1]; 
+        			long indiceOcupacion = ((BigDecimal) datos [0]).longValue ();
+        			long capacidadVolumen = ((BigDecimal) datos [0]).longValue ();
+        			
+        			resultado += "\n"+String.format("%1$s - %2$s - %3$s - %4$s", 
+                           String.valueOf(idAlmacen), tipo, String.valueOf(indiceOcupacion),String.valueOf(capacidadVolumen));	
+        		}
+
+    			resultado += "\n Operación terminada";
+    			
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
 	    
 	    }
 	    /* ****************************************************************

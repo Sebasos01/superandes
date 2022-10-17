@@ -90,6 +90,7 @@ public class PersistenciaSuperandes
 	private SQLTipoUsuario sqlTipoUsuario;
 	private SQLVentaProducto sqlVentaProducto;
 	private SQLPromocion sqlPromocion;
+	private SQLAlmacen sqlAlmacen;
 	
 	/* ****************************************************************
 	 * 			Métodos del MANEJADOR DE PERSISTENCIA
@@ -159,6 +160,7 @@ public class PersistenciaSuperandes
 		sqlTipoUsuario = new SQLTipoUsuario(this);
 		sqlVentaProducto = new SQLVentaProducto(this);
 		sqlPromocion = new SQLPromocion(this);
+		sqlAlmacen = new SQLAlmacen(this);
 	}
 
 	/**
@@ -175,7 +177,16 @@ public class PersistenciaSuperandes
 	/**
 	 * @return La cadena de caracteres con el nombre de la tabla de ProductoSucursal
 	 */
-	
+	public String darTablaAlmacen() {
+		return tablas.get (1);
+	}
+	public String darTablaProducto() {
+		return tablas.get (7);
+	}
+	public String darTablaProductoAlmacen() {
+		
+		return tablas.get (8);
+	}
 	public String darTablaProductoSucursal ()
 	{
 		return tablas.get (10);
@@ -188,6 +199,8 @@ public class PersistenciaSuperandes
 		
 		return tablas.get (13);
 	}
+	
+
 	/**
 	 * @return La cadena de caracteres con el nombre de la tabla de TipoUsuario de superandes
 	 */
@@ -370,6 +383,21 @@ public class PersistenciaSuperandes
 		return respuesta;
 	}
 	
+	/* ****************************************************************
+	 * 			Métodos para manejar el ALMACEN
+	 *****************************************************************/
+	public List<Object> indiceOcupacionVolumenUnaSucursal(long idSucursal)
+	{
+		
+		List<Object> tuplas = sqlAlmacen.indiceOcupacionVolumenUnaSucursal(pmf.getPersistenceManager(), idSucursal);
+		return tuplas;
+	}
+	public List<Object> indiceOcupacionVolumenTodasSucursales()
+	{
+		
+		List<Object> tuplas = sqlAlmacen.indiceOcupacionVolumenTodasSucursales(pmf.getPersistenceManager());
+		return tuplas;
+	}
 	
 	/* ****************************************************************
 	 * 			Métodos para administración
@@ -410,6 +438,11 @@ public class PersistenciaSuperandes
 		
 	}
 
+	
+
+	
+
+	
 	
 	
 
