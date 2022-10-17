@@ -50,7 +50,7 @@ public class InterfazGerenteSucursal extends InterfazGeneral {
 	 */
 	private static final String CONFIG_INTERFAZ = "./src/main/resources/config/interfaceGerenteSucursalConfig.json";
 	
-	 public InterfazGerenteSucursal( )
+	 public InterfazGerenteSucursal()
 	    {
 	        // Carga la configuración de la interfaz desde un archivo JSON
 	        guiConfig = openConfig ("Interfaz", CONFIG_INTERFAZ);

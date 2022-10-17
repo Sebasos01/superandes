@@ -1,6 +1,6 @@
 package uniandes.isis2304.superandes.negocio;
 
-public class RevisarPromocion extends Thread {
+public class ManejadorPromociones extends Thread {
 	static long mlsFinalizarProm = 60000;
 	
 	private void finalizarPromocion() {}

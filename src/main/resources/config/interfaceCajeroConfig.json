@@ -1,20 +1,16 @@
 {
-	"title": "Aplicación transaccional de adminsitrador de datos de Superandes",
+	"title": "Aplicación transaccional de cajero de una sucursal de Superandes",
 	"frameH": 600,
 	"frameW": 800,
 	"bannerPath": "./src/main/resources/config/logo.png",
 	"menuBar":
 	[
-		{ "menuTitle": "TipoUsuario",
+		{ "menuTitle": "Venta",
 		  "options":
 			[
 				{
-					"label": "Adicionar",
-					"event": "adicionarTipoUsuario"
-				},
-				{
-					"label": "Dar tipos de usuario",
-					"event": "obtenerListaTipoUsuario"
+					"label": "Registrar compra",
+					"event": "registrarCompra"
 				}
 			]
 		}	,
