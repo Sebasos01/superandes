@@ -221,10 +221,10 @@ public class Superandes
 	
 	public List<Object []> darProductosPreciosUnaSucursal(long precioInicial, long precioFinal,long idSucursal)
 	{
-        log.info ("Consultando productos en el rango de precios: "+String.valueOf(precioInicial)+" , "+String.valueOf(precioFinal) + "de la sucursal " + String.valueOf(idUsuario));
+        log.info ("Consultando productos en el rango de precios: "+String.valueOf(precioInicial)+" , "+String.valueOf(precioFinal) + "de la sucursal " + String.valueOf(idSucursal));
         List<Object []> tuplas =ps.darProductosPreciosUnaSucursal (precioInicial,precioFinal,idSucursal); // Lista de tuplas de la forma (Sucursal, dineroRecolectado)
         
-        log.info ("Finaliza consulta de productos en el rango de precios: "+String.valueOf(precioInicial)+" , "+String.valueOf(precioFinal) + "de la sucursal " + String.valueOf(idUsuario));
+        log.info ("Finaliza consulta de productos en el rango de precios: "+String.valueOf(precioInicial)+" , "+String.valueOf(precioFinal) + "de la sucursal " + String.valueOf(idSucursal));
         return tuplas;
 	}
 	public List<Object []> darProductosPreciosTodasSucursales(long precioInicial, long precioFinal)
@@ -238,30 +238,30 @@ public class Superandes
 	
 	public List<VOProducto> darProductosPesoUnaSucursal(long peso,long idSucursal)
 	{
-        log.info ("Consultando productos con peso mayor a : "+String.valueOf(peso)+ "de la sucursal "+ String.valueOf(idUsuario) );
+        log.info ("Consultando productos con peso mayor a : "+String.valueOf(peso)+ "de la sucursal "+ String.valueOf(idSucursal) );
         List<VOProducto> tuplas = ps.darProductosPesoUnaSucursal (peso, idSucursal).stream().map (p -> (VOProducto) p ).toList(); 
-        log.info ("Finaliza consulta de productos con peso mayor a : "+String.valueOf(peso)+ "de la sucursal "+ String.valueOf(idUsuario) );
+        log.info ("Finaliza consulta de productos con peso mayor a : "+String.valueOf(peso)+ "de la sucursal "+ String.valueOf(idSucursal) );
         return tuplas;
 	}
 	public List<VOProducto> darProductosPesoTodasSucursales(long peso)
 	{
-        log.info ("Consultando productos con peso mayor a : "+String.valueOf(peso)+ "de la sucursal "+ String.valueOf(idUsuario) );
+        log.info ("Consultando productos con peso mayor a : "+String.valueOf(peso) );
         List<VOProducto> tuplas = ps.darProductosPesoTodasSucursales (peso).stream().map (p -> (VOProducto) p ).toList(); 
-        log.info ("Finaliza consulta de productos con peso mayor a : "+String.valueOf(peso)+ "de la sucursal "+ String.valueOf(idUsuario) );
+        log.info ("Finaliza consulta de productos con peso mayor a : "+String.valueOf(peso) );
         return tuplas;
 	}
 	public List<VOProducto> darProductosTipoUnaSucursal(String tipo,long idSucursal)
 	{
-        log.info ("Consultando productos con tipo : "+tipo+ "de la sucursal "+ String.valueOf(idUsuario) );
+        log.info ("Consultando productos con tipo : "+tipo+ "de la sucursal "+ String.valueOf(idSucursal) );
         List<VOProducto> tuplas = ps.darProductosTipoUnaSucursal (tipo, idSucursal).stream().map (p -> (VOProducto) p ).toList(); 
-        log.info ("Finaliza consulta de productos con tipo: "+tipo + "de la sucursal "+ String.valueOf(idUsuario) );
+        log.info ("Finaliza consulta de productos con tipo: "+tipo + "de la sucursal "+ String.valueOf(idSucursal) );
         return tuplas;
 	}
 	public List<VOProducto> darProductosTipoTodasSucursales(String tipo)
 	{
-        log.info ("Consultando productos con tipo : "+ tipo+ "de la sucursal "+ String.valueOf(idUsuario) );
+        log.info ("Consultando productos con tipo : "+ tipo );
         List<VOProducto> tuplas = ps.darProductosTipoTodasSucursales (tipo).stream().map (p -> (VOProducto) p ).toList(); 
-        log.info ("Finaliza consulta de productos con tipo: "+ tipo+ "de la sucursal "+ String.valueOf(idUsuario) );
+        log.info ("Finaliza consulta de productos con tipo: "+ tipo);
         return tuplas;
 	}
 	public List<Object[]> darProductosXUnidadesUnaSucursal(String fechaInicial, String fechaFinal,long idSucursal, long unidades)
