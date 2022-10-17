@@ -44,12 +44,7 @@ public class Superandes
 	 * El manejador de persistencia
 	 */
 	private PersistenciaSuperandes ps;
-	
-	/**
-     * Identificador del usuario actual
-     */
-	protected long idUsuario;
-	
+		
 	/* ****************************************************************
 	 * 			Métodos
 	 *****************************************************************/
@@ -62,7 +57,6 @@ public class Superandes
 	{
 		ps = PersistenciaSuperandes.getInstance (tableConfig);
 		new ManejadorPromociones().start();
-		crearAdminDatos();
 	}
 	
 	/**
@@ -136,6 +130,37 @@ public class Superandes
 		List<VOTipoUsuario> lista =  ps.obtenerListaTipoUsuario().stream()
 				.map(tu -> (VOTipoUsuario) tu).toList();
         log.info ("Consultando Tipos de usuario: " + lista.size() + " existentes");
+		return lista;
+	}
+	
+	/* ****************************************************************
+	 * 			Métodos para manejar los USUARIO
+	 *****************************************************************/
+	/**
+	 * Adiciona de manera persistente un usuario
+	 * Adiciona entradas al log de la aplicación
+	 * @param todos los atributos
+	 * @return El objeto TipoUsuario adicionado. null si ocurre alguna Excepción
+	 */
+	public Usuario registrarUsuario(String documento, String tipo_documento, String nombre, String email,
+			String contrasena, long id_tipo, Long id_sucursal)
+	{
+        log.info ("Adicionando Tipo de usuario: " + nombre);
+        Usuario usuario = ps.registrarUsuario(documento, tipo_documento, nombre, email,
+    			contrasena, id_tipo, id_sucursal);
+        log.info ("Adicionando Tipo de usuario: " + usuario);
+        return usuario;
+	}
+	
+	/**
+	 * Método que retorna todas los usuarios de superandes
+	 * @return una lista con todos los usuarios de superandes
+	 */
+	public List<VOUsuario> darUsuarios() {
+		log.info ("Consultando usuarios");
+		List<VOUsuario> lista =  ps.darUsuarios().stream()
+				.map(tu -> (VOUsuario) tu).toList();
+        log.info ("Consultando los usuario: " + lista.size() + " existentes");
 		return lista;
 	}
 	
