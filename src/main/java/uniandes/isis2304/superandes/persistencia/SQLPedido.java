@@ -5,8 +5,7 @@ import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
 
-class SQLPromocion {
-
+class SQLPedido {
 	/* ****************************************************************
 	 * 			Constantes
 	 *****************************************************************/
@@ -31,7 +30,7 @@ class SQLPromocion {
 	 * Constructor
 	 * @param pp - El Manejador de persistencia de la aplicación
 	 */
-	public SQLPromocion (PersistenciaSuperandes ps)
+	public SQLPedido (PersistenciaSuperandes ps)
 	{
 		this.ps = ps;
 	}
@@ -41,22 +40,31 @@ class SQLPromocion {
 	 * @param pm - El manejador de persistencia
 	 */
 	
-	public List<Object> darPromocionesPopularesSucursal(PersistenceManager pm, long idSucursal)
+	public List<Object> comprasProveedorUnaSucursal(PersistenceManager pm, long idSucursal)
 	{
 		
-		String sql ="SELECT * FROM("+ps.darTablaPromocion()+")WHERE (rownum<= 20 AND ID_SUCURSAL = ?  AND FIN IS NOT NULL) ORDER BY (FIN-INICIO) ASC";
+		String sql = "SELECT * FROM ("+ ps.darTablaPedido()+") "; 
+		sql += "WHERE (ESTADO = 'Entregado' AND ID_SUCURSAL =?)";
+		sql += "ORDER BY ID_PROVEEDOR";
 		 Query q = pm.newQuery(SQL, sql);
 		 q.setParameters(idSucursal);
-	
+		 /*
+		 List<Object> list = q.executeList();
+		 System.out.println(list);*/
 		 return q.executeList();
 	}
 	
-	public List<Object> darPromocionesPopularesTodasSucursales(PersistenceManager pm)
+	public List<Object> comprasProveedorTodasSucursales(PersistenceManager pm)
 	{
-		String sql = "SELECT * FROM("+ps.darTablaPromocion()+") WHERE (rownum<= 20  AND FIN IS NOT NULL) ORDER BY (FIN-INICIO) ASC";
+		
+		String sql = "SELECT * FROM ("+ ps.darTablaPedido()+") "; 
+		sql += "WHERE (ESTADO = 'Entregado')";
+		sql += "ORDER BY ID_PROVEEDOR";
 		 Query q = pm.newQuery(SQL, sql);
+		 /*
+		 List<Object> list = q.executeList();
+		 System.out.println(list);*/
 		 return q.executeList();
 	}
-	
 	
 }

@@ -31,9 +31,11 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import uniandes.isis2304.superandes.negocio.Pedido;
 import uniandes.isis2304.superandes.negocio.Promocion;
 import uniandes.isis2304.superandes.negocio.Sucursal;
 import uniandes.isis2304.superandes.negocio.TipoUsuario;
+import uniandes.isis2304.superandes.negocio.VentaProducto;
 
 /**
  * Clase para el manejador de persistencia del proyecto Superandes
@@ -91,6 +93,7 @@ public class PersistenciaSuperandes
 	private SQLVentaProducto sqlVentaProducto;
 	private SQLPromocion sqlPromocion;
 	private SQLAlmacen sqlAlmacen;
+	private SQLPedido sqlPedido;
 	
 	/* ****************************************************************
 	 * 			Métodos del MANEJADOR DE PERSISTENCIA
@@ -161,6 +164,7 @@ public class PersistenciaSuperandes
 		sqlVentaProducto = new SQLVentaProducto(this);
 		sqlPromocion = new SQLPromocion(this);
 		sqlAlmacen = new SQLAlmacen(this);
+		sqlPedido = new SQLPedido(this);
 	}
 
 	/**
@@ -180,9 +184,13 @@ public class PersistenciaSuperandes
 	public String darTablaAlmacen() {
 		return tablas.get (1);
 	}
+	public String darTablaPedido() {
+		return tablas.get (6);
+	}
 	public String darTablaProducto() {
 		return tablas.get (7);
 	}
+	
 	public String darTablaProductoAlmacen() {
 		
 		return tablas.get (8);
@@ -323,6 +331,59 @@ public class PersistenciaSuperandes
 		return respuesta;
 	}
 	
+	public List<VentaProducto> darVentasClienteUnaSucursal (String fechaInicio, String fechaFinal, long idSucursal,long idUsuario)
+	{
+		List<VentaProducto> respuesta = new LinkedList <VentaProducto> ();
+		List<Object> tuplas = sqlVentaProducto.darVentasClienteUnaSucursal (pmf.getPersistenceManager(), fechaInicio,fechaFinal,idSucursal,idUsuario);
+        for ( Object tupla : tuplas)
+        {
+			Object [] datos = (Object []) tupla;
+			long idCompra = ((BigDecimal) datos [0]).longValue ();
+			long idUsuario1 = ((BigDecimal) datos [1]).longValue ();
+			String idProducto = (String) datos [2];
+			long idSucursal1 =  ((BigDecimal) datos [3]).longValue ();
+			long cantidad = ((BigDecimal) datos [4]).longValue ();
+			long monto = ((BigDecimal) datos [5]).longValue ();
+			long puntos = ((BigDecimal) datos [6]).longValue ();
+			String fecha = (String) datos [7];
+			long idPromocion = ((BigDecimal) datos [8]).longValue ();
+
+		
+			VentaProducto resp = new VentaProducto(idCompra,idUsuario1,idProducto,idSucursal1,cantidad,monto,puntos,fecha,idPromocion);
+	
+			
+			respuesta.add(resp);
+        }
+
+		return respuesta;
+	}
+	public List<VentaProducto> darVentasClienteTodasSucursales (String fechaInicio, String fechaFinal, long idUsuario)
+	{
+		List<VentaProducto> respuesta = new LinkedList <VentaProducto> ();
+		List<Object> tuplas = sqlVentaProducto.darVentasClienteTodasSucursales (pmf.getPersistenceManager(), fechaInicio,fechaFinal,idUsuario);
+        for ( Object tupla : tuplas)
+        {
+			Object [] datos = (Object []) tupla;
+			long idCompra = ((BigDecimal) datos [0]).longValue ();
+			long idUsuario1 = ((BigDecimal) datos [1]).longValue ();
+			String idProducto = (String) datos [2];
+			long idSucursal1 =  ((BigDecimal) datos [3]).longValue ();
+			long cantidad = ((BigDecimal) datos [4]).longValue ();
+			long monto = ((BigDecimal) datos [5]).longValue ();
+			long puntos = ((BigDecimal) datos [6]).longValue ();
+			String fecha = (String) datos [7];
+			long idPromocion = ((BigDecimal) datos [8]).longValue ();
+
+		
+			VentaProducto resp = new VentaProducto(idCompra,idUsuario1,idProducto,idSucursal1,cantidad,monto,puntos,fecha,idPromocion);
+	
+			
+			respuesta.add(resp);
+        }
+
+		return respuesta;
+	}
+	
 	/* ****************************************************************
 	 * 			Métodos para manejar las PROMOCIONES
 	 *****************************************************************/
@@ -400,6 +461,59 @@ public class PersistenciaSuperandes
 	}
 	
 	/* ****************************************************************
+	 * 			Métodos para manejar los PEDIDOS
+	 *****************************************************************/
+	public List<Pedido>  comprasProveedorUnaSucursal(long idSucursal)
+	{
+		List<Pedido> respuesta = new LinkedList <Pedido> ();
+		List<Object> tuplas = sqlPedido. comprasProveedorUnaSucursal(pmf.getPersistenceManager(), idSucursal);
+        for ( Object tupla : tuplas)
+        {
+        	Object [] datos = (Object []) tupla;
+			long numPedido = ((BigDecimal) datos [0]).longValue ();
+			String idProducto = (String) datos [1];
+			String idProveedor = (String) datos [2];
+			long idSucursal1 = ((BigDecimal) datos [3]).longValue ();
+			long cantidadProducto =((BigDecimal) datos [4]).longValue ();
+			int precioTotal = ((BigDecimal) datos [5]).intValue ();
+			String inicio = (String) datos [5];
+			int diasEntrega = ((BigDecimal) datos [5]).intValue ();
+			String estado = (String)datos [5];
+			String llegada = (String) datos [5];
+
+			
+			Pedido resp = new Pedido(numPedido,idProducto,idProveedor,idSucursal1,cantidadProducto,precioTotal,inicio,diasEntrega,estado,llegada);
+			
+			respuesta.add(resp);
+        }
+        return respuesta;
+       }
+	public List<Pedido>  comprasProveedorTodasSucursales()
+	{
+		List<Pedido> respuesta = new LinkedList <Pedido> ();
+		List<Object> tuplas = sqlPedido. comprasProveedorTodasSucursales(pmf.getPersistenceManager());
+        for ( Object tupla : tuplas)
+        {
+        	Object [] datos = (Object []) tupla;
+			long numPedido = ((BigDecimal) datos [0]).longValue ();
+			String idProducto = (String) datos [1];
+			String idProveedor = (String) datos [2];
+			long idSucursal1 = ((BigDecimal) datos [3]).longValue ();
+			long cantidadProducto =((BigDecimal) datos [4]).longValue ();
+			int precioTotal = ((BigDecimal) datos [5]).intValue ();
+			String inicio = (String) datos [5];
+			int diasEntrega = ((BigDecimal) datos [5]).intValue ();
+			String estado = (String)datos [5];
+			String llegada = (String) datos [5];
+
+			
+			Pedido resp = new Pedido(numPedido,idProducto,idProveedor,idSucursal1,cantidadProducto,precioTotal,inicio,diasEntrega,estado,llegada);
+			
+			respuesta.add(resp);
+        }
+        return respuesta;
+       }
+	/* ****************************************************************
 	 * 			Métodos para administración
 	 *****************************************************************/
 	
@@ -437,6 +551,8 @@ public class PersistenciaSuperandes
         }
 		
 	}
+
+	
 
 	
 
