@@ -3,11 +3,14 @@ package uniandes.isis2304.superandes.interfazApp;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.lang.reflect.Method;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.UIManager;
 
+import uniandes.isis2304.superandes.negocio.Promocion;
 import uniandes.isis2304.superandes.negocio.Superandes;
 
 /**
@@ -78,7 +81,25 @@ public class InterfazGerenteSupermercado extends InterfazGeneral{
 	     */
 	    public void menorTiempoPromociones()
 	    {
-	    
+	    	
+    		int option = JOptionPane.showConfirmDialog(null, null,"¿Desea consultar 20 promociones más populares?", JOptionPane.OK_CANCEL_OPTION);
+    		if (option == JOptionPane.OK_OPTION)
+    		{
+        		List<Promocion> promociones = superandes.darPromocionesPopularesTodasSucursales();
+        		String resultado = "Las 20 promociones más populares \n" ;
+        		for ( Promocion prom : promociones) {
+        			
+        			resultado += "\n"+prom.toString(); 	
+        		}
+
+    			resultado += "\n Operación terminada";
+    			
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
 	    }
 	    /* ****************************************************************
 		 * 			Consultas Estante bodega - Ana
