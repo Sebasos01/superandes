@@ -44,6 +44,11 @@ public class Superandes
 	 */
 	private PersistenciaSuperandes ps;
 	
+	/**
+     * Identificador del usuario actual
+     */
+	protected long idUsuario;
+	
 	/* ****************************************************************
 	 * 			Métodos
 	 *****************************************************************/
@@ -64,6 +69,15 @@ public class Superandes
 	public void cerrarUnidadPersistencia ()
 	{
 		ps.cerrarUnidadPersistencia ();
+	}
+	
+	/**
+	 * Obtiene el id de la sucursal de determinado usuario
+	 * @param idUsuario el id del usuario del que se quiere saber su sucursal asociada
+	 * @return el id de la sucursal asociada al usuario con dicho id
+	 */
+	public long obtenerSucursalPorIdUsuario(long idUsuario) {
+		return 0;
 	}
 	
 	/* ****************************************************************
