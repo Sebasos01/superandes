@@ -14,9 +14,9 @@
  */
 
 package uniandes.isis2304.superandes.negocio;
-
 import java.util.Collection;
 import java.util.LinkedList;
+
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -49,12 +49,7 @@ public class Superandes
 	 * El manejador de persistencia
 	 */
 	private PersistenciaSuperandes ps;
-	
-	/**
-     * Identificador del usuario actual
-     */
-	protected long idUsuario;
-	
+		
 	/* ****************************************************************
 	 * 			Métodos
 	 *****************************************************************/
@@ -83,7 +78,35 @@ public class Superandes
 	 * @return el id de la sucursal asociada al usuario con dicho id
 	 */
 	public long obtenerSucursalPorIdUsuario(long idUsuario) {
-		return 0;
+		log.info ("Obteniendo sucurusal con del usuario con id: " + idUsuario);
+		long id = ps.obtenerSucursalPorIdUsuario(idUsuario);
+		log.info ("id de la sucursal obtenida: " + id);
+		return id;
+	}
+	
+	/**
+	 * Crea el usuario administrador de datos
+	 * Verifica que no exista
+	 * Si no existe, lo crea con sus valores default
+	 */
+	public void crearAdminDatos() {
+		log.info ("Verificando que el tipo usuario admin datos no exista");
+		TipoUsuario tu = ps.obtenerTipoUsuarioPorNombre("administrador de datos");
+		if (tu == null) {
+			adicionarTipoUsuario("administrador de datosS", "N");
+		} else {
+			log.info ("El tipo usuario admin datos ya existe, por lo tanto no se crea");
+		}
+		log.info ("Verificando que el usuario admin datos no exista");
+		List<Usuario> admin = ps.darUsuarios();
+		if (admin.size() == 0) {
+			log.info ("El usuario admin datos no existe, creando usuario");
+			ps.registrarUsuario("100", "CC", "John Doe", "admin@superandes.com",
+					"123", ps.obtenerTipoUsuarioPorNombre("administrador de datos").getId(), null);
+			log.info ("Usuario admin datos creado");
+		} else {
+			log.info ("El usuario admin datos ya existe, por lo tanto no se crea");
+		}
 	}
 	
 	/* ****************************************************************
@@ -114,6 +137,38 @@ public class Superandes
         log.info ("Consultando Tipos de usuario: " + lista.size() + " existentes");
 		return lista;
 	}
+	
+	/* ****************************************************************
+	 * 			Métodos para manejar los USUARIO
+	 *****************************************************************/
+	/**
+	 * Adiciona de manera persistente un usuario
+	 * Adiciona entradas al log de la aplicación
+	 * @param todos los atributos
+	 * @return El objeto TipoUsuario adicionado. null si ocurre alguna Excepción
+	 */
+	public Usuario registrarUsuario(String documento, String tipo_documento, String nombre, String email,
+			String contrasena, long id_tipo, Long id_sucursal)
+	{
+        log.info ("Adicionando Tipo de usuario: " + nombre);
+        Usuario usuario = ps.registrarUsuario(documento, tipo_documento, nombre, email,
+    			contrasena, id_tipo, id_sucursal);
+        log.info ("Adicionando Tipo de usuario: " + usuario);
+        return usuario;
+	}
+	
+	/**
+	 * Método que retorna todas los usuarios de superandes
+	 * @return una lista con todos los usuarios de superandes
+	 */
+	public List<VOUsuario> darUsuarios() {
+		log.info ("Consultando usuarios");
+		List<VOUsuario> lista =  ps.darUsuarios().stream()
+				.map(tu -> (VOUsuario) tu).toList();
+        log.info ("Consultando los usuario: " + lista.size() + " existentes");
+		return lista;
+	}
+	
 	/* ****************************************************************
 	 * 			Métodos para manejar SUCURSAL
 	 *****************************************************************/

@@ -18,15 +18,16 @@ package uniandes.isis2304.superandes.persistencia;
 import java.util.List;
 import javax.jdo.PersistenceManager;
 import javax.jdo.Query;
-import uniandes.isis2304.superandes.negocio.TipoUsuario;
+
+import uniandes.isis2304.superandes.negocio.Usuario;
 
 /**
- * Clase que encapsula los métodos que hacen acceso a la base de datos para el concepto TIPO DE USUARIO de Superandes
+ * Clase que encapsula los métodos que hacen acceso a la base de datos para el concepto USUARIO de Superandes
  * Nótese que es una clase que es sólo conocida en el paquete de persistencia
  * 
  * @author Sebastián Ospino
  */
-class SQLTipoUsuario
+class SQLUsuario
 {
 	/* ****************************************************************
 	 * 			Constantes
@@ -52,50 +53,49 @@ class SQLTipoUsuario
 	 * Constructor
 	 * @param pp - El Manejador de persistencia de la aplicación
 	 */
-	public SQLTipoUsuario (PersistenciaSuperandes ps)
+	public SQLUsuario(PersistenciaSuperandes ps)
 	{
 		this.ps = ps;
 	}
 	
 	/**
-	 * Crea y ejecuta la sentencia SQL para adicionar un TIPO_USUARIO a la base de datos de Superandes
-	 * @param pm - El manejador de persistencia
-	 * @param idTipoUsuario - El identificador del tipo de usuario
-	 * @param nombre - El nombre del tipo de usuario
+	 * Crea y ejecuta la sentencia SQL para adicionar un USUARIO a la base de datos de Superandes
 	 * @return EL número de tuplas insertadas
 	 */
-	public long adicionarTipoUsuario (PersistenceManager pm, long idTipoBebida, String nombre, String esCliente) 
+	public long registrarUsuario(long codigo_usuario, String documento, String tipo_documento, String nombre, String email,
+			String contrasena, long id_tipo, Long id_sucursal, PersistenceManager pm) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + ps.darTablaTipoUsuario  () + "(id, nombre, es_cliente) values (?, ?, ?)");
-        q.setParameters(idTipoBebida, nombre, esCliente);
+		String qs = "insert into " + ps.darTablaUsuario() + " (CODIGO_USUARIO, DOCUMENTO, TIPO_DOCUMENTO, NOMBRE, EMAIL, CONTRASENA, ID_TIPO, ID_SUCURSAL)";
+		qs += "values (?, ?, ?, ?, ?, ?, ?, ?)";
+        Query q = pm.newQuery(SQL, qs);
+        q.setParameters(codigo_usuario, documento, tipo_documento, nombre, email, contrasena, id_tipo, id_sucursal);
         return (long) q.executeUnique();            
 	}
-	
+
 	/**
-	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS TIPOS DE USUARIO de la 
+	 * Crea y ejecuta la sentencia SQL para encontrar la información de LOS USUARIO de la 
 	 * base de datos de Superandes
 	 * @param pm - El manejador de persistencia
-	 * @return Una lista de objetos TIPO_USUARIO
+	 * @return Una lista de objetos USUARIO
 	 */
-	public List<TipoUsuario> obtenerListaTipoUsuario (PersistenceManager pm) 
+	public List<Usuario> darUsuarios(PersistenceManager pm) 
 	{
-        Query q = pm.newQuery(SQL, "SELECT * FROM " + ps.darTablaTipoUsuario());
-        q.setResultClass(TipoUsuario.class);
-        return (List<TipoUsuario>) q.executeList();          
+        Query q = pm.newQuery(SQL, "SELECT * FROM " + ps.darTablaUsuario());
+        q.setResultClass(Usuario.class);
+        return (List<Usuario>) q.executeList();          
 	}
 	
 	/**
-	 * Crea y ejecuta la sentencia SQL para encontrar un tipo de usuario por nombre
-	 * base de datos de Superandes
-	 * @param nombre - El nombre que se busca
+	 * Obtiene el id de la sucursal de determinado usuario
+	 * Lo hace a través de una sentencia SQL
+	 * @param idUsuario el id del usuario del que se quiere saber su sucursal asociada
 	 * @param pm - El manejador de persistencia
-	 * @return El tipo de usuario que concuerca con el nombre
+	 * @return el id de la sucursal asociada al usuario con dicho id
 	 */
-	public TipoUsuario obtenerTipoUsuarioPorNombre(String nombre, PersistenceManager pm) {
-		Query q = pm.newQuery(SQL, "SELECT * FROM " + ps.darTablaTipoUsuario() + " WHERE NOMBRE = ?");
-        q.setResultClass(TipoUsuario.class);
-        q.setParameters(nombre);
-        return (TipoUsuario) q.executeUnique(); 
+	public long obtenerSucursalPorIdUsuario(long idUsuario, PersistenceManager pm) {
+		Query q = pm.newQuery(SQL, "SELECT ID_SUCURSAL FROM " + ps.darTablaUsuario() + " WHERE CODIGO_USUARIO = ?");
+		q.setParameters(idUsuario);
+		return (long) q.executeUnique();
 	}
 
 }
