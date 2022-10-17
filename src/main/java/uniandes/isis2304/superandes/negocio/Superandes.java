@@ -47,6 +47,11 @@ public class Superandes
 	 */
 	private PersistenciaSuperandes ps;
 	
+	/**
+     * Identificador del usuario actual
+     */
+	protected long idUsuario;
+	
 	/* ****************************************************************
 	 * 			Métodos
 	 *****************************************************************/
@@ -69,6 +74,15 @@ public class Superandes
 		ps.cerrarUnidadPersistencia ();
 	}
 	
+	/**
+	 * Obtiene el id de la sucursal de determinado usuario
+	 * @param idUsuario el id del usuario del que se quiere saber su sucursal asociada
+	 * @return el id de la sucursal asociada al usuario con dicho id
+	 */
+	public long obtenerSucursalPorIdUsuario(long idUsuario) {
+		return 0;
+	}
+	
 	/* ****************************************************************
 	 * 			Métodos para manejar los TIPOS DE USUARIO
 	 *****************************************************************/
@@ -78,12 +92,24 @@ public class Superandes
 	 * @param nombre - El nombre del tipo de usuario
 	 * @return El objeto TipoUsuario adicionado. null si ocurre alguna Excepción
 	 */
-	public TipoUsuario adicionarTipoUsuario (String nombre)
+	public TipoUsuario adicionarTipoUsuario (String nombre, String esCliente)
 	{
         log.info ("Adicionando Tipo de usuario: " + nombre);
-        TipoUsuario tipoUsuario = ps.adicionarTipoUsuario (nombre);		
+        TipoUsuario tipoUsuario = ps.adicionarTipoUsuario (nombre, esCliente);
         log.info ("Adicionando Tipo de usuario: " + tipoUsuario);
         return tipoUsuario;
+	}
+	
+	/**
+	 * Método que retorna todas los tipos de usuarios de superandes
+	 * @return una lista con todos los tipos de usuarios de superandes
+	 */
+	public List<VOTipoUsuario> obtenerListaTipoUsuario() {
+		log.info ("Consultando Tipos de usario");
+		List<VOTipoUsuario> lista =  ps.obtenerListaTipoUsuario().stream()
+				.map(tu -> (VOTipoUsuario) tu).toList();
+        log.info ("Consultando Tipos de usuario: " + lista.size() + " existentes");
+		return lista;
 	}
 	
 	

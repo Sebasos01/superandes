@@ -18,6 +18,7 @@ package uniandes.isis2304.superandes.interfazApp;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.lang.reflect.Method;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -77,9 +78,10 @@ public class InterfazAdminDatos extends InterfazGeneral
     	try 
     	{
     		String nombreTipo = JOptionPane.showInputDialog (this, "Ingrese el nombre del tipo de usuario", "Adicionar tipo de usuario", JOptionPane.QUESTION_MESSAGE);
+    		String esCliente = JOptionPane.showInputDialog (this, "¿Es cliente? (Y/N)", "Adicionar tipo de usuario", JOptionPane.QUESTION_MESSAGE);
     		if (nombreTipo != null)
     		{
-        		VOTipoUsuario tu = superandes.adicionarTipoUsuario (nombreTipo);
+        		VOTipoUsuario tu = superandes.adicionarTipoUsuario (nombreTipo, esCliente);
         		if (tu == null)
         		{
         			throw new Exception ("No se pudo crear un tipo de usuario con nombre: " + nombreTipo);
@@ -93,6 +95,26 @@ public class InterfazAdminDatos extends InterfazGeneral
     		{
     			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
     		}
+		} 
+    	catch (Exception e) 
+    	{
+//			e.printStackTrace();
+			String resultado = generarMensajeError(e);
+			panelDatos.actualizarInterfaz(resultado);
+		}
+    }
+    
+    public void obtenerListaTipoUsuario()
+    {
+    	try 
+    	{
+			List <VOTipoUsuario> lista = superandes.obtenerListaTipoUsuario();
+			String resultado = "En listar tipo usuario";
+			resultado += lista.stream()
+						.map(tu -> tu.toString())
+						.reduce("", (acc, tu) -> acc + "\n" + tu);
+			resultado += "\n Operación terminada";
+			panelDatos.actualizarInterfaz(resultado);
 		} 
     	catch (Exception e) 
     	{

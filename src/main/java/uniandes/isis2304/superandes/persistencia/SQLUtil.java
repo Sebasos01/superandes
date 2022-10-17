@@ -82,5 +82,16 @@ class SQLUtil
   
         return new long[] {tipoUsuarioEliminados};
 	}
+	/**
+	 * Obtiene el id de la sucursal de determinado usuario
+	 * Lo hace a través de una sentencia SQL
+	 * @param idUsuario el id del usuario del que se quiere saber su sucursal asociada
+	 * @param pm - El manejador de persistencia
+	 * @return el id de la sucursal asociada al usuario con dicho id
+	 */
+	public long obtenerSucursalPorIdUsuario(long idUsuario, PersistenceManager pm) {
+		Query q = pm.newQuery(SQL, "SELECT");
+		return 0;
+	}
 
 }

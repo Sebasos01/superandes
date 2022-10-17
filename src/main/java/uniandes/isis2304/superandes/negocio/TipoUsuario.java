@@ -33,19 +33,31 @@ public class TipoUsuario implements VOTipoUsuario
 	 * El nombre del tipo de usuario
 	 */
 	private String nombre;
+	
+	/**
+	 * Indica si es cliente
+	 */
+	private String es_cliente;
 
 	/* ****************************************************************
 	 * 			Métodos
 	 *****************************************************************/
 	/**
-	 * Único constructor
+	 * Constructor sin parámetros, sirve para mapear de la base de datos
+	 * a objetos
+	 */
+	public TipoUsuario() {}
+	
+	/**
+	 * Constructor con parámetros
 	 * @param id - El identificador del tipo de usuario
 	 * @param nombre - El nombre del tipo de usuario
 	 */
-	public TipoUsuario(long id, String nombre) 
+	public TipoUsuario(long id, String nombre, String es_cliente) 
 	{
 		this.id = id;
 		this.nombre = nombre;
+		this.es_cliente = es_cliente;
 	}
 
 	/**
@@ -71,6 +83,14 @@ public class TipoUsuario implements VOTipoUsuario
 	{
 		return nombre;
 	}
+	
+	/**
+	 * @return si es o no cliente
+	 */
+	public String getEs_cliente() 
+	{
+		return es_cliente;
+	}
 
 	/**
 	 * @param nombre - El nuevo nombre del tipo de usuario
@@ -78,6 +98,14 @@ public class TipoUsuario implements VOTipoUsuario
 	public void setNombre(String nombre) 
 	{
 		this.nombre = nombre;
+	}
+	
+	/**
+	 * @param es_cliente - Si ahora es o no cliente
+	 */
+	public void setEs_cliente(String es_cliente) 
+	{
+		this.es_cliente = es_cliente;
 	}
 
 
@@ -87,7 +115,7 @@ public class TipoUsuario implements VOTipoUsuario
 	@Override
 	public String toString() 
 	{
-		return "TipoUsuario [id=" + id + ", nombre=" + nombre + "]";
+		return "TipoUsuario [id=" + id + ", nombre=" + nombre + ", es_cliente=" + es_cliente + "]";
 	}
 
 	/**

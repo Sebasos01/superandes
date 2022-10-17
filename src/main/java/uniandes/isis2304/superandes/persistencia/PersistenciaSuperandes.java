@@ -255,7 +255,7 @@ public class PersistenciaSuperandes
 	 * @param nombre - El nombre del tipo de usuario
 	 * @return El objeto TipoUsuario adicionado. null si ocurre alguna Excepción
 	 */
-	public TipoUsuario adicionarTipoUsuario(String nombre)
+	public TipoUsuario adicionarTipoUsuario(String nombre, String esCliente)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
@@ -263,12 +263,12 @@ public class PersistenciaSuperandes
         {
             tx.begin();
             long idTipoUsuario = nextval ();
-            long tuplasInsertadas = sqlTipoUsuario.adicionarTipoUsuario(pm, idTipoUsuario, nombre);
+            long tuplasInsertadas = sqlTipoUsuario.adicionarTipoUsuario(pm, idTipoUsuario, nombre, esCliente);
             tx.commit();
             
             log.trace ("Inserción de tipo de usuario: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
             
-            return new TipoUsuario (idTipoUsuario, nombre);
+            return new TipoUsuario (idTipoUsuario, nombre, esCliente);
         }
         catch (Exception e)
         {
@@ -284,6 +284,14 @@ public class PersistenciaSuperandes
             }
             pm.close();
         }
+	}
+	
+	/**
+	 * Método que retorna todas los tipos de usuarios de superandes
+	 * @return una lista con todos los tipos de usuarios de superandes
+	 */
+	public List<TipoUsuario> obtenerListaTipoUsuario() {
+		return sqlTipoUsuario.obtenerListaTipoUsuario(pmf.getPersistenceManager());
 	}
 	
 
