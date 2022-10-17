@@ -15,11 +15,17 @@
 
 package uniandes.isis2304.superandes.negocio;
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 
 import java.util.Collection;
 import java.util.LinkedList;
 >>>>>>> de9b6991c30684b7473718b3935af884adb2308a
+=======
+import java.util.Collection;
+import java.util.LinkedList;
+
+>>>>>>> 9fdf5885296e9c73be0f5179c5c55c533b1f8c45
 import java.util.List;
 
 import javax.jdo.PersistenceManager;
@@ -141,6 +147,9 @@ public class Superandes
 		return lista;
 	}
 <<<<<<< HEAD
+<<<<<<< HEAD
+=======
+>>>>>>> 9fdf5885296e9c73be0f5179c5c55c533b1f8c45
 	
 	/* ****************************************************************
 	 * 			Métodos para manejar los USUARIO
@@ -173,7 +182,10 @@ public class Superandes
 		return lista;
 	}
 	
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> 9fdf5885296e9c73be0f5179c5c55c533b1f8c45
 	/* ****************************************************************
 	 * 			Métodos para manejar SUCURSAL
 	 *****************************************************************/
@@ -184,7 +196,10 @@ public class Superandes
         log.info ("Adicionando Tipo de usuario: " + sucursal);
         return sucursal;
 	}
+<<<<<<< HEAD
 >>>>>>> de9b6991c30684b7473718b3935af884adb2308a
+=======
+>>>>>>> 9fdf5885296e9c73be0f5179c5c55c533b1f8c45
 	
 	/* ****************************************************************
 	 * 			Métodos para manejar VENTA PRODUCTO
