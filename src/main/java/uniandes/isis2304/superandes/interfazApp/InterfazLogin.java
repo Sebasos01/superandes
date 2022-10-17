@@ -34,7 +34,7 @@ public class InterfazLogin extends JFrame {
 	    InterfazLogin interfaz = new InterfazLogin( );
 	    Object[] respuestas = interfaz.login();
 	    if ((int) respuestas[2] == 0) {
-	    	// Implementar loq ue falta del login
+	    	interfaz.inicializarInterfaz((String) respuestas[0], (String)respuestas[1]);
 	    }
       } catch( Exception e ) {
         e.printStackTrace( );
