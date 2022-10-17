@@ -18,6 +18,28 @@
 				}
 			]
 		}	,
+		{ "menuTitle": "Sucursal",
+		  "options":
+			[
+				{
+					"label": "Adicionar",
+					"event": "adicionarSucursal"
+				}
+			]
+		}	,
+		{ "menuTitle": "Almacen",
+		  "options":
+			[
+				{
+					"label": "Adicionar estante",
+					"event": "adicionarEstante"
+				},
+				{
+					"label": "Adicionar bodega",
+					"event": "adicionarEstante"
+				}
+			]
+		}	,
 		{ "menuTitle": "Mantenimiento",
 		  "options":
 			[
