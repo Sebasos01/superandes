@@ -15,6 +15,9 @@
 
 package uniandes.isis2304.superandes.negocio;
 
+import java.util.LinkedList;
+import java.util.List;
+
 import org.apache.log4j.Logger;
 import com.google.gson.JsonObject;
 
@@ -96,8 +99,55 @@ public class Superandes
         log.info ("Adicionando Tipo de usuario: " + tipoUsuario);
         return tipoUsuario;
 	}
+	
+	
+	/* ****************************************************************
+	 * 			Métodos para manejar VENTA PRODUCTO
+	 *****************************************************************/
+	/*Consulta 1*/
+	public long darDineroFechasUnaSucursal (String fechaInicio, String fechaFinal, long idSucursal)
+	{
+        log.info ("Consultando dinero en el rango de fechas " + String.valueOf(fechaInicio)+" , "+String.valueOf(fechaFinal) + "de la sucursal " + String.valueOf(idSucursal));
+        long dineroRecolectado = ps.darDineroFechasUnaSucursal(fechaInicio,fechaFinal,idSucursal);		
+        log.info ("Finaliza consulta de dinero en el rango de fechas " + String.valueOf(fechaInicio)+" , "+String.valueOf(fechaFinal) + "de la sucursal " + String.valueOf(idSucursal) );
+        return dineroRecolectado;
+	}
+	
+	public List<Object []> darDineroFechasTodasSucursales (String fechaInicio, String fechaFinal)
+	{
+        log.info ("Consultando sucursales y el dinero que han recolectado en el rango de fechas: "+String.valueOf(fechaInicio)+" , "+String.valueOf(fechaFinal) );
+        List<Object []> tuplas = ps.darDineroFechasTodasSucursales (fechaInicio,fechaFinal); // Lista de tuplas de la forma (Sucursal, dineroRecolectado)
+        log.info ("Finaliza consulta de sucursales y dinero que han recolectado en rango de fechas: "+String.valueOf(fechaInicio)+" , "+String.valueOf(fechaFinal) + "de la sucursal " );
+        return tuplas;
+	}
 
-
+	/* ****************************************************************
+	 * 			Métodos para manejar PROMOCION
+	 *****************************************************************/
+	public List<VOPromocion> darPromocionesPopularesSucursal(long idSucursal)
+	{
+		log.info ("Consultando promociones mas populares en la sucursal" + String.valueOf(idSucursal));
+		/*
+		List<VOPromocion> voPromociones = new LinkedList<VOPromocion> ();
+		for (Promocion prom: ps.darPromocionesPopularesSucursal (idSucursal))
+		{
+			voPromociones.add (prom);
+		}
+        return voPromociones;
+	*/
+        List<VOPromocion> tuplas = ps.darPromocionesPopularesSucursal (idSucursal).stream().map (p -> (VOPromocion) p ).toList(); // Lista de tuplas de la forma (Sucursal, dineroRecolectado)
+        return tuplas;
+	
+	}
+	public List<Promocion> darPromocionesPopularesTodasSucursales()
+	{
+		log.info ("Consultando promociones mas populares");
+        List<Promocion> tuplas = ps.darPromocionesPopularesTodasSucursales (); // Lista de tuplas de la forma (Sucursal, dineroRecolectado)
+        log.info ("Finaliza consulta promociones mas populares");
+        return tuplas;
+	
+	}
+	
 	/* ****************************************************************
 	 * 			Métodos para administración
 	 *****************************************************************/

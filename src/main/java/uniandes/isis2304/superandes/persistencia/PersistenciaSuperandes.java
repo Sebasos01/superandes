@@ -15,6 +15,8 @@
 
 package uniandes.isis2304.superandes.persistencia;
 
+import java.math.BigDecimal;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -29,6 +31,8 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import uniandes.isis2304.superandes.negocio.Promocion;
+import uniandes.isis2304.superandes.negocio.Sucursal;
 import uniandes.isis2304.superandes.negocio.TipoUsuario;
 
 /**
@@ -84,6 +88,8 @@ public class PersistenciaSuperandes
 	 * Atributo para el acceso a la tabla TIPO_USUARIO de la base de datos
 	 */
 	private SQLTipoUsuario sqlTipoUsuario;
+	private SQLVentaProducto sqlVentaProducto;
+	private SQLPromocion sqlPromocion;
 	
 	/* ****************************************************************
 	 * 			Métodos del MANEJADOR DE PERSISTENCIA
@@ -151,6 +157,8 @@ public class PersistenciaSuperandes
 	{
 		sqlUtil = new SQLUtil(this);
 		sqlTipoUsuario = new SQLTipoUsuario(this);
+		sqlVentaProducto = new SQLVentaProducto(this);
+		sqlPromocion = new SQLPromocion(this);
 	}
 
 	/**
@@ -161,12 +169,39 @@ public class PersistenciaSuperandes
 		return tablas.get (0);
 	}
 	
+	/* ****************************************************************
+	 * 			Métodos para dar los nombres de las TABLAS
+	 *****************************************************************/
+	/**
+	 * @return La cadena de caracteres con el nombre de la tabla de ProductoSucursal
+	 */
+	
+	public String darTablaProductoSucursal ()
+	{
+		return tablas.get (10);
+	}
+	public String darTablaPromocion ()
+	{
+		return tablas.get (11);
+	}
+	public String darTablaSucursal() {
+		
+		return tablas.get (13);
+	}
 	/**
 	 * @return La cadena de caracteres con el nombre de la tabla de TipoUsuario de superandes
 	 */
+	
 	public String darTablaTipoUsuario ()
 	{
 		return tablas.get (15);
+	}
+	/**
+	 * @return La cadena de caracteres con el nombre de la tabla de VentaProducto
+	 */
+	public String darTablaVentaProducto ()
+	{
+		return tablas.get (17);
 	}
 	
 	/**
@@ -238,6 +273,104 @@ public class PersistenciaSuperandes
         }
 	}
 	
+
+	/* ****************************************************************
+	 * 			Métodos para manejar VENTA_PRODUCTO
+	 *****************************************************************/
+	
+	
+	public long darDineroFechasUnaSucursal (String fechaInicio, String fechaFinal, long idSucursal)
+	{
+		//Retorna dinero recolectado por ventas en un rango de fechas de una sucursal
+		return sqlVentaProducto.darDineroFechasUnaSucursal(pmf.getPersistenceManager(),fechaInicio,fechaFinal,idSucursal);
+     
+	}
+	
+	public List<Object []> darDineroFechasTodasSucursales (String fechaInicio, String fechaFinal)
+	{
+		List<Object []> respuesta = new LinkedList <Object []> ();
+		List<Object> tuplas = sqlVentaProducto.darDineroFechasTodasSucursales (pmf.getPersistenceManager(), fechaInicio,fechaFinal);
+        for ( Object tupla : tuplas)
+        {
+			Object [] datos = (Object []) tupla;
+			long idSucursal = ((BigDecimal) datos [0]).longValue ();
+			String nombreSucursal = (String) datos [1];
+			String telefonoSucursal = (String) datos [2];
+			String direccionSucursal = (String) datos [3];
+			String ciudadSucursal = (String) datos [4];
+			int dineroRecolectado = ((BigDecimal) datos [5]).intValue ();
+
+			Object [] resp = new Object [2];
+			resp [0] = new Sucursal(idSucursal, nombreSucursal, telefonoSucursal, direccionSucursal,ciudadSucursal);
+			resp [1] = dineroRecolectado;	
+			
+			respuesta.add(resp);
+        }
+
+		return respuesta;
+	}
+	
+	/* ****************************************************************
+	 * 			Métodos para manejar las PROMOCIONES
+	 *****************************************************************/
+	
+	public List<Promocion> darPromocionesPopularesSucursal(long idSucursal)
+	{
+		List<Promocion> respuesta = new LinkedList <Promocion> ();
+		List<Object> tuplas = sqlPromocion.darPromocionesPopularesSucursal(pmf.getPersistenceManager(), idSucursal);
+        for ( Object tupla : tuplas)
+        {
+			Object [] datos = (Object []) tupla;
+			long idPromocion = ((BigDecimal) datos [0]).longValue ();
+			long idSucursal1= ((BigDecimal) datos [1]).longValue ();
+			String inicio = (String) datos [2];
+			long duracion = ((BigDecimal) datos [3]).longValue ();
+			String fin = (String) datos [4];
+			long ventasMaximas = ((BigDecimal) datos [5]).longValue ();
+			long ventasActuales = ((BigDecimal) datos [6]).longValue ();
+			long precioPaquete = ((BigDecimal) datos [7]).longValue ();
+			String idProducto = (String) datos [8];
+			String descripcion= (String) datos [9];
+
+
+
+			Promocion resp = new Promocion(idPromocion,idSucursal1,inicio,duracion,fin,ventasMaximas,ventasActuales,precioPaquete,idProducto,descripcion);
+			
+			respuesta.add(resp);
+        }
+     
+
+		return respuesta;
+	}
+	public List<Promocion> darPromocionesPopularesTodasSucursales()
+	{
+		List<Promocion> respuesta = new LinkedList <Promocion> ();
+		List<Object> tuplas = sqlPromocion.darPromocionesPopularesTodasSucursales(pmf.getPersistenceManager());
+        for ( Object tupla : tuplas)
+        {
+			Object [] datos = (Object []) tupla;
+			long idPromocion = ((BigDecimal) datos [0]).longValue ();
+			long idSucursal1= ((BigDecimal) datos [1]).longValue ();
+			String inicio = (String) datos [2];
+			long duracion = ((BigDecimal) datos [3]).longValue ();
+			String fin = (String) datos [4];
+			long ventasMaximas = ((BigDecimal) datos [5]).longValue ();
+			long ventasActuales = ((BigDecimal) datos [6]).longValue ();
+			long precioPaquete = ((BigDecimal) datos [7]).longValue ();
+			String idProducto = (String) datos [8];
+			String descripcion= (String) datos [9];
+
+
+
+			Promocion resp = new Promocion(idPromocion,idSucursal1,inicio,duracion,fin,ventasMaximas,ventasActuales,precioPaquete,idProducto,descripcion);
+			
+			respuesta.add(resp);
+        }
+
+		return respuesta;
+	}
+	
+	
 	/* ****************************************************************
 	 * 			Métodos para administración
 	 *****************************************************************/
@@ -276,6 +409,8 @@ public class PersistenciaSuperandes
         }
 		
 	}
+
+	
 	
 
  }

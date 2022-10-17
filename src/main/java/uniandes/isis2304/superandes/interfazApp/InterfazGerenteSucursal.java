@@ -19,11 +19,18 @@ package uniandes.isis2304.superandes.interfazApp;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.lang.reflect.Method;
+import java.util.List;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 import javax.swing.UIManager;
+
+import uniandes.isis2304.superandes.negocio.Promocion;
 import uniandes.isis2304.superandes.negocio.Superandes;
+import uniandes.isis2304.superandes.negocio.VOPromocion;
+import uniandes.isis2304.superandes.negocio.VOTipoUsuario;
 
 /**
  * Clase de la interfaz para el gerente del supermercado
@@ -113,10 +120,35 @@ public class InterfazGerenteSucursal extends InterfazGeneral {
 	     * Se consulta dinero recolectado en un año
 	     * Se consulta las ventas de un cliente 
 	     */
-	    public void fechaDineroVentas()
+	    public void fechasDineroVentas()
 	    {
-	    
+	    	
+    		JTextField fechaInicio = new JTextField();
+    		JTextField fechaFinal = new JTextField();
+    		long idSucursal = 1;//-> Cambiar el 3 por lo del login
+    		//OJO Falta lo del id Sucursal ->Se obtienen del login
+    		Object[] message = {
+    		    "Fecha inicio:", fechaInicio,
+    		    "Fecha final:", fechaFinal
+    		};
+    		int option = JOptionPane.showConfirmDialog(null, message, "Consultar dinero recolectado en un rango de fechas", JOptionPane.OK_CANCEL_OPTION);
+    		if (option == JOptionPane.OK_OPTION)
+    		{
+        		long dineroRecolectado = superandes.darDineroFechasUnaSucursal (fechaInicio.getText(), fechaFinal.getText(), idSucursal);
+        	
+        		
+        		String resultado = "En el rango de fechas "+ String.valueOf(fechaInicio.getText())+" , "+String.valueOf(fechaFinal.getText()) + "de la sucursal " + String.valueOf(idSucursal) + "Se recolecto un total de: "+ String.valueOf(dineroRecolectado);
+        		
+    			resultado += "\n Operación terminada";
+    			
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
 	    }
+	    
 	    public void anioDineroVentas()
 	    {
 	    
@@ -134,7 +166,26 @@ public class InterfazGerenteSucursal extends InterfazGeneral {
 	     */
 	    public void menorTiempoPromociones()
 	    {
-	    
+	    	long idSucursal = 1;//-> Cambiar el 3 por lo del login
+    		int option = JOptionPane.showConfirmDialog(null, null,"¿Desea consultar 20 promociones más populares?", JOptionPane.OK_CANCEL_OPTION);
+    		if (option == JOptionPane.OK_OPTION)
+    		{
+        		List<VOPromocion> promociones = superandes.darPromocionesPopularesSucursal(idSucursal);
+        		String resultado = "Las 20 promociones más populares en la sucursal con id: " +String.valueOf(idSucursal)+"\n" ;
+        		
+        		for ( VOPromocion prom : promociones) {
+        			
+        			resultado += "\n"+prom.toString(); 	
+        		}
+
+    			resultado += "\n Operación terminada";
+    			
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
 	    }
 	    /* ****************************************************************
 		 * 			Consultas Estante bodega - Ana

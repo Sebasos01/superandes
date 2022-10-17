@@ -19,6 +19,7 @@ package uniandes.isis2304.superandes.negocio;
  * Sirve para proteger la información del negocio de posibles manipulaciones desde la interfaz 
  * 
  * @author Sebastián Ospino
+ * @author Ana Sofía Castellanos
  */
 public interface VOTipoUsuario 
 {
