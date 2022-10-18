@@ -98,4 +98,12 @@ class SQLTipoUsuario
         return (TipoUsuario) q.executeUnique(); 
 	}
 
+	public String darNombreTipo(PersistenceManager pm, long id_tipo) {
+		Query q = pm.newQuery(SQL, "SELECT NOMBRE FROM " + ps.darTablaTipoUsuario() + " WHERE ID = ?");
+        q.setParameters(id_tipo);
+        return (String) q.executeUnique(); 
+	}
+
+	
+
 }

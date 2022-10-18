@@ -229,6 +229,7 @@ public class InterfazAdminDatos extends InterfazGeneral
      * Este método ejecuta la aplicación, creando una nueva interfaz
      * @param args Arreglo de argumentos que se recibe por línea de comandos
      */
+    /*
     public static void main( String[] args )
     {
         try
@@ -244,5 +245,6 @@ public class InterfazAdminDatos extends InterfazGeneral
             e.printStackTrace( );
         }
     }
+    */
    
 }

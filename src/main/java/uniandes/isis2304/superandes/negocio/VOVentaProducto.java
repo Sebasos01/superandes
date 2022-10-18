@@ -1,5 +1,7 @@
 package uniandes.isis2304.superandes.negocio;
 
+import java.sql.Timestamp;
+
 public interface VOVentaProducto {
 	/* ****************************************************************
 	 * 			Métodos
@@ -35,7 +37,7 @@ public interface VOVentaProducto {
 	/**
 	 * @return La fecha de VentaProducto
 	 */
-	public String getFecha();
+	public Timestamp getFecha();
 	/**
 	 * @return idPromocion de VentaProducto
 	 */

@@ -326,6 +326,25 @@ public class PersistenciaSuperandes
             pm.close();
         }
 	}
+	public String darNombreTipo(long id_tipo) {
+		return sqlTipoUsuario.darNombreTipo( pmf.getPersistenceManager(),id_tipo);
+	}
+	/**
+	 * Método que retorna todas los tipos de usuarios de superandes
+	 * @return una lista con todos los tipos de usuarios de superandes
+	 */
+	public List<TipoUsuario> obtenerListaTipoUsuario() {
+		return sqlTipoUsuario.obtenerListaTipoUsuario(pmf.getPersistenceManager());
+	}
+	/**
+	 * Método que retorna tipo de usuario por nombre
+	 * @param nombre - el nombre que se quiere para la búsqueda
+	 * @return el tipo de usuario que concuerda con el nombre
+	 */
+	public TipoUsuario obtenerTipoUsuarioPorNombre(String nombre) {
+		return sqlTipoUsuario.obtenerTipoUsuarioPorNombre(nombre, pmf.getPersistenceManager());
+	}
+
 
 	
 	/* ****************************************************************
@@ -362,21 +381,7 @@ public class PersistenciaSuperandes
         }
 	}
 	
-	/**
-	 * Método que retorna todas los tipos de usuarios de superandes
-	 * @return una lista con todos los tipos de usuarios de superandes
-	 */
-	public List<TipoUsuario> obtenerListaTipoUsuario() {
-		return sqlTipoUsuario.obtenerListaTipoUsuario(pmf.getPersistenceManager());
-	}
-	/**
-	 * Método que retorna tipo de usuario por nombre
-	 * @param nombre - el nombre que se quiere para la búsqueda
-	 * @return el tipo de usuario que concuerda con el nombre
-	 */
-	public TipoUsuario obtenerTipoUsuarioPorNombre(String nombre) {
-		return sqlTipoUsuario.obtenerTipoUsuarioPorNombre(nombre, pmf.getPersistenceManager());
-	}
+	
 	
 	/* ****************************************************************
 	 * 			Métodos para manejar los USUARIO
@@ -404,7 +409,7 @@ public class PersistenciaSuperandes
             log.trace ("Inserción del usuario: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
             
             return new Usuario(codigo_usuario, documento, tipo_documento, nombre, email,
-        			contrasena, id_tipo, id_sucursal);
+        			contrasena, id_tipo, id_sucursal, contrasena, contrasena, tuplasInsertadas);
         }
         catch (Exception e)
         {
@@ -420,6 +425,29 @@ public class PersistenciaSuperandes
             }
             pm.close();
         }
+	}
+	
+	public Usuario loginUsuario(String email, String contrasena) {
+		Object[] datos = (Object[]) sqlUsuario.loginUsuario(pmf.getPersistenceManager(),email,contrasena).get(0);//Se saca el primero
+		
+		long codigoUsuario = datos[1]!=null ?((BigDecimal) datos [0]).intValue ():0;
+		String documento = (String) datos [1];
+		String tipoDocumento = (String) datos [2];
+		String nombre = (String) datos [3];
+		String email1 = (String) datos [4];
+		String contrasena1 = (String) datos [5];
+		long idTipo = datos[6]!=null ?((BigDecimal) datos [6]).intValue ():0;
+		long puntos = datos[7]!=null ?((BigDecimal) datos [7]).intValue ():0;
+		String direccion = (String) datos [8];
+		String ciudad = (String) datos [9];
+		long idSucursal = datos[10]!=null ? ((BigDecimal) datos [10]).intValue (): 0;
+		
+		
+		Usuario resp  = new Usuario(codigoUsuario,documento,tipoDocumento,nombre,email1,contrasena1,idTipo,puntos,direccion,ciudad,idSucursal);
+		return resp;
+		
+		
+		
 	}
 	
 	/**
@@ -495,6 +523,62 @@ public class PersistenciaSuperandes
 			Object [] resp = new Object [2];
 			resp [0] = new Producto(codigoBarras,nombre,marca,unidadMedida,presentacion,cantidadPresentacion,volumenEmpaque,pesoEmpaque,tipo,categoria,fechaVencimiento);
 			resp [1] = precioVenta;	
+			
+			respuesta.add(resp);
+        }
+
+		return respuesta;
+	}
+	public List<Producto> darProductosFechaVencimientoUnaSucursal(String fechaVencimiento, long idSucursal)
+	{
+		List<Producto> respuesta = new LinkedList <Producto> ();
+		List<Object> tuplas = sqlProducto.darProductosFechaVencimientoUnaSucursal (pmf.getPersistenceManager(), fechaVencimiento, idSucursal);
+        for ( Object tupla : tuplas)
+        {
+			Object [] datos = (Object []) tupla;
+			String codigoBarras = (String) datos [0];;
+			String nombre = (String) datos [1];
+			String marca = (String) datos [2];
+			String unidadMedida = (String) datos [3];
+			String presentacion = (String) datos [4];
+			int cantidadPresentacion = ((BigDecimal) datos [5]).intValue ();
+			int volumenEmpaque = ((BigDecimal) datos [6]).intValue ();
+			int pesoEmpaque = ((BigDecimal) datos [7]).intValue ();
+			String tipo = (String) datos [8];
+			String categoria = (String) datos [9];
+			Timestamp fechaVencimiento1 = (Timestamp) datos [10];
+
+			
+			Producto resp = new Producto(codigoBarras,nombre,marca,unidadMedida,presentacion,cantidadPresentacion,volumenEmpaque,pesoEmpaque,tipo,categoria,fechaVencimiento1);
+
+			
+			respuesta.add(resp);
+        }
+
+		return respuesta;
+	}
+	public List<Producto> darProductosFechaVencimientoTodasSucursales (String fechaVencimiento)
+	{
+		List<Producto> respuesta = new LinkedList <Producto> ();
+		List<Object> tuplas = sqlProducto.darProductosFechaVencimientoTodasSucursales (pmf.getPersistenceManager(), fechaVencimiento);
+        for ( Object tupla : tuplas)
+        {
+			Object [] datos = (Object []) tupla;
+			String codigoBarras = (String) datos [0];;
+			String nombre = (String) datos [1];
+			String marca = (String) datos [2];
+			String unidadMedida = (String) datos [3];
+			String presentacion = (String) datos [4];
+			int cantidadPresentacion = ((BigDecimal) datos [5]).intValue ();
+			int volumenEmpaque = ((BigDecimal) datos [6]).intValue ();
+			int pesoEmpaque = ((BigDecimal) datos [7]).intValue ();
+			String tipo = (String) datos [8];
+			String categoria = (String) datos [9];
+			Timestamp fechaVencimiento1 = (Timestamp) datos [10];
+
+			
+			Producto resp = new Producto(codigoBarras,nombre,marca,unidadMedida,presentacion,cantidadPresentacion,volumenEmpaque,pesoEmpaque,tipo,categoria,fechaVencimiento1);
+
 			
 			respuesta.add(resp);
         }
@@ -729,7 +813,7 @@ public class PersistenciaSuperandes
 			long cantidad = ((BigDecimal) datos [4]).longValue ();
 			long monto = ((BigDecimal) datos [5]).longValue ();
 			long puntos = ((BigDecimal) datos [6]).longValue ();
-			String fecha = (String) datos [7];
+			Timestamp fecha = (Timestamp) datos [7];
 			long idPromocion = ((BigDecimal) datos [8]).longValue ();
 
 		
@@ -755,7 +839,7 @@ public class PersistenciaSuperandes
 			long cantidad = ((BigDecimal) datos [4]).longValue ();
 			long monto = ((BigDecimal) datos [5]).longValue ();
 			long puntos = ((BigDecimal) datos [6]).longValue ();
-			String fecha = (String) datos [7];
+			Timestamp fecha = (Timestamp) datos [7];
 			long idPromocion = ((BigDecimal) datos [8]).longValue ();
 
 		
@@ -858,8 +942,34 @@ public class PersistenciaSuperandes
 	 * 			Métodos para manejar los PEDIDOS
 	 *****************************************************************/
 	// Sebastian
-	public void registrarPedido() {
-		
+	public long adicionarPedido(long idPedido,String idProducto,String idProveedor,long idSucursal,long cantidadProducto,long PrecioTotal, String inicio,long diasEntrega,String estado,String llegada) {
+		PersistenceManager pm = pmf.getPersistenceManager();
+        Transaction tx=pm.currentTransaction();
+        try
+        {
+            tx.begin();
+           
+            long tuplasInsertadas = sqlPedido.adicionarPedido(pm, idPedido,idProducto,idProveedor,idSucursal,cantidadProducto,PrecioTotal,inicio,diasEntrega,estado,llegada);
+            tx.commit();
+            
+            log.trace ("Inserción de pedido" + tuplasInsertadas + " tuplas insertadas");
+            
+            return tuplasInsertadas;
+        }
+        catch (Exception e)
+        {
+//        	e.printStackTrace();
+        	log.error ("Exception : " + e.getMessage() + "\n" + darDetalleException(e));
+        	return 0;
+        }
+        finally
+        {
+            if (tx.isActive())
+            {
+                tx.rollback();
+            }
+            pm.close();
+        }
 	}
 	
 	public void registrarLlegadaPedido() {
@@ -879,10 +989,10 @@ public class PersistenciaSuperandes
 			long idSucursal1 = ((BigDecimal) datos [3]).longValue ();
 			long cantidadProducto =((BigDecimal) datos [4]).longValue ();
 			int precioTotal = ((BigDecimal) datos [5]).intValue ();
-			Timestamp inicio = (Timestamp) datos [5];
-			int diasEntrega = ((BigDecimal) datos [5]).intValue ();
-			String estado = (String)datos [5];
-			Timestamp llegada = (Timestamp) datos [5];
+			Timestamp inicio = (Timestamp) datos [6];
+			int diasEntrega = ((BigDecimal) datos [7]).intValue ();
+			String estado = (String)datos [8];
+			Timestamp llegada = (Timestamp) datos [9];
 
 			
 			Pedido resp = new Pedido(numPedido,idProducto,idProveedor,idSucursal1,cantidadProducto,precioTotal,inicio,diasEntrega,estado,llegada);
@@ -955,6 +1065,7 @@ public class PersistenciaSuperandes
 		
 	}
 
+	
 	
 
 	
