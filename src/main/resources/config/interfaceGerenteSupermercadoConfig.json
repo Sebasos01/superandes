@@ -62,10 +62,6 @@
 					"event": "pesoVolProductos"
 				},
                 {
-					"label": "Proveedor",
-					"event": "proveedorProductos"
-				},
-                {
 					"label": "Diponibles sucursal",
 					"event": "sucursalProductos"
 				},

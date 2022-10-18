@@ -29,12 +29,14 @@ import javax.swing.JTextField;
 import javax.swing.UIManager;
 
 import uniandes.isis2304.superandes.negocio.Promocion;
+import uniandes.isis2304.superandes.negocio.Sucursal;
 import uniandes.isis2304.superandes.negocio.Superandes;
 import uniandes.isis2304.superandes.negocio.VOPedido;
 import uniandes.isis2304.superandes.negocio.VOProducto;
 import uniandes.isis2304.superandes.negocio.VOPromocion;
 import uniandes.isis2304.superandes.negocio.VOSucursal;
 import uniandes.isis2304.superandes.negocio.VOTipoUsuario;
+import uniandes.isis2304.superandes.negocio.VOUsuario;
 import uniandes.isis2304.superandes.negocio.VOVentaProducto;
 
 /**
@@ -54,8 +56,9 @@ public class InterfazGerenteSucursal extends InterfazGeneral {
 	
 	private static long idSucursal;
 	
-	 public InterfazGerenteSucursal()
+	 public InterfazGerenteSucursal(long idSucursal)
 	    {
+		 	this.idSucursal = idSucursal;
 	        // Carga la configuración de la interfaz desde un archivo JSON
 	        guiConfig = openConfig ("Interfaz", CONFIG_INTERFAZ);
 	        
@@ -107,15 +110,54 @@ public class InterfazGerenteSucursal extends InterfazGeneral {
 	     */
 	    public void registrarPedido()
 	    {
-	    	try 
-	    	{
-	    		//
-			} 
-	    	catch (Exception e) 
-	    	{
-//				e.printStackTrace();
-				String resultado = generarMensajeError(e);
+	    	JTextField idPedido = new JTextField();
+			JTextField idProducto = new JTextField();
+			JTextField idProveedor = new JTextField();
+		
+			JTextField cantidadProducto = new JTextField();
+			JTextField precioTotal = new JTextField();
+			JTextField inicio = new JTextField();
+			JTextField diasEntrega = new JTextField();
+			JTextField estado = new JTextField();
+			JTextField llegada = new JTextField();
+
+			Object[] message = {
+					"idPedido",idPedido ,
+					 "idProducto",idProducto ,
+					 "idProveedor",idProveedor,
+					 "cantidadProducto",cantidadProducto ,
+					 "precioTotal ",precioTotal ,
+					 "inicio",inicio,
+					 "diasEntrega",diasEntrega,
+					 "estado",estado,
+					 "llegada",llegada
+				
+			};
+			int option = JOptionPane.showConfirmDialog(null, message, "Crear Pedido", JOptionPane.OK_CANCEL_OPTION);
+			if (option == JOptionPane.OK_OPTION)
+			{
+		
+	    		long agregadas= superandes.adicionarPedido(Integer.valueOf(idPedido.getText()),idProducto.getText(),idProveedor.getText(),idSucursal,Integer.valueOf(cantidadProducto.getText()),
+	    				Integer.valueOf(precioTotal.getText()),inicio.getText(),Integer.valueOf(diasEntrega.getText()),estado.getText(),llegada.getText());
+	    		if (agregadas != 0) {
+	    		String resultado = "En adicionar pedido\n\n";
+	    		resultado += "Pedido añadido exitosamente: ";
+				resultado += "\n Operación terminada";
 				panelDatos.actualizarInterfaz(resultado);
+
+				
+				panelDatos.actualizarInterfaz(resultado);
+	    		}else {
+	    			String resultado = "\n No se pudo añadir a base de datos intente nuevamente";
+	    			panelDatos.actualizarInterfaz(resultado);
+
+	    			
+	    		}
+				
+			}
+			else
+			{
+				panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
 			}
 	    }
 	    
@@ -129,11 +171,11 @@ public class InterfazGerenteSucursal extends InterfazGeneral {
 	     */
 	    public void fechasDineroVentas()
 	    {
+	        
 	    	
     		JTextField fechaInicio = new JTextField();
     		JTextField fechaFinal = new JTextField();
-    		long idSucursal = 1;//-> Cambiar el 3 por lo del login
-    		//OJO Falta lo del id Sucursal ->Se obtienen del login
+    	
     		Object[] message = {
     		    "Fecha inicio:", fechaInicio,
     		    "Fecha final:", fechaFinal
@@ -165,8 +207,7 @@ public class InterfazGerenteSucursal extends InterfazGeneral {
 	    	JTextField fechaInicio = new JTextField();
     		JTextField fechaFinal = new JTextField();
     		JTextField idUsuario = new JTextField();
-    		long idSucursal = 1;//-> Cambiar el 3 por lo del login
-    		//OJO Falta lo del id Sucursal ->Se obtienen del login
+    		
     		Object[] message = {
     		    "Fecha inicio:", fechaInicio,
     		    "Fecha final:", fechaFinal,
@@ -198,7 +239,7 @@ public class InterfazGerenteSucursal extends InterfazGeneral {
 	     */
 	    public void menorTiempoPromociones()
 	    {
-	    	long idSucursal = 1;//-> Cambiar el 3 por lo del login
+	    	
     		int option = JOptionPane.showConfirmDialog(null, "¿Desea consultar 20 promociones más populares?",null, JOptionPane.OK_CANCEL_OPTION);
     		if (option == JOptionPane.OK_OPTION)
     		{
@@ -227,7 +268,7 @@ public class InterfazGerenteSucursal extends InterfazGeneral {
 	     */
 	    public void volumenOcupacion()
 	    {
-	    	long idSucursal = 1;
+	    	
 	    	int option = JOptionPane.showConfirmDialog(null, "¿Desea consultar indice de ocupacion de los estantes?", null,JOptionPane.OK_CANCEL_OPTION);
     		if (option == JOptionPane.OK_OPTION)
     		{
@@ -239,8 +280,8 @@ public class InterfazGerenteSucursal extends InterfazGeneral {
         			Object [] datos = (Object []) tupla;
         			long idAlmacen = ((BigDecimal) datos [0]).longValue ();
         			String tipo = (String) datos[1]; 
-        			long indiceOcupacion = ((BigDecimal) datos [0]).longValue ();
-        			long capacidadVolumen = ((BigDecimal) datos [0]).longValue ();
+        			long indiceOcupacion = ((BigDecimal) datos [2]).longValue ();
+        			long capacidadVolumen = ((BigDecimal) datos [3]).longValue ();
         			
         			resultado += "\n"+String.format("%1$s - %2$s - %3$s - %4$s", 
                            String.valueOf(idAlmacen), tipo, String.valueOf(indiceOcupacion),String.valueOf(capacidadVolumen));	
@@ -273,8 +314,7 @@ public class InterfazGerenteSucursal extends InterfazGeneral {
 	    {
 	    	JTextField precioInicio = new JTextField();
     		JTextField precioFinal = new JTextField();
-    		long idSucursal = 1;//-> Cambiar el 3 por lo del login
-    		//OJO Falta lo del id Sucursal ->Se obtienen del login
+    	
     		Object[] message = {
     		    "Precio Inicio:", precioInicio,
     		    "Precio final:", precioFinal
@@ -285,7 +325,7 @@ public class InterfazGerenteSucursal extends InterfazGeneral {
         		List<Object[]> productos = superandes.darProductosPreciosUnaSucursal (Integer.valueOf(precioInicio.getText()),Integer.valueOf(precioFinal.getText()),idSucursal);
         	
         		
-        		String resultado = "En el rango de precios "+ String.valueOf(precioInicio.getText())+" , "+String.valueOf(precioFinal.getText()) + " de la sucursal " + String.valueOf(idSucursal) + ". Se encuentran los siguientes producots";
+        		String resultado = "En el rango de precios "+ String.valueOf(precioInicio.getText())+" , "+String.valueOf(precioFinal.getText()) + " de la sucursal " + String.valueOf(idSucursal) + ". Se encuentran los siguientes productos";
         		
         		resultado += listarProductosPrecio(productos);
     			resultado += "\n Operación terminada";
@@ -300,22 +340,121 @@ public class InterfazGerenteSucursal extends InterfazGeneral {
 	    }
 	    public void fechaVencimientoProductos()
 	    {
+	    	JTextField fechaVencimiento = new JTextField();
+    	
+    		Object[] message = {
+    		    "Fecha vencimiento mínima:", fechaVencimiento,
+
+    		};
+    		int option = JOptionPane.showConfirmDialog(null, message, "Consultar productos una fecha de vencimiento mayor a  de la sucursal", JOptionPane.OK_CANCEL_OPTION);
+    		if (option == JOptionPane.OK_OPTION)
+    		{
+        		List<VOProducto> productos = superandes.darProductosFechaVencimientoUnaSucursal (fechaVencimiento.getText(),idSucursal);
+        		String resultado = "Con la fecha de vencimiento mayor a  "+ String.valueOf(fechaVencimiento.getText()) + " de la sucursal " + String.valueOf(idSucursal) + ". Se encuentran los siguientes productos";
+
+        		for ( VOProducto p : productos) {
+        			
+        			resultado += "\n"+p.toString(); 	
+        		}
+
+    			resultado += "\n Operación terminada";
+    			
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
 	    
 	    }
 	    public void pesoVolProductos()
 	    {
-	    
+	    	JTextField peso = new JTextField();
+    		
+    		Object[] message = {
+    		    "Peso mínimo:", peso,
+
+    		};
+    		int option = JOptionPane.showConfirmDialog(null, message, "Consultar productos con un peso mayor a de la sucursal", JOptionPane.OK_CANCEL_OPTION);
+    		if (option == JOptionPane.OK_OPTION)
+    		{
+        		List<VOProducto> productos = superandes.darProductosPesoUnaSucursal (Integer.valueOf(peso.getText()),idSucursal);
+        		String resultado = "Con peso mayor a  "+ String.valueOf(peso.getText()) + " de la sucursal " + String.valueOf(idSucursal) + ". Se encuentran los siguientes productos";
+
+        		for ( VOProducto p : productos) {
+        			
+        			resultado += "\n"+p.toString(); 	
+        		}
+
+    			resultado += "\n Operación terminada";
+    			
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
 	    }
-	    public void proveedorProductos()
-	    {
-	    
-	    }
+	
 	    public void categoriaTipoProductos()
 	    {
+	    	JTextField tipo = new JTextField();
+    		
+    		Object[] message = {
+    		    "Tipo:", tipo,
+
+    		};
+    		int option = JOptionPane.showConfirmDialog(null, message, "Consultar productos con un tipo de la sucursal", JOptionPane.OK_CANCEL_OPTION);
+    		if (option == JOptionPane.OK_OPTION)
+    		{
+        		List<VOProducto> productos = superandes.darProductosTipoUnaSucursal (tipo.getText(),idSucursal);
+        		String resultado = "Con un tipo:  "+ String.valueOf(tipo.getText()) + " de la sucursal " + String.valueOf(idSucursal) + ". Se encuentran los siguientes productos";
+
+        		for ( VOProducto p : productos) {
+        			
+        			resultado += "\n"+p.toString(); 	
+        		}
+
+    			resultado += "\n Operación terminada";
+    			
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
 	    
 	    }
 	    public void unidadesVendidasProductos()
 	    {
+	    	JTextField fechaInicio = new JTextField();
+    		JTextField fechaFinal = new JTextField();
+    		JTextField unidades = new JTextField();
+    		
+    		Object[] message = {
+    		    "Fecha inicial:", fechaInicio,
+    		    "Fecha final:", fechaFinal,
+    		    "Unidades mínimas:", unidades
+    		};
+    
+ 
+    		int option = JOptionPane.showConfirmDialog(null, message, "Consultar productos con más de x unidades vendidas en un rango de fechas", JOptionPane.OK_CANCEL_OPTION);
+    		if (option == JOptionPane.OK_OPTION)
+    		{
+        		List<Object[]> productos = superandes.darProductosXUnidadesUnaSucursal (fechaInicio.getText(),fechaInicio.getText(),idSucursal,Integer.valueOf(unidades.getText()));
+        		String resultado = "En el rango de fechas "+ String.valueOf(fechaInicio.getText())+" , "+String.valueOf(fechaFinal.getText()) + " de la sucursal " + String.valueOf(idSucursal) + ". Con más de  "+ String.valueOf(unidades.getText()) + " unidades vendidas. Se tienen los siguientes productos: ";
+
+        		
+        		resultado += listarProductosUnidades(productos);
+
+    			resultado += "\n Operación terminada";
+    			
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
 	    
 	    }
 	    /* ****************************************************************
@@ -330,7 +469,7 @@ public class InterfazGerenteSucursal extends InterfazGeneral {
 	    }
 	    public void comprasSuperandes()
 	    {
-	    	long idSucursal = 1;//-> Cambiar el 3 por lo del login
+	    	
     		int option = JOptionPane.showConfirmDialog(null, "¿Desea consultar compras de los proveedores?",null, JOptionPane.OK_CANCEL_OPTION);
     		if (option == JOptionPane.OK_OPTION)
     		{
@@ -392,6 +531,22 @@ public class InterfazGerenteSucursal extends InterfazGeneral {
 	        }
 	        return resp;
 		}
+	    private String listarProductosUnidades(List<Object[]> lista) 
+	    {
+	    	String resp = "";
+	    	int i = 1;
+	        for (Object [] tupla : lista)
+	        {
+				VOProducto suc = (VOProducto) tupla [0];
+				int unidades = (int) tupla [1];
+		        String resp1 = i++ + ". " + "[";
+				resp1 += suc + ", ";
+				resp1 += "Unidades: " + unidades;
+		        resp1 += "]";
+		        resp += resp1 + "\n";
+	        }
+	        return resp;
+		}
 	    
 		/* ****************************************************************
 		 * 			Programa principal
@@ -400,6 +555,7 @@ public class InterfazGerenteSucursal extends InterfazGeneral {
 	     * Este método ejecuta la aplicación, creando una nueva interfaz
 	     * @param args Arreglo de argumentos que se recibe por línea de comandos
 	     */
+	
 	    public static void main( String[] args )
 	    {
 	        try
@@ -407,7 +563,7 @@ public class InterfazGerenteSucursal extends InterfazGeneral {
 	        	
 	            // Unifica la interfaz para Mac y para Windows.
 	            UIManager.setLookAndFeel( UIManager.getCrossPlatformLookAndFeelClassName( ) );
-	            InterfazGerenteSucursal interfaz = new InterfazGerenteSucursal( );
+	            InterfazGerenteSucursal interfaz = new InterfazGerenteSucursal(2 );
 	            interfaz.setVisible( true );
 	        }
 	        catch( Exception e )
@@ -415,5 +571,7 @@ public class InterfazGerenteSucursal extends InterfazGeneral {
 	            e.printStackTrace( );
 	        }
 	    }
+
+	
 
 }

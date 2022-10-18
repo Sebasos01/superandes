@@ -36,8 +36,11 @@ class SQLPedido {
 	}
 	
 	// Sebastian
-	public void registrarPedido() {
-		
+	public long adicionarPedido(PersistenceManager pm,long idPedido,String idProducto,String idProveedor,long idSucursal,long cantidadProducto,long PrecioTotal, String inicio,long diasEntrega,String estado,String llegada) {
+		String sql = "INSERT INTO"+ps.darTablaPedido()+"(NUM_PEDIDO, ID_PRODUCTO, ID_PROVEEDOR, ID_SUCURSAL, CANTIDAD_PRODUCTO, PRECIO_TOTAL, INICIO, DIAS_ENTREGA, ESTADO, LLEGADA) VALUES(?,?,?,?,?,?,?,?,?,?)";
+		 Query q = pm.newQuery(SQL, sql);
+		 q.setParameters(idPedido,idProducto,idProveedor,idSucursal,cantidadProducto,PrecioTotal,inicio,diasEntrega,estado,llegada);
+		 return (long) q.executeUnique();  
 	}
 	public void registrarLlegadaPedido() {
 		
@@ -53,7 +56,7 @@ class SQLPedido {
 	{
 		
 		String sql = "SELECT * FROM ("+ ps.darTablaPedido()+") "; 
-		sql += "WHERE (ESTADO = 'Entregado' AND ID_SUCURSAL =?)";
+		sql += "WHERE (ESTADO = 'entregado' AND ID_SUCURSAL =?)";
 		sql += "ORDER BY ID_PROVEEDOR";
 		 Query q = pm.newQuery(SQL, sql);
 		 q.setParameters(idSucursal);
@@ -67,7 +70,7 @@ class SQLPedido {
 	{
 		
 		String sql = "SELECT * FROM ("+ ps.darTablaPedido()+") "; 
-		sql += "WHERE (ESTADO = 'Entregado')";
+		sql += "WHERE (ESTADO = 'entregado')";
 		sql += "ORDER BY ID_PROVEEDOR";
 		 Query q = pm.newQuery(SQL, sql);
 		 /*

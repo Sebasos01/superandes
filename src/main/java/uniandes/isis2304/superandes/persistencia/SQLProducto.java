@@ -68,21 +68,21 @@ class SQLProducto {
 			 System.out.println(list);*/
 			 return q.executeList();
 		}
-		public List<Object> darProductosFechaVencimientoUnaSucursal(PersistenceManager pm, long precioInicial, long precioFinal,long idSucursal)
+		public List<Object> darProductosFechaVencimientoUnaSucursal(PersistenceManager pm,String fechaVencimiento, long idSucursal)
 		{
 			
 			String sql = "SELECT NOMBRE,MARCA,UNIDAD_MEDIDA,PRESENTACION,CANTIDAD_PRESENTACION,VOLUMEN_EMPAQUE,PESO_EMPAQUE,TIPO,CATEGORIA,FECHA_VENCIMIENTO ";
 			sql +="FROM ("+ps.darTablaProductoSucursal()+	" INNER JOIN "+ ps.darTablaProducto();
 			sql += " ON("+ps.darTablaProducto()+".CODIGO_BARRAS ="+ ps.darTablaProductoSucursal()+".ID_PRODUCTO)) ";
-			sql +="WHERE (("+ ps.darTablaProducto()+".FECHA_VENCIMIENTO > to_date(?, 'dd/mm/yyyy')) AND" + ps.darTablaProductoSucursal()+".ID_SUCURSAL = ?)";
+			sql +="WHERE (("+ ps.darTablaProducto()+".FECHA_VENCIMIENTO > to_date(?, 'dd/mm/yyyy')) AND " + ps.darTablaProductoSucursal()+".ID_SUCURSAL = ?)";
 			 Query q = pm.newQuery(SQL, sql);
-			 q.setParameters(precioInicial,precioFinal,idSucursal);
+			 q.setParameters(fechaVencimiento,idSucursal);
 			 /*
 			 List<Object> list = q.executeList();
 			 System.out.println(list);*/
 			 return q.executeList();
 		}
-		public List<Object> darProductosFechaVencimientoTodasSucursales(PersistenceManager pm, long precioInicial, long precioFinal)
+		public List<Object> darProductosFechaVencimientoTodasSucursales(PersistenceManager pm, String fechaVencimiento)
 		{
 			
 			String sql = "SELECT NOMBRE,MARCA,UNIDAD_MEDIDA,PRESENTACION,CANTIDAD_PRESENTACION,VOLUMEN_EMPAQUE,PESO_EMPAQUE,TIPO,CATEGORIA,FECHA_VENCIMIENTO ";
@@ -90,16 +90,16 @@ class SQLProducto {
 			sql += " ON("+ps.darTablaProducto()+".CODIGO_BARRAS ="+ ps.darTablaProductoSucursal()+".ID_PRODUCTO)) ";
 			sql +="WHERE (("+ ps.darTablaProducto()+".FECHA_VENCIMIENTO > to_date(?, 'dd/mm/yyyy')))";
 			 Query q = pm.newQuery(SQL, sql);
-			 q.setParameters(precioInicial,precioFinal);
+			 q.setParameters(fechaVencimiento);
 			 /*
 			 List<Object> list = q.executeList();
 			 System.out.println(list);*/
 			 return q.executeList();
 		}
-		public List<Object> darProductosPesoUnaSucursal(PersistenceManager pm, long cantidadPresentacion,long idSucursal)
+		public List<Object> darProductosPesoUnaSucursal(PersistenceManager pm, long peso,long idSucursal)
 		{
 			
-			String productoMl = "(SELECT * FROM"+ps.darTablaProducto()+"WHERE (UNIDAD_MEDIDA = 'gr' AND CANTIDAD_PRESENTACION > ?))";
+			String productoMl = "(SELECT * FROM "+ps.darTablaProducto()+" WHERE (UNIDAD_MEDIDA = 'gr' AND CANTIDAD_PRESENTACION > ?))";
 			
 			String sql = "SELECT NOMBRE,MARCA,UNIDAD_MEDIDA,PRESENTACION,CANTIDAD_PRESENTACION,VOLUMEN_EMPAQUE,PESO_EMPAQUE,TIPO,CATEGORIA,FECHA_VENCIMIENTO ";
 			sql +="FROM ("+ps.darTablaProductoSucursal()+	" INNER JOIN "+ productoMl+"productoGramos ";
@@ -107,23 +107,23 @@ class SQLProducto {
 			sql +="WHERE ("+ ps.darTablaProductoSucursal()+".ID_SUCURSAL = ?)";
 
 			Query q = pm.newQuery(SQL, sql);
-			 q.setParameters(cantidadPresentacion, idSucursal);
+			 q.setParameters(peso, idSucursal);
 			 /*
 			 List<Object> list = q.executeList();
 			 System.out.println(list);*/
 			 return q.executeList();
 		}
-		public List<Object> darProductosPesoTodasSucursales(PersistenceManager pm, long cantidadPresentacion)
+		public List<Object> darProductosPesoTodasSucursales(PersistenceManager pm, long peso)
 		{
 			
-			String productoMl = "(SELECT * FROM"+ps.darTablaProducto()+"WHERE (UNIDAD_MEDIDA = 'gr' AND CANTIDAD_PRESENTACION > ?))";
+			String productoMl = "(SELECT * FROM "+ps.darTablaProducto()+" WHERE (UNIDAD_MEDIDA = 'gr' AND CANTIDAD_PRESENTACION > ?))";
 			
 			String sql = "SELECT NOMBRE,MARCA,UNIDAD_MEDIDA,PRESENTACION,CANTIDAD_PRESENTACION,VOLUMEN_EMPAQUE,PESO_EMPAQUE,TIPO,CATEGORIA,FECHA_VENCIMIENTO ";
 			sql +="FROM ("+ps.darTablaProductoSucursal()+	" INNER JOIN "+ productoMl+"productoGramos ";
 			sql += "ON(productoGramos.CODIGO_BARRAS = "+ps.darTablaProductoSucursal()+".ID_PRODUCTO)) ";
 
 			Query q = pm.newQuery(SQL, sql);
-			 q.setParameters(cantidadPresentacion);
+			 q.setParameters(peso);
 			 /*
 			 List<Object> list = q.executeList();
 			 System.out.println(list);*/
@@ -135,7 +135,7 @@ class SQLProducto {
 			String sql = "SELECT NOMBRE,MARCA,UNIDAD_MEDIDA,PRESENTACION,CANTIDAD_PRESENTACION,VOLUMEN_EMPAQUE,PESO_EMPAQUE,TIPO,CATEGORIA,FECHA_VENCIMIENTO ";
 			sql +="FROM ("+ps.darTablaProductoSucursal()+	" INNER JOIN "+ ps.darTablaProducto();
 			sql += " ON("+ps.darTablaProducto()+".CODIGO_BARRAS ="+ ps.darTablaProductoSucursal()+".ID_PRODUCTO)) ";
-			sql +="WHERE (("+ ps.darTablaProducto()+".TIPO = ?)  AND" + ps.darTablaProductoSucursal()+".ID_SUCURSAL = ?)";
+			sql +="WHERE (("+ ps.darTablaProducto()+".TIPO = ?)  AND " + ps.darTablaProductoSucursal()+".ID_SUCURSAL = ?)";
 			 Query q = pm.newQuery(SQL, sql);
 			 q.setParameters(tipo,idSucursal);
 			 /*
@@ -162,7 +162,7 @@ class SQLProducto {
 		{
 			
 			String sql ="SELECT NOMBRE,MARCA,UNIDAD_MEDIDA,PRESENTACION,CANTIDAD_PRESENTACION,VOLUMEN_EMPAQUE,PESO_EMPAQUE,TIPO,CATEGORIA,FECHA_VENCIMIENTO, UNIDADES ";
-			sql +="FROM ((SELECT ID_PRODUCTO	FROM ("+ps.darTablaVentaProducto()+") ";
+			sql +="FROM ((SELECT ID_PRODUCTO, COUNT(*) AS UNIDADES	FROM ("+ps.darTablaVentaProducto()+") ";
 			sql +="	WHERE ((FECHA BETWEEN to_date(?, 'dd/mm/yyyy') AND  to_date(?, 'dd/mm/yyyy')) AND ID_SUCURSAL = ? )";
 			sql+= "GROUP BY ID_PRODUCTO	HAVING COUNT(*)>= ?	)productosCumplen ";
 			sql +="INNER JOIN "+ps.darTablaProducto()+" ON(" +ps.darTablaProducto()+".CODIGO_BARRAS = productosCumplen.ID_PRODUCTO))";
@@ -179,7 +179,7 @@ class SQLProducto {
 		{
 			
 			String sql ="SELECT NOMBRE,MARCA,UNIDAD_MEDIDA,PRESENTACION,CANTIDAD_PRESENTACION,VOLUMEN_EMPAQUE,PESO_EMPAQUE,TIPO,CATEGORIA,FECHA_VENCIMIENTO, UNIDADES ";
-			sql +="FROM ((SELECT ID_PRODUCTO	FROM ("+ps.darTablaVentaProducto()+") ";
+			sql +="FROM ((SELECT ID_PRODUCTO, COUNT(*) AS UNIDADES	FROM ("+ps.darTablaVentaProducto()+") ";
 			sql +="	WHERE ((FECHA BETWEEN to_date(?, 'dd/mm/yyyy') AND  to_date(?, 'dd/mm/yyyy')) )";
 			sql+= "GROUP BY ID_PRODUCTO	HAVING COUNT(*)>= ?	)productosCumplen ";
 			sql +="INNER JOIN "+ps.darTablaProducto()+" ON(" +ps.darTablaProducto()+".CODIGO_BARRAS = productosCumplen.ID_PRODUCTO))";

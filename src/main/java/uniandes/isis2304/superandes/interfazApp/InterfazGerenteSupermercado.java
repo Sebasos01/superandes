@@ -17,6 +17,7 @@ import javax.swing.UIManager;
 import uniandes.isis2304.superandes.negocio.Promocion;
 import uniandes.isis2304.superandes.negocio.Superandes;
 import uniandes.isis2304.superandes.negocio.VOPedido;
+import uniandes.isis2304.superandes.negocio.VOProducto;
 import uniandes.isis2304.superandes.negocio.VOPromocion;
 import uniandes.isis2304.superandes.negocio.VOSucursal;
 import uniandes.isis2304.superandes.negocio.VOVentaProducto;
@@ -178,8 +179,8 @@ public class InterfazGerenteSupermercado extends InterfazGeneral{
         			Object [] datos = (Object []) tupla;
         			long idAlmacen = ((BigDecimal) datos [0]).longValue ();
         			String tipo = (String) datos[1]; 
-        			long indiceOcupacion = ((BigDecimal) datos [0]).longValue ();
-        			long capacidadVolumen = ((BigDecimal) datos [0]).longValue ();
+        			long indiceOcupacion = ((BigDecimal) datos [2]).longValue ();
+        			long capacidadVolumen = ((BigDecimal) datos [3]).longValue ();
         			
         			resultado += "\n"+String.format("%1$s - %2$s - %3$s - %4$s", 
                            String.valueOf(idAlmacen), tipo, String.valueOf(indiceOcupacion),String.valueOf(capacidadVolumen));	
@@ -210,14 +211,88 @@ public class InterfazGerenteSupermercado extends InterfazGeneral{
 	     */
 	    public void precioProductos()
 	    {
+	    	JTextField precioInicio = new JTextField();
+    		JTextField precioFinal = new JTextField();
+    
+    		Object[] message = {
+    		    "Precio Inicio:", precioInicio,
+    		    "Precio final:", precioFinal
+    		};
+    		int option = JOptionPane.showConfirmDialog(null, message, "Consultar productos en rango de precios de la sucursal", JOptionPane.OK_CANCEL_OPTION);
+    		if (option == JOptionPane.OK_OPTION)
+    		{
+        		List<Object[]> productos = superandes.darProductosPreciosTodasSucursales (Integer.valueOf(precioInicio.getText()),Integer.valueOf(precioFinal.getText()));
+        	
+        		
+        		String resultado = "En el rango de precios "+ String.valueOf(precioInicio.getText())+" , "+String.valueOf(precioFinal.getText()) + ". Se encuentran los siguientes productos";
+        		
+        		resultado += listarProductosPrecio(productos);
+    			resultado += "\n Operación terminada";
+    			
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
 	    
 	    }
 	    public void fechaVencimientoProductos()
 	    {
+	    	JTextField fechaVencimiento = new JTextField();
+    	
+    		Object[] message = {
+    		    "Fecha vencimiento mínima:", fechaVencimiento,
+
+    		};
+    		int option = JOptionPane.showConfirmDialog(null, message, "Consultar productos una fecha de vencimiento mayor a  X", JOptionPane.OK_CANCEL_OPTION);
+    		if (option == JOptionPane.OK_OPTION)
+    		{
+        		List<VOProducto> productos = superandes.darProductosFechaVencimientoTodasSucursales (fechaVencimiento.getText());
+        		String resultado = "Con la fecha de vencimiento mayor a  "+ String.valueOf(fechaVencimiento.getText()) + ". Se encuentran los siguientes productos";
+
+        		for ( VOProducto p : productos) {
+        			
+        			resultado += "\n"+p.toString(); 	
+        		}
+
+    			resultado += "\n Operación terminada";
+    			
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
 	    
 	    }
 	    public void pesoVolProductos()
 	    {
+	    	JTextField peso = new JTextField();
+
+    		Object[] message = {
+    		    "Peso mínimo:", peso,
+
+    		};
+    		int option = JOptionPane.showConfirmDialog(null, message, "Consultar productos con un peso mayor a de la sucursal", JOptionPane.OK_CANCEL_OPTION);
+    		if (option == JOptionPane.OK_OPTION)
+    		{
+        		List<VOProducto> productos = superandes.darProductosPesoTodasSucursales (Integer.valueOf(peso.getText()));
+        		String resultado = "Con peso mayor a  "+ String.valueOf(peso.getText()) +  ". Se encuentran los siguientes productos";
+
+        		for ( VOProducto p : productos) {
+        			
+        			resultado += "\n"+p.toString(); 	
+        		}
+
+    			resultado += "\n Operación terminada";
+    			
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
 	    
 	    }
 	    public void proveedorProductos()
@@ -234,10 +309,61 @@ public class InterfazGerenteSupermercado extends InterfazGeneral{
 	    }
 	    public void categoriaTipoProductos()
 	    {
-	    
+	    	JTextField tipo = new JTextField();
+    		
+    		Object[] message = {
+    		    "Tipo:", tipo,
+
+    		};
+    		int option = JOptionPane.showConfirmDialog(null, message, "Consultar productos con un tipo de la sucursal", JOptionPane.OK_CANCEL_OPTION);
+    		if (option == JOptionPane.OK_OPTION)
+    		{
+        		List<VOProducto> productos = superandes.darProductosTipoTodasSucursales (tipo.getText());
+        		String resultado = "Con un tipo:  "+ String.valueOf(tipo.getText()) + ". Se encuentran los siguientes productos";
+
+        		for ( VOProducto p : productos) {
+        			
+        			resultado += "\n"+p.toString(); 	
+        		}
+
+    			resultado += "\n Operación terminada";
+    			
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
 	    }
 	    public void unidadesVendidasProductos()
 	    {
+	    	JTextField fechaInicio = new JTextField();
+    		JTextField fechaFinal = new JTextField();
+    		JTextField unidades = new JTextField();
+    		Object[] message = {
+    		    "Fecha inicial:", fechaInicio,
+    		    "Fecha final:", fechaFinal,
+    		    "Unidades mínimas:", unidades
+    		};
+    
+ 
+    		int option = JOptionPane.showConfirmDialog(null, message, "Consultar productos con más de x unidades vendidas en un rango de fechas", JOptionPane.OK_CANCEL_OPTION);
+    		if (option == JOptionPane.OK_OPTION)
+    		{
+        		List<Object[]> productos = superandes.darProductosXUnidadesTodasSucursales (fechaInicio.getText(),fechaInicio.getText(),Integer.valueOf(unidades.getText()));
+        		String resultado = "En el rango de fechas "+ String.valueOf(fechaInicio.getText())+" , "+String.valueOf(fechaFinal.getText()) +". Con más de  "+ String.valueOf(unidades.getText()) + " unidades vendidas. Se tienen los siguientes productos: ";
+
+        		
+        		resultado += listarProductosUnidades(productos);
+
+    			resultado += "\n Operación terminada";
+    			
+    			panelDatos.actualizarInterfaz(resultado);
+    		}
+    		else
+    		{
+    			panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+    		}
 	    
 	    }
 	    /* ****************************************************************
@@ -306,13 +432,49 @@ public class InterfazGerenteSupermercado extends InterfazGeneral{
 	        }
 	        return resp;
 		}
+	    
+	    private String listarProductosPrecio (List<Object[]> lista) 
+	    {
+	    	String resp = "";
+	    	int i = 1;
+	        for (Object [] tupla : lista)
+	        {
+				VOProducto suc = (VOProducto) tupla [0];
+				int precio = (int) tupla [1];
+		        String resp1 = i++ + ". " + "[";
+				resp1 += suc + ", ";
+				resp1 += "Precio Venta: " + precio;
+		        resp1 += "]";
+		        resp += resp1 + "\n";
+	        }
+	        return resp;
+		}
+	    
+	    private String listarProductosUnidades(List<Object[]> lista) 
+	    {
+	    	String resp = "";
+	    	int i = 1;
+	        for (Object [] tupla : lista)
+	        {
+				VOProducto suc = (VOProducto) tupla [0];
+				int unidades = (int) tupla [1];
+		        String resp1 = i++ + ". " + "[";
+				resp1 += suc + ", ";
+				resp1 += "Unidades: " + unidades;
+		        resp1 += "]";
+		        resp += resp1 + "\n";
+	        }
+	        return resp;
+		}
 		/* ****************************************************************
 		 * 			Programa principal
 		 *****************************************************************/
 	    /**
 	     * Este método ejecuta la aplicación, creando una nueva interfaz
 	     * @param args Arreglo de argumentos que se recibe por línea de comandos
+	     * 
 	     */
+	    /*
 	    public static void main( String[] args )
 	    {
 	        try
@@ -327,6 +489,6 @@ public class InterfazGerenteSupermercado extends InterfazGeneral{
 	        {
 	            e.printStackTrace( );
 	        }
-	    }
+	    }*/
 	
 }

@@ -85,6 +85,18 @@ class SQLUsuario
         return (List<Usuario>) q.executeList();          
 	}
 	
+	public List<Object> loginUsuario(PersistenceManager pm, String email, String contrasena) 
+	{
+		String sql =  "SELECT * FROM " + ps.darTablaUsuario()+" WHERE (EMAIL = ? AND CONTRASENA = ?)";
+		
+        Query q = pm.newQuery(SQL,sql);
+
+		q.setParameters(email,contrasena);
+   
+        
+        return (List<Object>) q.executeList();          
+	}
+	
 	/**
 	 * Obtiene el id de la sucursal de determinado usuario
 	 * Lo hace a través de una sentencia SQL

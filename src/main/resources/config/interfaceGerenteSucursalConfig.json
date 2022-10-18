@@ -65,10 +65,6 @@
 					"event": "pesoVolProductos"
 				},
                 {
-					"label": "Proveedor",
-					"event": "proveedorProductos"
-				},
-                {
 					"label": "Categoria/ Tipo",
 					"event": "categoriaTipoProductos"
 				},
@@ -89,6 +85,10 @@
 			  {
 				  "label": "Compras realizadas",
 				  "event": "comprasSuperandes"
+			  },
+			  {
+				"label": "Registrar",
+				"event": "registrarPedido"
 			  }
 			  
 		  ]

@@ -57,6 +57,10 @@ public class Usuario implements VOUsuario {
 	 */
 	private long id_tipo;
 	
+	private long puntos;
+	private String direccion;
+	private String ciudad;
+	
 	/**
 	 * El id de la sucursal en caso de tener
 	 */
@@ -71,12 +75,10 @@ public class Usuario implements VOUsuario {
 	 */
 	public Usuario() {}
 	
-	/**
-	 * Constructor con parámetros
-	 * @param todos los atributos
-	 */
+
 	public Usuario(long codigo_usuario, String documento, String tipo_documento, String nombre, String email,
-			String contrasena, long id_tipo, long id_sucursal) {
+			String contrasena, long id_tipo, long puntos, String direccion, String ciudad, long id_sucursal) {
+		super();
 		this.codigo_usuario = codigo_usuario;
 		this.documento = documento;
 		this.tipo_documento = tipo_documento;
@@ -84,128 +86,170 @@ public class Usuario implements VOUsuario {
 		this.email = email;
 		this.contrasena = contrasena;
 		this.id_tipo = id_tipo;
+		this.puntos = puntos;
+		this.direccion = direccion;
+		this.ciudad = ciudad;
 		this.id_sucursal = id_sucursal;
 	}
-	
+
+
 	/**
-	 * @return el código del usuario
+	 * @return the codigo_usuario
 	 */
 	public long getCodigo_usuario() {
 		return codigo_usuario;
 	}
 
 	/**
-	 * @param el nuevo código del usuario
+	 * @param codigo_usuario the codigo_usuario to set
 	 */
 	public void setCodigo_usuario(long codigo_usuario) {
 		this.codigo_usuario = codigo_usuario;
 	}
 
 	/**
-	 * @return el documento del usuario
+	 * @return the documento
 	 */
 	public String getDocumento() {
 		return documento;
 	}
 
 	/**
-	 * @param el nuevo documento del usuario
+	 * @param documento the documento to set
 	 */
 	public void setDocumento(String documento) {
 		this.documento = documento;
 	}
 
 	/**
-	 * @return el tipo de documento del usuario
+	 * @return the tipo_documento
 	 */
 	public String getTipo_documento() {
 		return tipo_documento;
 	}
 
 	/**
-	 * @param el nuevo tipo de documento 
+	 * @param tipo_documento the tipo_documento to set
 	 */
 	public void setTipo_documento(String tipo_documento) {
 		this.tipo_documento = tipo_documento;
 	}
 
 	/**
-	 * @return el nombre del usuario
+	 * @return the nombre
 	 */
 	public String getNombre() {
 		return nombre;
 	}
 
 	/**
-	 * @param el nuevo nombre del usuario
+	 * @param nombre the nombre to set
 	 */
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
 
 	/**
-	 * @return el email del usuario 
+	 * @return the email
 	 */
 	public String getEmail() {
 		return email;
 	}
 
 	/**
-	 * @param el nuevo email del usuario
+	 * @param email the email to set
 	 */
 	public void setEmail(String email) {
 		this.email = email;
 	}
 
 	/**
-	 * @return la contraseña del usuario
+	 * @return the contrasena
 	 */
 	public String getContrasena() {
 		return contrasena;
 	}
 
 	/**
-	 * @param la nueva contraseña del usuario
+	 * @param contrasena the contrasena to set
 	 */
 	public void setContrasena(String contrasena) {
 		this.contrasena = contrasena;
 	}
 
 	/**
-	 * @return el id del tipo de usuario
+	 * @return the id_tipo
 	 */
 	public long getId_tipo() {
 		return id_tipo;
 	}
 
 	/**
-	 * @param el nuevo id del tipo de usuario
+	 * @param id_tipo the id_tipo to set
 	 */
 	public void setId_tipo(long id_tipo) {
 		this.id_tipo = id_tipo;
 	}
 
 	/**
-	 * @return el id de la sucursal
+	 * @return the puntos
+	 */
+	public long getPuntos() {
+		return puntos;
+	}
+
+	/**
+	 * @param puntos the puntos to set
+	 */
+	public void setPuntos(long puntos) {
+		this.puntos = puntos;
+	}
+
+	/**
+	 * @return the direccion
+	 */
+	public String getDireccion() {
+		return direccion;
+	}
+
+	/**
+	 * @param direccion the direccion to set
+	 */
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+	/**
+	 * @return the ciudad
+	 */
+	public String getCiudad() {
+		return ciudad;
+	}
+
+	/**
+	 * @param ciudad the ciudad to set
+	 */
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
+	}
+
+	/**
+	 * @return the id_sucursal
 	 */
 	public long getId_sucursal() {
 		return id_sucursal;
 	}
 
 	/**
-	 * @param el nuevo id de la sucursal
+	 * @param id_sucursal the id_sucursal to set
 	 */
 	public void setId_sucursal(long id_sucursal) {
 		this.id_sucursal = id_sucursal;
 	}
-
+	
 	/**
-	 * @return Una cadena de caracteres con la información del usuario
+	 * Constructor con parámetros
+	 * @param todos los atributos
 	 */
-	@Override
-	public String toString() 
-	{
-		return String.format("[id=%d, nombre=%s, documento=%s, tipo_documento=%s, email=%s, id_tipo=%d, id_sucursal=%d]", 
-				codigo_usuario, nombre, documento, tipo_documento, email, id_tipo, id_sucursal);
-	}
+	
 }

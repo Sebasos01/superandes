@@ -175,6 +175,18 @@ public class Superandes
         log.info ("Consultando los usuario: " + lista.size() + " existentes");
 		return lista;
 	}
+	public VOUsuario loginUsuario(String email, String contrasena) {
+		log.info ("Autenticando usuario con email "+email+" y contraseña "+contrasena);
+		VOUsuario usuario =  ps.loginUsuario(email,contrasena);
+		log.info ("Finaliza autenticar usuario con email "+email+" y contraseña "+contrasena);
+		return usuario;
+	}
+	public String darNombreTipo(long id_tipo) {
+		log.info ("Encontrando tipo con id"+String.valueOf(id_tipo));
+		String tipo =  ps.darNombreTipo(id_tipo);
+		log.info ("Finaliza Encontrando tipo con id"+String.valueOf(id_tipo));
+		return tipo;
+	}
 	
 
 	/* ****************************************************************
@@ -244,7 +256,20 @@ public class Superandes
         log.info ("Finaliza consulta de productos en el rango de precios: "+String.valueOf(precioInicial)+" , "+String.valueOf(precioFinal));
         return tuplas;
 	}
-	
+	public List<VOProducto> darProductosFechaVencimientoUnaSucursal(String fechaVencimiento,long idSucursal)
+	{
+        log.info ("Consultando productos con fecha vencimiento mayor a : "+fechaVencimiento+ " de la sucursal "+ String.valueOf(idSucursal) );
+        List<VOProducto> tuplas = ps.darProductosFechaVencimientoUnaSucursal (fechaVencimiento, idSucursal).stream().map (p -> (VOProducto) p ).toList(); 
+        log.info ("Finaliza consulta de productos con fecha vencimiento mayor a : "+fechaVencimiento+  " de la sucursal "+ String.valueOf(idSucursal) );
+        return tuplas;
+	}
+	public List<VOProducto> darProductosFechaVencimientoTodasSucursales(String fechaVencimiento)
+	{
+        log.info ("Consultando productos con peso mayor a : "+fechaVencimiento );
+        List<VOProducto> tuplas = ps.darProductosFechaVencimientoTodasSucursales (fechaVencimiento).stream().map (p -> (VOProducto) p ).toList(); 
+        log.info ("Finaliza consulta de productos con peso mayor a : "+fechaVencimiento );
+        return tuplas;
+	}
 	public List<VOProducto> darProductosPesoUnaSucursal(long peso,long idSucursal)
 	{
         log.info ("Consultando productos con peso mayor a : "+String.valueOf(peso)+ "de la sucursal "+ String.valueOf(idSucursal) );
@@ -280,7 +305,7 @@ public class Superandes
         log.info ("Finaliza consulta de productos con : "+String.valueOf(unidades)+" vendidas en el rango de fechas:" + String.valueOf(fechaInicial)+" , "+String.valueOf(fechaFinal) + "de la sucursal " + String.valueOf(idSucursal) );
         return tuplas;
 	}
-	public List<Object[]> darProductosXUnidadesTodasSucursales(String fechaInicial, String fechaFinal,long idSucursal, long unidades)
+	public List<Object[]> darProductosXUnidadesTodasSucursales(String fechaInicial, String fechaFinal,long unidades)
 	{
 		log.info ("Consultando productos con  "+String.valueOf(unidades)+" vendidas en el rango de fechas:" + String.valueOf(fechaInicial)+" , "+String.valueOf(fechaFinal) );
         List<Object []> tuplas = ps.darProductosXUnidadesTodasSucursales (fechaInicial,fechaFinal,unidades) ;
@@ -343,7 +368,10 @@ public class Superandes
 	 * 			Métodos para manejar PEDIDO
 	 *****************************************************************/
 	// Sebastian
-	public void registrarPedido() {
+	public long adicionarPedido(long idPedido,String idProducto,String idProveedor,long idSucursal,long cantidadProducto,long PrecioTotal, String inicio,long diasEntrega,String estado,String llegada) {
+		log.info ("Insertando  de la sucursal "+String.valueOf(idSucursal));
+		long numTuplas = ps.adicionarPedido(idPedido,idProducto, idProveedor,idSucursal,cantidadProducto,PrecioTotal,inicio,diasEntrega,estado,llegada);
+		return numTuplas;
 		
 	}
 	
@@ -383,4 +411,6 @@ public class Superandes
         log.info ("Limpiando la BD de Superandes: Listo!");
         return borrados;
 	}
+
+	
 }

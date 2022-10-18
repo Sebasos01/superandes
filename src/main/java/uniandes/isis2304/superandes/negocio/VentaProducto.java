@@ -1,6 +1,7 @@
 package uniandes.isis2304.superandes.negocio;
 
 import java.math.BigDecimal;
+import java.sql.Timestamp;
 
 public class VentaProducto implements VOVentaProducto {
 	
@@ -11,11 +12,11 @@ public class VentaProducto implements VOVentaProducto {
 	long cantidad ;
 	long monto;
 	long puntos ;
-	String fecha ;
+	Timestamp fecha ;
 	long id_promocion;
 	
 	public VentaProducto(long id_compra, long id_usuario, String id_producto, long id_sucursal, long cantidad,
-			long monto, long puntos, String fecha, long id_promocion) {
+			long monto, long puntos, Timestamp fecha, long id_promocion) {
 		super();
 		this.id_compra = id_compra;
 		this.id_usuario = id_usuario;
@@ -175,7 +176,7 @@ public class VentaProducto implements VOVentaProducto {
 	/**
 	 * @return the fecha
 	 */
-	public String getFecha() {
+	public Timestamp getFecha() {
 		return fecha;
 	}
 
@@ -186,7 +187,7 @@ public class VentaProducto implements VOVentaProducto {
 	/**
 	 * @param fecha the fecha to set
 	 */
-	public void setFecha(String fecha) {
+	public void setFecha(Timestamp fecha) {
 		this.fecha = fecha;
 	}
 
