@@ -620,7 +620,7 @@ public class PersistenciaSuperandes
         for ( Object tupla : tuplas)
         {
 			Object [] datos = (Object []) tupla;
-			String codigoBarras = (String) datos [0];;
+			String codigoBarras = (String) datos [0];
 			String nombre = (String) datos [1];
 			String marca = (String) datos [2];
 			String unidadMedida = (String) datos [3];
