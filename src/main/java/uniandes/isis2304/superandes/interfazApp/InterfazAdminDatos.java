@@ -16,6 +16,7 @@
 package uniandes.isis2304.superandes.interfazApp;
 
 import java.awt.BorderLayout;
+import java.awt.Choice;
 import java.awt.event.ActionEvent;
 import java.lang.reflect.Method;
 import java.util.List;
@@ -28,7 +29,9 @@ import javax.swing.UIManager;
 
 import uniandes.isis2304.superandes.negocio.Sucursal;
 import uniandes.isis2304.superandes.negocio.Superandes;
+import uniandes.isis2304.superandes.negocio.VOSucursal;
 import uniandes.isis2304.superandes.negocio.VOTipoUsuario;
+import uniandes.isis2304.superandes.negocio.VOUsuario;
 import uniandes.isis2304.superandes.negocio.VOVentaProducto;
 
 /**
@@ -82,18 +85,25 @@ public class InterfazAdminDatos extends InterfazGeneral
     	try 
     	{
     		String nombreTipo = JOptionPane.showInputDialog (this, "Ingrese el nombre del tipo de usuario", "Adicionar tipo de usuario", JOptionPane.QUESTION_MESSAGE);
-    		String esCliente = JOptionPane.showInputDialog (this, "¿Es cliente? (Y/N)", "Adicionar tipo de usuario", JOptionPane.QUESTION_MESSAGE);
     		if (nombreTipo != null)
     		{
-        		VOTipoUsuario tu = superandes.adicionarTipoUsuario (nombreTipo, esCliente);
-        		if (tu == null)
+    			String resultado;
+    			try 
         		{
-        			throw new Exception ("No se pudo crear un tipo de usuario con nombre: " + nombreTipo);
+    				VOTipoUsuario tu = superandes.adicionarTipoUsuario (nombreTipo);
+    				resultado = "En adicionarTipoUsuario\n\n";
+            		resultado += "Tipo de usuario adicionado exitosamente: " + tu;
+        			resultado += "\n Operación terminada";
+    			}
+    			catch(Exception e) 
+        		
+        		{
+    				resultado = generarMensajeError(e);
+        			//throw new Exception ("No se pudo crear un tipo de usuario con nombre: " + nombreTipo);
         		}
-        		String resultado = "En adicionarTipoUsuario\n\n";
-        		resultado += "Tipo de usuario adicionado exitosamente: " + tu;
-    			resultado += "\n Operación terminada";
-    			panelDatos.actualizarInterfaz(resultado);
+
+    			
+				panelDatos.actualizarInterfaz(resultado);
     		}
     		else
     		{
@@ -147,19 +157,18 @@ public class InterfazAdminDatos extends InterfazGeneral
 		    "Direccion:", direccion,
 		    "Ciudad:", ciudad,
 		};
-		int option = JOptionPane.showConfirmDialog(null, message, "Consultar ventas de un cliente", JOptionPane.OK_CANCEL_OPTION);
+		int option = JOptionPane.showConfirmDialog(null, message, "Crear sucursal", JOptionPane.OK_CANCEL_OPTION);
 		if (option == JOptionPane.OK_OPTION)
 		{
 	
-    		Sucursal su= superandes.adicionarSucursal(nombre.getText(), telefono.getText(),direccion.getText(),ciudad.getText());
+    		VOSucursal su= superandes.adicionarSucursal(nombre.getText(), telefono.getText(),direccion.getText(),ciudad.getText());
     		if (su != null) {
     		String resultado = "En adicionar sucursal\n\n";
     		resultado += "Sucursal añadida exitosamente: ";
+    		resultado +=su;
 			resultado += "\n Operación terminada";
 			panelDatos.actualizarInterfaz(resultado);
-
 			
-			panelDatos.actualizarInterfaz(resultado);
     		}else {
     			String resultado = "\n No se pudo añadir a base de datos intente nuevamente";
     			panelDatos.actualizarInterfaz(resultado);
@@ -183,6 +192,61 @@ public class InterfazAdminDatos extends InterfazGeneral
      */
     public void adicionarUsuario()
     {
+    JTextField documento = new JTextField();
+    Choice tipo_documento = new Choice();
+    tipo_documento.setBounds(100, 100, 75, 75); 
+    tipo_documento.add("CC");
+    tipo_documento.add("CE");
+    tipo_documento.add("NIT");
+    tipo_documento.add("TI");
+    
+	JTextField nombre = new JTextField();
+	JTextField email = new JTextField();
+	JTextField contrasena= new JTextField();
+	JTextField id_tipo = new JTextField();
+	JTextField puntos = new JTextField();
+	JTextField direccion = new JTextField();
+	JTextField ciudad = new JTextField();
+	JTextField id_sucursal = new JTextField();
+	
+	//OJO Falta lo del id Sucursal ->Se obtienen del login
+	Object[] message = {
+	    "Documento:", documento,
+	    "Tipo documento:", tipo_documento,
+	    "Nombre:", nombre,
+	    "Email:", email,
+	    "Contraseña:", contrasena,
+	    "Id_tipo:", id_tipo,
+	    "Puntos:", puntos,
+	    "Direccion:", direccion,
+	    "Ciudad:", ciudad,
+	    "Id sucursal:", id_sucursal,
+	};
+	int option = JOptionPane.showConfirmDialog(null, message, "Crear usuario", JOptionPane.OK_CANCEL_OPTION);
+	if (option == JOptionPane.OK_OPTION)
+	{
+
+		VOUsuario us= superandes.registrarUsuario(documento.getText(), tipo_documento.getSelectedItem(),nombre.getText(),
+				email.getText(),contrasena.getText(),Integer.parseInt(id_tipo.getText()),Integer.parseInt(puntos.getText()),direccion.getText(),ciudad.getText(),Integer.parseInt(id_sucursal.getText()));
+		if (us != null) {
+		String resultado = "En adicionar usuario\n\n";
+		resultado += "Usuario añadida exitosamente: ";
+		resultado +=us;
+		resultado += "\n Operación terminada";
+		panelDatos.actualizarInterfaz(resultado);
+		
+		}else {
+			String resultado = "\n No se pudo añadir a base de datos intente nuevamente";
+			panelDatos.actualizarInterfaz(resultado);
+
+			
+		}
+		
+	}
+	else
+	{
+		panelDatos.actualizarInterfaz("Operación cancelada por el usuario");
+	}
     	
     }
     
@@ -229,7 +293,7 @@ public class InterfazAdminDatos extends InterfazGeneral
      * Este método ejecuta la aplicación, creando una nueva interfaz
      * @param args Arreglo de argumentos que se recibe por línea de comandos
      */
-    /*
+    
     public static void main( String[] args )
     {
         try
@@ -245,6 +309,5 @@ public class InterfazAdminDatos extends InterfazGeneral
             e.printStackTrace( );
         }
     }
-    */
-   
+    
 }

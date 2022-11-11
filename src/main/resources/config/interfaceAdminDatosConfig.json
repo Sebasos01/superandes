@@ -18,6 +18,15 @@
 				}
 			]
 		}	,
+		{ "menuTitle": "Usuario",
+		  "options":
+			[
+				{
+					"label": "Adicionar",
+					"event": "adicionarUsuario"
+				}
+			]
+		}	,
 		{ "menuTitle": "Sucursal",
 		  "options":
 			[

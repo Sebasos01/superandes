@@ -64,10 +64,10 @@ class SQLTipoUsuario
 	 * @param nombre - El nombre del tipo de usuario
 	 * @return EL número de tuplas insertadas
 	 */
-	public long adicionarTipoUsuario (PersistenceManager pm, long idTipoBebida, String nombre, String esCliente) 
+	public long adicionarTipoUsuario (PersistenceManager pm, long idTipo, String nombre ) 
 	{
-        Query q = pm.newQuery(SQL, "INSERT INTO " + ps.darTablaTipoUsuario  () + "(id, nombre, es_cliente) values (?, ?, ?)");
-        q.setParameters(idTipoBebida, nombre, esCliente);
+        Query q = pm.newQuery(SQL, "INSERT INTO " + ps.darTablaTipoUsuario  () + "(id, nombre) values (?, ?)");
+        q.setParameters(idTipo, nombre);
         return (long) q.executeUnique();            
 	}
 	

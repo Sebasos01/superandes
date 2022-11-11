@@ -16,6 +16,7 @@
 package uniandes.isis2304.superandes.persistencia;
 
 import java.math.BigDecimal;
+
 import java.sql.Timestamp;
 
 import java.util.LinkedList;
@@ -296,7 +297,7 @@ public class PersistenciaSuperandes
 	 * @param nombre - El nombre del tipo de usuario
 	 * @return El objeto TipoUsuario adicionado. null si ocurre alguna Excepción
 	 */
-	public TipoUsuario adicionarTipoUsuario(String nombre, String esCliente)
+	public TipoUsuario adicionarTipoUsuario(String nombre)
 	{
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
@@ -304,12 +305,12 @@ public class PersistenciaSuperandes
         {
             tx.begin();
             long idTipoUsuario = nextval ();
-            long tuplasInsertadas = sqlTipoUsuario.adicionarTipoUsuario(pm, idTipoUsuario, nombre, esCliente);
+            long tuplasInsertadas = sqlTipoUsuario.adicionarTipoUsuario(pm, idTipoUsuario, nombre);
             tx.commit();
             
             log.trace ("Inserción de tipo de usuario: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
             
-            return new TipoUsuario (idTipoUsuario, nombre, esCliente);
+            return new TipoUsuario (idTipoUsuario, nombre);
         }
         catch (Exception e)
         {
@@ -394,22 +395,22 @@ public class PersistenciaSuperandes
 	 * @return El objeto Usuario creado. Null si ocurre alguna Excepción
 	 */
 	public Usuario registrarUsuario(String documento, String tipo_documento, String nombre, String email,
-			String contrasena, long id_tipo, Long id_sucursal)
+			String contrasena, long id_tipo, long puntos, String direccion, String ciudad, long id_sucursal)
 	{
+		
 		PersistenceManager pm = pmf.getPersistenceManager();
         Transaction tx=pm.currentTransaction();
         try
         {
             tx.begin();
             long codigo_usuario = nextval ();
-            long tuplasInsertadas = sqlUsuario.registrarUsuario(codigo_usuario, documento, tipo_documento, nombre, email,
-        			contrasena, id_tipo, id_sucursal, pm);
-            tx.commit();
-            
-            log.trace ("Inserción del usuario: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
-            
-            return new Usuario(codigo_usuario, documento, tipo_documento, nombre, email,
-        			contrasena, id_tipo, id_sucursal, contrasena, contrasena, tuplasInsertadas);
+            long tuplasInsertadas = sqlUsuario.registrarUsuario(pm,codigo_usuario, documento, tipo_documento, nombre, email,
+        			contrasena, id_tipo, puntos,direccion,ciudad,id_sucursal);
+    		tx.commit();
+
+    		log.trace ("Inserción del usuario: " + nombre + ": " + tuplasInsertadas + " tuplas insertadas");
+    		return new Usuario(codigo_usuario, documento, tipo_documento, nombre, email,
+        			contrasena, id_tipo,puntos,direccion,ciudad, id_sucursal);
         }
         catch (Exception e)
         {

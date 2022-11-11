@@ -62,13 +62,13 @@ class SQLUsuario
 	 * Crea y ejecuta la sentencia SQL para adicionar un USUARIO a la base de datos de Superandes
 	 * @return EL número de tuplas insertadas
 	 */
-	public long registrarUsuario(long codigo_usuario, String documento, String tipo_documento, String nombre, String email,
-			String contrasena, long id_tipo, Long id_sucursal, PersistenceManager pm) 
+	public long registrarUsuario( PersistenceManager pm,long codigo_usuario,String documento, String tipo_documento, String nombre, String email,
+			String contrasena, long id_tipo, long puntos, String direccion, String ciudad, long id_sucursal) 
 	{
-		String qs = "insert into " + ps.darTablaUsuario() + " (CODIGO_USUARIO, DOCUMENTO, TIPO_DOCUMENTO, NOMBRE, EMAIL, CONTRASENA, ID_TIPO, ID_SUCURSAL)";
-		qs += "values (?, ?, ?, ?, ?, ?, ?, ?)";
+		String qs = "insert into " + ps.darTablaUsuario() + " (CODIGO_USUARIO, DOCUMENTO, TIPO_DOCUMENTO, NOMBRE, EMAIL, CONTRASENA, ID_TIPO,PUNTOS,DIRECCION,CIUDAD, ID_SUCURSAL)";
+		qs += "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         Query q = pm.newQuery(SQL, qs);
-        q.setParameters(codigo_usuario, documento, tipo_documento, nombre, email, contrasena, id_tipo, id_sucursal);
+        q.setParameters(codigo_usuario, documento, tipo_documento, nombre, email, contrasena, id_tipo,puntos,direccion,ciudad, id_sucursal);
         return (long) q.executeUnique();            
 	}
 
