@@ -1,0 +1,79 @@
+{
+	"title": "Aplicación transaccional de adminsitrador de datos de Superandes",
+	"frameH": 600,
+	"frameW": 800,
+	"bannerPath": "./src/main/resources/config/logo.png",
+	"menuBar":
+	[
+		{ "menuTitle": "TipoUsuario",
+		  "options":
+			[
+				{
+					"label": "Adicionar",
+					"event": "adicionarTipoUsuario"
+				},
+				{
+					"label": "Dar tipos de usuario",
+					"event": "obtenerListaTipoUsuario"
+				}
+			]
+		}	,
+		{ "menuTitle": "Usuario",
+		  "options":
+			[
+				{
+					"label": "Adicionar",
+					"event": "adicionarUsuario"
+				}
+			]
+		}	,
+		{ "menuTitle": "Sucursal",
+		  "options":
+			[
+				{
+					"label": "Adicionar",
+					"event": "adicionarSucursal"
+				}
+			]
+		}	,
+		{ "menuTitle": "Almacen",
+		  "options":
+			[
+				{
+					"label": "Adicionar estante",
+					"event": "adicionarEstante"
+				},
+				{
+					"label": "Adicionar bodega",
+					"event": "adicionarEstante"
+				}
+			]
+		}	,
+		{ "menuTitle": "Mantenimiento",
+		  "options":
+			[
+				{
+					"label": "Mostrar log superandes",
+					"event": "mostrarLogSuperandes"
+				},
+				{
+					"label": "Mostrar log datanucleus",
+					"event": "mostrarLogDatanuecleus"
+				},
+				{
+					"label": "Limpiar log superandes",
+					"event": "limpiarLogSuperandes"
+				},
+				{
+					"label": "Limpiar log datanucleus",
+					"event": "limpiarLogDatanucleus"
+				},
+				{
+					"label": "Limpiar Superandes",
+					"event": "limpiarBD"
+				}
+			]
+		}
+	]
+}
+	
