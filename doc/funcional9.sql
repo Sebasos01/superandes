@@ -1,0 +1,7 @@
+INSERT INTO PROMOCION (id,id_sucursal,inicio,duracion,fin,ventas_maximas,ventas_actuales,precio_paquete,id_producto,descripcion) VALUES (1,1,TO_DATE('10/10/2021', 'dd/mm/yyyy'), 10,TO_DATE('10/10/2022', 'dd/mm/yyyy'),15,1,1000,'30r2YGO7','Promocion 1');
+INSERT INTO PROMOCION (id,id_sucursal,inicio,duracion,fin,ventas_maximas,ventas_actuales,precio_paquete,id_producto,descripcion) VALUES (2,2,TO_DATE('10/10/2022', 'dd/mm/yyyy'), 15,TO_DATE('10/11/2022', 'dd/mm/yyyy'),20,1,1000,'67q89J8I','Promocion 2');
+INSERT INTO PROMOCION (id,id_sucursal,inicio,duracion,fin,ventas_maximas,ventas_actuales,precio_paquete,id_producto,descripcion) VALUES (3,1,TO_DATE('15/10/2022', 'dd/mm/yyyy'), 5,TO_DATE('16/10/2022', 'dd/mm/yyyy'),7,1,1000,'09zL1P5J','Promocion 3');
+INSERT INTO PROMOCION (id,id_sucursal,inicio,duracion,ventas_maximas,ventas_actuales,id_producto,descripcion) VALUES (5,2,TO_DATE('1/10/2022', 'dd/mm/yyyy'), 18,15,30,'05qNNDZ1','Promocion 5');
+INSERT INTO PROMOCION (id,id_sucursal,inicio,duracion,ventas_maximas,ventas_actuales,id_producto,descripcion) VALUES (6,3,TO_DATE('5/10/2022', 'dd/mm/yyyy'), 20,13,13,'86tN75LH','Promocion 6');
+INSERT INTO PROMOCION (id,id_sucursal,inicio,duracion,ventas_maximas,ventas_actuales,precio_paquete,descripcion) VALUES (8,2,TO_DATE('12/10/2022', 'dd/mm/yyyy'), 10,1,10,50000,'Promocion 8');
+COMMIT;

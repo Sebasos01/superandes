@@ -36,10 +36,6 @@ public interface VOTipoUsuario
 	 */
 	public String getNombre();
 	
-	/**
-	 * @return Retorna si es o no cliente
-	 */
-	public String getEs_cliente();
 
 	/**
 	 * @return Una cadena de caracteres con la información del tipo de usuario

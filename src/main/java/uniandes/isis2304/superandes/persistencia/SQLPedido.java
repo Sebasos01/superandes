@@ -37,7 +37,7 @@ class SQLPedido {
 	
 	// Sebastian
 	public long adicionarPedido(PersistenceManager pm,long idPedido,String idProducto,String idProveedor,long idSucursal,long cantidadProducto,long PrecioTotal, String inicio,long diasEntrega,String estado,String llegada) {
-		String sql = "INSERT INTO"+ps.darTablaPedido()+"(NUM_PEDIDO, ID_PRODUCTO, ID_PROVEEDOR, ID_SUCURSAL, CANTIDAD_PRODUCTO, PRECIO_TOTAL, INICIO, DIAS_ENTREGA, ESTADO, LLEGADA) VALUES(?,?,?,?,?,?,?,?,?,?)";
+		String sql = "INSERT INTO "+ps.darTablaPedido()+"(NUM_PEDIDO, ID_PRODUCTO, ID_PROVEEDOR, ID_SUCURSAL, CANTIDAD_PRODUCTO, PRECIO_TOTAL, INICIO, DIAS_ENTREGA, ESTADO, LLEGADA) VALUES(?,?,?,?,?,?,?,?,?,?)";
 		 Query q = pm.newQuery(SQL, sql);
 		 q.setParameters(idPedido,idProducto,idProveedor,idSucursal,cantidadProducto,PrecioTotal,inicio,diasEntrega,estado,llegada);
 		 return (long) q.executeUnique();  

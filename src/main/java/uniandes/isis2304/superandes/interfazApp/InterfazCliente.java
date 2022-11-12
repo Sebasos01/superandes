@@ -39,7 +39,7 @@ import uniandes.isis2304.superandes.negocio.VOVentaProducto;
  * @author Sebastián Ospino
  */
 @SuppressWarnings("serial")
-public class InterfazAdminDatos extends InterfazGeneral
+public class InterfazCliente extends InterfazGeneral
 {
 	/* ****************************************************************
 	 * 			Constantes
@@ -47,10 +47,10 @@ public class InterfazAdminDatos extends InterfazGeneral
 	/**
 	 * Ruta al archivo de configuración de la interfaz
 	 */
-	private static final String CONFIG_INTERFAZ = "./src/main/resources/config/interfaceAdminDatosConfig.json"; 
+	private static final String CONFIG_INTERFAZ = "./src/main/resources/config/interfaceClienteConfig.json"; 
 	
 
-    public InterfazAdminDatos( )
+    public InterfazCliente( )
     {
         // Carga la configuración de la interfaz desde un archivo JSON
         guiConfig = openConfig ("Interfaz", CONFIG_INTERFAZ);
@@ -277,7 +277,7 @@ public class InterfazAdminDatos extends InterfazGeneral
 		String evento = pEvento.getActionCommand( );		
         try 
         {
-			Method req = InterfazAdminDatos.class.getMethod ( evento );			
+			Method req = InterfazCliente.class.getMethod ( evento );			
 			req.invoke ( this );
 		} 
         catch (Exception e) 
@@ -301,7 +301,7 @@ public class InterfazAdminDatos extends InterfazGeneral
         	
             // Unifica la interfaz para Mac y para Windows.
             UIManager.setLookAndFeel( UIManager.getCrossPlatformLookAndFeelClassName( ) );
-            InterfazAdminDatos interfaz = new InterfazAdminDatos( );
+            InterfazCliente interfaz = new InterfazCliente( );
             interfaz.setVisible( true );
         }
         catch( Exception e )

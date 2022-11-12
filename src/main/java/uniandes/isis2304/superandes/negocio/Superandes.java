@@ -99,7 +99,7 @@ public class Superandes
 		log.info ("Verificando que el tipo usuario admin datos no exista");
 		TipoUsuario tu = ps.obtenerTipoUsuarioPorNombre("administrador de datos");
 		if (tu == null) {
-			adicionarTipoUsuario("administrador de datosS", "N");
+			adicionarTipoUsuario("administrador de datosS");
 		} else {
 			log.info ("El tipo usuario admin datos ya existe, por lo tanto no se crea");
 		}
@@ -108,7 +108,7 @@ public class Superandes
 		if (admin.size() == 0) {
 			log.info ("El usuario admin datos no existe, creando usuario");
 			ps.registrarUsuario("100", "CC", "John Doe", "admin@superandes.com",
-					"123", ps.obtenerTipoUsuarioPorNombre("administrador de datos").getId(), null);
+					"123", ps.obtenerTipoUsuarioPorNombre("administrador de datos").getId(), 0,"Calle 100","Bogota",0);
 			log.info ("Usuario admin datos creado");
 		} else {
 			log.info ("El usuario admin datos ya existe, por lo tanto no se crea");
@@ -124,11 +124,11 @@ public class Superandes
 	 * @param nombre - El nombre del tipo de usuario
 	 * @return El objeto TipoUsuario adicionado. null si ocurre alguna Excepción
 	 */
-	public TipoUsuario adicionarTipoUsuario (String nombre, String esCliente)
+	public TipoUsuario adicionarTipoUsuario (String nombre)
 	{
         log.info ("Adicionando Tipo de usuario: " + nombre);
-        TipoUsuario tipoUsuario = ps.adicionarTipoUsuario (nombre, esCliente);
-        log.info ("Adicionando Tipo de usuario: " + tipoUsuario);
+        TipoUsuario tipoUsuario = ps.adicionarTipoUsuario (nombre);
+        log.info ("Termina adicionar Tipo de usuario: " + tipoUsuario);
         return tipoUsuario;
 	}
 	
@@ -155,11 +155,11 @@ public class Superandes
 	 * @return El objeto TipoUsuario adicionado. null si ocurre alguna Excepción
 	 */
 	public Usuario registrarUsuario(String documento, String tipo_documento, String nombre, String email,
-			String contrasena, long id_tipo, Long id_sucursal)
+			String contrasena, long id_tipo, long puntos, String direccion, String ciudad, long id_sucursal)
 	{
         log.info ("Adicionando Tipo de usuario: " + nombre);
         Usuario usuario = ps.registrarUsuario(documento, tipo_documento, nombre, email,
-    			contrasena, id_tipo, id_sucursal);
+    			contrasena, id_tipo,puntos,direccion,ciudad, id_sucursal);
         log.info ("Adicionando Tipo de usuario: " + usuario);
         return usuario;
 	}

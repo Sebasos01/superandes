@@ -1,0 +1,13 @@
+INSERT INTO PROVEEDOR (NIT, NOMBRE) values ('627.120.561-5', 'Eazzy');
+INSERT INTO PROVEEDOR (NIT, NOMBRE) values ('785.586.741-4', 'Pixoboo');
+INSERT INTO PROVEEDOR (NIT, Nombre) values ('118.201.741-9', 'Feedfire');
+INSERT INTO PROVEEDOR (NIT, Nombre) values ('131.158.131-7', 'Camido');
+INSERT INTO PROVEEDOR (NIT, Nombre) values ('214.189.214-8', 'Jazzy');
+INSERT INTO PROVEEDOR (NIT, Nombre) values ('203.107.214-4', 'Realmix');
+INSERT INTO PROVEEDOR(NIT, Nombre) values ('118.233.527-2', 'Camido');
+INSERT INTO PROVEEDOR (NIT, Nombre) values ('205.212.214-1', 'Oyoloo');
+INSERT INTO PROVEEDOR (NIT, Nombre) values ('905.527.527-3', 'Cogidoo');
+INSERT INTO PROVEEDOR(NIT, Nombre) values ('947.218.312-9', 'Trudeo');
+INSERT INTO PROVEEDOR (NIT, Nombre) values ('253.215.214-9', 'Skipfire');
+INSERT INTO PROVEEDOR(NIT, Nombre) values ('170.161.240.5', 'Jetpulse');
+COMMIT;
